@@ -1,5 +1,5 @@
 {
-  "name": "default-remix-template",
+  "name": "spojiti-dev",
   "private": true,
   "sideEffects": false,
   "scripts": {
@@ -8,7 +8,10 @@
     "format": "prettier --write .",
     "init": "node ./scripts/init.js",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
-    "setup": "prisma generate && prisma migrate deploy && prisma db seed",
+    "prisma": "npx prisma db push && npx prisma generate",
+    "setup-dev": "npm run prisma && npx prisma db seed && node ./scripts/generate-sitemap.js",
+    "setup": "npx prisma generate && npx prisma migrate deploy && npx prisma db seed && node ./scripts/generate-sitemap.js",
+    "generate-sitemap": "node ./scripts/generate-sitemap.js",
     "start": "remix-serve build",
     "start:mocks": "binode --require ./mocks -- @remix-run/serve:remix-serve build",
     "test": "vitest",
