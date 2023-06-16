@@ -65,7 +65,7 @@ model User {
 
   email          String  @unique
   password_hash  String
-  role  String @default("guest") // employer or client or guest. all start out as guest until payment is made.
+  role  String @default("guest") // employer or client or guest. all start out as guest until payment is made. admin is set at runtime. this is a system admin.
   avatarUrl          String?
   notificationsCount Int @default(0)
   notifications Notification[]
