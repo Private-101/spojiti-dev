@@ -1,3 +1,54 @@
+// schema.prisma
+
+// Prisma CLI is a command line interface tool that you can use to interact with your Prisma projects.
+// Some of the key commands include:
+
+// 1. `prisma init`: 
+//    This command sets up a new Prisma project. 
+//    It creates a new Prisma schema file in the current directory.
+
+// 2. `prisma db push`: 
+//    This command pushes the state of your Prisma schema file to your database. 
+//    It creates a new database if it doesn't exist, creates tables/schema, and so on. 
+//    It doesn't create a migration file.
+
+// 3. `prisma migrate dev`: 
+//    This command applies migrations to your development database and updates the Prisma schema. 
+//    If there are pending migrations, it applies them. 
+//    If there are no migrations, it will create a new migration based on the changes in the Prisma schema and apply them.
+
+// 4. `prisma migrate reset`: 
+//    This command resets your development database by dropping all tables and data, and then runs `prisma migrate dev` to apply all migrations.
+
+// 5. `prisma migrate deploy`: 
+//    This command applies all pending migrations to the database. 
+//    It's used for deploying changes to a production database.
+
+// 6. `prisma migrate resolve`: 
+//    This command helps resolve issues with migrations, for example, if a migration has already been manually applied to the database.
+
+// 7. `prisma generate`: 
+//    This command generates the Prisma Client code based on your Prisma schema.
+
+// 8. `prisma studio`: 
+//    This command opens Prisma Studio, a database GUI where you can view and edit data in your database.
+
+// 9. `prisma format`: 
+//    This command formats the Prisma schema file according to Prisma's default formatting rules.
+
+// 10. `prisma validate`: 
+//    This command validates the Prisma schema file.
+
+// 11. `prisma introspect`: 
+//    This command generates a Prisma schema from an existing database schema. 
+//    It's useful when you have an existing database and you want to use Prisma with it.
+
+// 12. `prisma db seed`: 
+//    This command runs the seed script defined in the "prisma" key of your package.json file to populate your database with initial data.
+
+// These are the most commonly used Prisma CLI commands as of September 2021. 
+// Remember to run `npx prisma` or `prisma -v` to see a full list of commands available in your current Prisma version.
+
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
@@ -8,31 +59,83 @@ generator client {
 }
 
 model User {
-  id    String @id @default(cuid())
-  email String @unique
-
+  id    String @id @default(cuid()) @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  password Password?
-  notes    Note[]
+  email          String  @unique
+  password_hash  String
+  role  String @default("guest") // employer or client or guest. all start out as guest until payment is made.
+  avatarUrl          String?
+  notificationsCount Int @default(0)
+  notifications Notification[]
+
+  // admin full name 
+  firstName  String?
+  lastName   String?
+
+  // billing location 
+  streetAddress String?
+  unit          String? // apt/suite/etc
+  city          String?
+  state         String?
+  zipCode       String?
+
+  jobPosts         JobPost[]         
+  applications JobApplication[]
+  
 }
 
-model Password {
-  hash String
-
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId String @unique
+model Category {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  title       String
+  description String?
+  jobs        JobPost[]
 }
 
-model Note {
-  id    String @id @default(cuid())
-  title String
-  body  String
-
+model Notification {
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId String
+  title            String
+  description      String
+  is_read     Boolean    @default(false)
+
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId     String  
+}
+
+model JobPost {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  categories       Category[]
+  title            String
+  description      String
+  is_full_time     Boolean    @default(false)
+  start_date       DateTime   @default(now())
+  end_date         DateTime?
+  responsibilities String?
+  requirements     String?
+  salary_range_min Int        @default(0)
+  salary_range_max Int        @default(0)
+
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId     String  
+  applications JobApplication[]
+}
+
+model JobApplication {
+  id         String @id @default(cuid())
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId     String  
+  job        JobPost    @relation(fields: [jobId], references: [id])
+  jobId      String
+  // resumePath String? // Path to the uploaded resume
+  status     String @default("submitted") // Status of the application (e.g., "submitted", "in review", "rejected", "accepted")
+  // Other application-related fields
 }
