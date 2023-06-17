@@ -277,7 +277,7 @@ const FormElements = () => {
                 </label>
                 <div className="relative z-20 w-full rounded border border-stroke p-1.5 pr-8 font-medium outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
                   <div className="flex flex-wrap items-center">
-                    <span className="m-1.5 flex items-center justify-center rounded border-[.5px] border-stroke bg-gray py-1.5 px-2.5 text-sm font-medium dark:border-strokedark dark:bg-white/30">
+                    <span className="m-1.5 flex items-center justify-center rounded border-[.5px] border-stroke bg-grayFlat py-1.5 px-2.5 text-sm font-medium dark:border-strokedark dark:bg-white/30">
                       Design
                       <span className="cursor-pointer pl-2 hover:text-danger">
                         <svg
@@ -296,7 +296,7 @@ const FormElements = () => {
                         </svg>
                       </span>
                     </span>
-                    <span className="m-1.5 flex items-center justify-center rounded border-[.5px] border-stroke bg-gray py-1.5 px-2.5 text-sm font-medium dark:border-strokedark dark:bg-white/30">
+                    <span className="m-1.5 flex items-center justify-center rounded border-[.5px] border-stroke bg-grayFlat py-1.5 px-2.5 text-sm font-medium dark:border-strokedark dark:bg-white/30">
                       Development
                       <span className="cursor-pointer pl-2 hover:text-danger">
                         <svg
