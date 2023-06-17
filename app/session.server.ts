@@ -17,7 +17,8 @@ export const sessionStorage = createCookieSessionStorage({
   },
 });
 
-const USER_SESSION_KEY = "userId";
+const USER_SESSION_KEY = "user.id";
+const ROLE_SESSION_KEY = "user.role";
 
 export async function getSession(request: Request) {
   const cookie = request.headers.get("Cookie");
@@ -30,6 +31,14 @@ export async function getUserId(
   const session = await getSession(request);
   const userId = session.get(USER_SESSION_KEY);
   return userId;
+};
+
+export async function getUserRole(
+  request: Request
+): Promise<User["role"] | undefined> {
+  const session = await getSession(request);
+  const userRole = session.get(ROLE_SESSION_KEY);
+  return userRole;
 }
 
 export async function getUser(request: Request) {
@@ -52,7 +61,25 @@ export async function requireUserId(
     throw redirect(`/login?${searchParams}`);
   }
   return userId;
-}
+};
+
+export async function requireUserRole(
+  request: Request,
+  role: string,
+  redirectTo: string = new URL(request.url).pathname
+) {
+  const userRole = await getUserRole(request);
+  if (!userRole) {
+    const searchParams = new URLSearchParams([["redirectTo", redirectTo]]);
+    throw redirect(`/login?${searchParams}`);
+  };
+
+  if (userRole !== role) {
+    const searchParams = new URLSearchParams([["role", role], ["userRole", userRole]]);
+    throw redirect(`/app/denied?${searchParams}`);
+  }
+  return userRole;
+};
 
 export async function requireUser(request: Request) {
   const userId = await requireUserId(request);
@@ -66,16 +93,20 @@ export async function requireUser(request: Request) {
 export async function createUserSession({
   request,
   userId,
+  userRole,
   remember,
   redirectTo,
 }: {
   request: Request;
   userId: string;
+  userRole: string;
   remember: boolean;
   redirectTo: string;
 }) {
   const session = await getSession(request);
   session.set(USER_SESSION_KEY, userId);
+  session.set(ROLE_SESSION_KEY, userRole);
+  
   return redirect(redirectTo, {
     headers: {
       "Set-Cookie": await sessionStorage.commitSession(session, {

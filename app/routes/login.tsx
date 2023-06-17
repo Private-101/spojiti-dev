@@ -48,6 +48,14 @@ export const action = async ({ request }: ActionArgs) => {
       { errors: { email: "Invalid email or password", password: null } },
       { status: 400 }
     );
+  };
+
+  if (user.role === 'client') {
+    return redirect('/app/clients/login');
+  };
+
+  if (user.role === 'employer') {
+    return redirect('/app/employers/login');
   }
 
   return createUserSession({
@@ -55,6 +63,7 @@ export const action = async ({ request }: ActionArgs) => {
     remember: remember === "on" ? true : false,
     request,
     userId: user.id,
+    userRole: user.role
   });
 };
 

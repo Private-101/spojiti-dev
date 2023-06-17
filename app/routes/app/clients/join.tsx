@@ -54,14 +54,14 @@ export const action = async ({ request }: ActionArgs) => {
     );
   }
 
-  const user = await createUser(email, password, 'guest');
+  const user = await createUser(email, password, 'client');
 
   return createUserSession({
     redirectTo,
     remember: false,
     request,
     userId: user.id,
-    userRole: 'guest'
+    userRole: 'client'
   });
 };
 
