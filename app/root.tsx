@@ -14,6 +14,7 @@ import { getUser } from "~/session.server";
 import stylesheet from "~/tailwind.css";
 import useLocalStorage from '~/hooks/useLocalStorage';
 import useColorMode from "./hooks/useColorMode";
+import { useToggle } from "./hooks/useToggle";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -24,10 +25,12 @@ export const loader = async ({ request }: LoaderArgs) => {
   return json({ user: await getUser(request) });
 };
 
-export default function App() {
-  const [theme, setTheme] = useLocalStorage('THEME', 'light');
-  const [hydrated, setHydrated] = useState(false);
 
+
+export default function App() {
+  // const [theme, setTheme] = useLocalStorage('THEME', 'light');
+  // const [hydrated, setHydrated] = useState(false);
+ /*
   const useToggleThemeEvent = () => {
    console.log('useToggleThemeEvent triggered');
    console.time('useToggleThemeEvent');
@@ -57,6 +60,16 @@ export default function App() {
 
     useToggleThemeEvent();
 
+    interface OutletContextProps {
+      theme: string;
+      toggle: (value?: React.SetStateAction<string> | undefined) => void
+    }
+
+    
+*/
+
+const [theme, toggle] = useToggle(['light', 'dark']);
+
   return (
     <html lang="en" className={`h-full ${theme}`}>
       <head>
@@ -67,7 +80,7 @@ export default function App() {
         <Links />
       </head>
       <body className="h-full">
-        <Outlet />
+        <Outlet context={[theme, toggle]} />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

@@ -1,7 +1,13 @@
 import React from "react";
 import DarkModeToggle from "~/components/common/DarkModeToggle";
 
-const Header: React.FC = () => {
+type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
+
+interface HeaderProps {
+  context: OutletContextProps
+};
+const Header: React.FC<HeaderProps> = ({context}) => {
+
   return (
     <>
       {/*<section id="#top" className="bg-gray-100 shadow py-16">
@@ -21,7 +27,14 @@ const Header: React.FC = () => {
   // flex justify-center space-x-5
   }
       <div className="flex flex-col items-center justify-center py-16 shadow">
-        <DarkModeToggle />
+        <div className="flex flex-row">
+          {/*context[0] === 'light' ? (
+            <h2 className="mb-2 text-lg font-semibold text-black text-opacity-60">LIGHT MODE</h2>
+          ) : (
+            <h2 className="mb-2 text-lg font-semibold text-gray-2">DARK MODE</h2>
+          )*/}
+          <DarkModeToggle theme={context[0]} trigger={context[1]} />
+        </div>
         <h1 className="mb-2 text-4xl font-semibold text-gray-600">SPOJITI</h1>
         <h2 className="mb-6 text-2xl font-semibold text-gray-600">
           The Food and Beverage Meeting Place

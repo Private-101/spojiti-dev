@@ -1,4 +1,4 @@
-import { useLoaderData, useFetcher, useSubmit, useFormAction } from "@remix-run/react";
+import { useLoaderData, useFetcher, useSubmit, useFormAction, useOutletContext } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
 import React from "react";
@@ -40,6 +40,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 
   return json<LoaderData>({ reviews });
 };
+type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
 
 const Home: React.FC = () => {
   const { reviews } = useLoaderData<LoaderData>();
@@ -48,6 +49,9 @@ const Home: React.FC = () => {
   const action = useFormAction();
 
   const fetcher = useFetcher();
+
+  const [theme, toggle] = useOutletContext<OutletContextProps>();
+
   return (
     <>
       <CookiePopup />
@@ -56,7 +60,7 @@ const Home: React.FC = () => {
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           {/* Your content */}
           <Container classNames="rounded-md">
-            <Header />
+            <Header context={[theme, toggle]} />
           </Container>
 
           <Container id="features" classNames="rounded-md">

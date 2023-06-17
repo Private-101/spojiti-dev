@@ -1,22 +1,26 @@
 import useColorMode from '~/hooks/useColorMode';
 import { useEffect } from 'react';
 
+interface ToggleProps {
+  theme: string;
+  trigger: (value?: React.SetStateAction<string> | undefined) => void
+};
 
-export default function DarkModeToggle() {
-  const [colorMode, setColorMode] = useColorMode();
-  const onChangeHandler = () => {
-    const toggleEvent = new CustomEvent('toggle-theme');
+export default function DarkModeToggle({theme, trigger}: ToggleProps) {
+  // const [colorMode, setColorMode] = useColorMode();
+  // const onChangeHandler = () => {
+    // const toggleEvent = new CustomEvent('toggle-theme');
 
-    window.alert('Theme Toggle Clicked!');
-    document.dispatchEvent(toggleEvent);
-  };
+    // window.alert('Theme Toggle Clicked!');
+    // document.dispatchEvent(toggleEvent);
+  // };
 
   return (
     <li>
       <label
-        className={`relative m-0 block h-7.5 w-14 rounded-full ${
-          colorMode === 'dark' ? 'bg-primary' : 'bg-stroke'
-        }`}
+        className={`relative m-0 block h-8 w-16.5 rounded-full bg-stroke dark:bg-primary ${/*
+          theme === 'dark' ? 'bg-primary' : 'bg-stroke'
+  */''}`}
       >
         <input
           type="checkbox"
@@ -24,16 +28,17 @@ export default function DarkModeToggle() {
             // if (typeof setColorMode === 'function') {
               // setColorMode(colorMode === 'light' ? 'dark' : 'light');
             // };
-            onChangeHandler();
+            // onChangeHandler();
+            trigger()
           }}
-          className="dur absolute top-0 z-50 m-0 h-full w-full cursor-pointer opacity-0"
+          className="absolute top-0 z-50 m-0 h-full w-full cursor-pointer opacity-0"
         />
         <span
-          className={`absolute top-1/2 left-[3px] flex h-6 w-6 -translate-y-1/2 translate-x-0 items-center justify-center rounded-full bg-white shadow-switcher duration-75 ease-linear ${
-            colorMode === 'dark' && '!right-[3px] !translate-x-full'
-          }`}
+          className={`absolute top-1/2 left-[5px] flex h-7 w-7 -translate-y-1/2 translate-x-0 dark:!right-[5px] dark:!translate-x-full items-center justify-center rounded-full bg-white shadow-switcher duration-75 ease-linear ${/*
+            theme === 'dark' && 'dark:!right-[3px] dark:!translate-x-full'
+        */''}`}
         >
-          <span className="dark:hidden">
+          <span className={`dark:hidden`}>
             <svg
               width="16"
               height="16"
@@ -51,7 +56,7 @@ export default function DarkModeToggle() {
               />
             </svg>
           </span>
-          <span className="hidden dark:inline-block">
+          <span className={`hidden dark:inline-block`}>
             <svg
               width="16"
               height="16"
