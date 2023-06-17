@@ -79,3 +79,9 @@ model JobApplication {
   status     String @default("submitted") // Status of the application (e.g., "submitted", "in review", "rejected", "accepted")
   // Other application-related fields
 }
+
+
+npx prisma migrate diff \ 
+--from-empty \ 
+--to-schema-datamodel prisma/schema.prisma \ 
+--script > prisma/migrations/0_init/migration.sql
