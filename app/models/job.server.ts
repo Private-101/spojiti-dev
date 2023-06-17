@@ -140,3 +140,6 @@ export async function deleteJobApplication(id: JobApplication["id"]) {
     return prisma.category.delete({ where: { id } });
   };
 
+  export async function getAllCategories() {
+    return prisma.category.findMany();
+  }

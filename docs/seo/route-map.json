@@ -1,0 +1,163 @@
+{
+    "baseUrl": "https://spojiti.com",
+    "devUrl": "http://localhost:3000",
+    "routes": {
+        "search": {
+            "path": "/search",
+            "children": {
+                "clients": {
+                    "path": "/search/clients",
+                    "children": false
+                },
+                "index": {
+                    "path": "/search/index",
+                    "children": false
+                },
+                "jobs": {
+                    "path": "/search/jobs",
+                    "children": false
+                }
+            }
+        },
+        "app": {
+            "path": "/app",
+            "children": {
+                "admin": {
+                    "path": "/app/admin/index",
+                    "layout": "/app/admin",
+                    "children": {
+                        "profile": {
+                            "path": "/app/admin/profile",
+                            "layout": "/app/admin",
+                            "children": {
+                                "edit": {
+                                    "path": "/app/admin/profile/edit",
+                                    "layout": "/app/admin/profile",
+                                    "children": false
+                                }
+                            }
+                        },
+                        "settings": {
+                            "path": "/app/admin/settings",
+                            "layout": "/app/admin",
+                            "children": false
+                        }
+                    }
+                },
+                "applications": {
+                    "path": "/app/applications/index",
+                    "layout": "/app/applications",
+                    "children": {
+                        "$appId": {
+                            "path": "/app/applications/$appId",
+                            "layout": "/app/applications",
+                            "children": {
+                                "edit": {
+                                    "path": "/app/applications/$appId/edit",
+                                    "layout": "/app/applications",
+                                    "children": false
+                                },
+                                "review": {
+                                    "path": "/app/applications/$appId/review",
+                                    "layout": "/app/applications",
+                                    "children": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "categories": {
+                    "path": "/app/categories/index",
+                    "layout": "/app/categories",
+                    "children": {
+                        "$catId": {
+                            "path": "/app/categories/$catId",
+                            "layout": "/app/categories",
+                            "children": {
+                                "edit": {
+                                    "path": "/app/categories/$catId/edit",
+                                    "layout": "/app/clients",
+                                    "children": false
+                                }
+                            }
+                        },
+                        "new": {
+                            "path": "/app/categories/new",
+                            "layout": "/app/clients",
+                            "children": false
+                        }
+                    }
+                },
+                "clients": {
+                    "path": "/app/clients/index",
+                    "layout": "/app/clients",
+                    "children": {
+                        "$clientId": {
+                            "path": "/app/clients/$clientId",
+                            "layout": "/app/clients",
+                            "children": false
+                        },
+                        "join": {
+                            "path": "/app/clients/join",
+                            "layout": "/app/clients",
+                            "children": false
+                        },
+                        "login": {
+                            "path": "/app/clients/login",
+                            "layout": "/app/clients",
+                            "children": false
+                        }
+                    }
+                },
+                "employers": {
+                    "path": "/app/employers/index",
+                    "layout": "/app/employers",
+                    "children": {
+                        "$employerId": {
+                            "path": "/app/employers/$employerId",
+                            "layout": "/app/employers",
+                            "children": false
+                        },
+                        "join": {
+                            "path": "/app/employers/join",
+                            "layout": "/app/employers",
+                            "children": false
+                        },
+                        "login": {
+                            "path": "/app/employers/login",
+                            "layout": "/app/employers",
+                            "children": false
+                        }
+                    }
+                },
+                "jobs": {
+                    "path": "/app/jobs/index",
+                    "layout": "/app/jobs",
+                    "children": {
+                        "$jobId": {
+                            "path": "/app/jobs/$jobId",
+                            "layout": "/app/jobs",
+                            "children": {
+                                "apply": {
+                                    "path": "/app/jobs/$jobId/apply",
+                                    "layout": "/app/jobs",
+                                    "children": false
+                                },
+                                "edit": {
+                                    "path": "/app/jobs/$jobId/edit",
+                                    "layout": "/app/jobs",
+                                    "children": false
+                                }
+                            }
+                        },
+                        "new": {
+                            "path": "/app/jobs/new",
+                            "layout": "/app/jobs",
+                            "children": false
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

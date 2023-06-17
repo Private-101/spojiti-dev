@@ -20,7 +20,8 @@ async function main() {
   );
 
   // Create Admin User
-  const adminEmail = 'admin@example.com';
+  const randomNumber = faker.number.int({min: 100, max: 10000});
+  const adminEmail = `admin${randomNumber}@example.com`;
   const adminPassword = 'admin';
   const hashedPassword = await hash(adminPassword, 10);
   const adminUser = await prisma.user.create({
@@ -113,7 +114,7 @@ async function main() {
               // categories: rndCats(),
               // categories: {
                 // connect: categories.map((category) => ({ id: category.id })), // {
-                  // id: categories[Number(faker.random.numeric(1))].id,
+                  // id: categories[Number(faker.number.int(1))].id,
                 // }
                 // connect: categories.map((category) => ({ id: category.id })),
               // },
@@ -166,7 +167,83 @@ async function main() {
       })
     )
   );
-}
+
+  // categories
+  // adminUser
+  // guests
+  // clients
+  // employers
+  const setMessage = async () => {
+    log('Generating Database Snapshot...');
+    time('setMessage');
+    log('Five Groups Detected...');
+    log('Generating Snapshots for Each Group');
+    const setCategoryMessage = async () => {
+      time('setCategoryMessage');
+      log('Categories:\n');
+      table(categories, ['id', 'createdAt', 'updatedAt', 'title', 'description']);
+      // return categories.map((cat, i) => {
+        // cat is an object here...
+        // console.table(cat, ['id', 'createdAt', 'updatedAt', 'title', 'description'])
+      // })
+    
+    return timeEnd('setCategoryMessage');
+    };
+    const setAdminUserMessage = async () => {
+      time('setAdminUserMessage');
+      log('Admin User\n***** ***** ***** *****\nImportant! Must Read!\n***** ***** ***** *****');
+      log(`\nAdmin Login Credentials:\n ~ Email: ${adminUser.email}\n ~ Password: admin`);
+      log('*****\nRemember, all passwords will only be stored in the db after they are hashed!');
+      log('Except for the current, dummy-generated data being used for development.\n*****');
+      log('Admin User Properties:');
+      table(adminUser);
+    
+    return timeEnd('setAdminUserMessage');
+    };
+    const setGuestsMessage = async () => {
+      time('setGuestsMessage');
+      log('Guest Users:\n *** NOTE ***\nGuest Users are users who signed up but have not yet paid\n for a subscription, which is required for the user to become a client or an employer.\n****** ******\n');
+      table(guests);
+    
+    return timeEnd('setGuestsMessage');
+    };
+
+    const setClientsMessage = async () => {
+      time('setClientsMessage');
+      log('Clients:');
+      table(clients);
+    
+    return timeEnd('setClientsMessage');
+    };
+
+    const setEmployersMessage = async () => {
+      time('setEmployersMessage');
+      log('Employers');
+      table(employers);
+    
+    return timeEnd('setEmployersMessage');
+    };
+
+    await setCategoryMessage();
+    await setAdminUserMessage();
+    await setGuestsMessage();
+    await setClientsMessage();
+    await setEmployersMessage();
+
+    return timeEnd('setMessage');
+    // return await Promise.all(setCategoryMessage())
+  };
+
+  await setMessage().then(() => {
+    log('seed completed!');
+
+  }).catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+};
+
+const {log, time, table, timeEnd} = console;
 
 main()
   .catch((e) => {

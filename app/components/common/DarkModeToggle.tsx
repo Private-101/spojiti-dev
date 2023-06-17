@@ -1,7 +1,15 @@
 import useColorMode from '~/hooks/useColorMode';
+import { useEffect } from 'react';
+
 
 export default function DarkModeToggle() {
   const [colorMode, setColorMode] = useColorMode();
+  const onChangeHandler = () => {
+    const toggleEvent = new CustomEvent('toggle-theme');
+
+    window.alert('Theme Toggle Clicked!');
+    document.dispatchEvent(toggleEvent);
+  };
 
   return (
     <li>
@@ -13,9 +21,10 @@ export default function DarkModeToggle() {
         <input
           type="checkbox"
           onChange={() => {
-            if (typeof setColorMode === 'function') {
-              setColorMode(colorMode === 'light' ? 'dark' : 'light');
-            }
+            // if (typeof setColorMode === 'function') {
+              // setColorMode(colorMode === 'light' ? 'dark' : 'light');
+            // };
+            onChangeHandler();
           }}
           className="dur absolute top-0 z-50 m-0 h-full w-full cursor-pointer opacity-0"
         />
