@@ -9,3 +9,5 @@ package-lock.json
 /cypress/videos
 /prisma/data.db
 /prisma/data.db-journal
+
+app/temp/*
