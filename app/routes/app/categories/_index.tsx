@@ -1,7 +1,7 @@
 import { Link } from "@remix-run/react";
 import type { LoaderArgs, ActionArgs } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
-import { getAllCategories } from '~/models/job.server';
+import { getAllCategories } from '~/models/category.server';
 import { unslugify } from '~/utils';
 
 export const loader = async ({ request }: LoaderArgs) => {

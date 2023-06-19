@@ -20,7 +20,7 @@ export default function Navbar() {
     <div className="min-w-full">
       <Disclosure
         as="nav"
-        className="fixed top-0 z-10 w-full rounded-sm bg-[#f58321]"
+        className="fixed top-0 z-10 w-full rounded-sm bg-sp-primary"
       >
         {({ open }) => (
           <>

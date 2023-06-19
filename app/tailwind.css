@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+/*@layer base {
   body {
-    @apply font-inter font-normal text-base text-body dark:text-whiten bg-whiten dark:bg-body relative z-1;
+    @apply
   }
 }
 
@@ -12,14 +12,14 @@
 }
 
 @layer utilities {
-  /* Chrome, Safari and Opera */
+  / Chrome, Safari and Opera /
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
 
   .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; / IE and Edge /
+    scrollbar-width: none; / Firefox /
   }
 
   .chat-height {
@@ -30,7 +30,7 @@
   }
 }
 
-/* third-party libraries CSS */
+/ third-party libraries CSS /
 
 .tableCheckbox:checked ~ div span {
   @apply opacity-100;
@@ -161,3 +161,4 @@ span.flatpickr-weekday,
 [x-cloak] {
   display: none !important;
 }
+*/

@@ -59,9 +59,15 @@ function generateSitemapEntry(path) {
 }
 
 /*
-It's worth noting that while fs.rmSync provides more flexibility for file and directory removal operations, fs.unlinkSync remains a valid and widely used method specifically for file deletion.
+It's worth noting that while fs.rmSync provides more flexibility for file and directory removal operations, 
+fs.unlinkSync remains a valid and widely used method specifically for file deletion.
 
-When choosing between fs.rmSync and fs.unlinkSync, consider the version of Node.js you are using and the specific requirements of your use case. If you are working with older versions of Node.js or need to delete only files, fs.unlinkSync is sufficient. However, if you are using Node.js 15.5.0 or above and require the ability to delete both files and directories or have more control over the deletion process, fs.rmSync is the recommended choice.
+When choosing between fs.rmSync and fs.unlinkSync, 
+consider the version of Node.js you are using and the specific requirements of your use case. 
+If you are working with older versions of Node.js or need to delete only files, 
+fs.unlinkSync is sufficient. However, if you are using Node.js 15.5.0 or above and require 
+the ability to delete both files and directories or have more control over the deletion process, 
+fs.rmSync is the recommended choice.
 */
 
 function main() {

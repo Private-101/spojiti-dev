@@ -2,7 +2,23 @@ import type { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 import { prisma } from "~/db.server";
+import { matchSorter } from "match-sorter";
 
+/**
+ * This is just matching a hard-coded list of values, but often you'd be
+ * querying your database for a set of records. If you're using prisma with
+ * postgres, you can use "fulltext" to let the database make it really fast for
+ * you:
+ * https://www.prisma.io/docs/concepts/components/prisma-client/full-text-search
+ */
+export async function searchLangs(query: string) {
+  // artificially slowed down and chaotic where some requests start earlier but
+  // land later, this is a condition many apps don't consider but Remix handles
+  // for you automatically. Open the network tab and watch as Remix
+  // automatically cancels the requests as they're interrupted.
+  await new Promise((res) => setTimeout(res, Math.random() * 1000));
+  return matchSorter(langs, query, { keys: ["alpha2", "name"] });
+}
 export type { User } from "@prisma/client";
 
 export async function updateUserById(id: User["id"], updates: Partial<User>) {

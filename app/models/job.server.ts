@@ -1,10 +1,50 @@
+import { matchSorter } from "match-sorter";
 import type { JobPost, JobApplication, User, Category } from "@prisma/client";
-
 import { prisma } from "~/db.server";
 // TODO: include strict validation to ensure only clients can make applications and employers can make job posts
 // import { getUserById, updateUserById } from '~/models/user.server';
+import { getCategoryJobs } from '~/models/category.server';
 
 export type { JobPost, JobApplication } from "@prisma/client";
+
+/**
+ * This is just matching a hard-coded list of values, but often you'd be
+ * querying your database for a set of records. If you're using prisma with
+ * postgres, you can use "fulltext" to let the database make it really fast for
+ * you:
+ * https://www.prisma.io/docs/concepts/components/prisma-client/full-text-search
+ */
+export async function searchJobs(query: string) {
+  // artificially slowed down and chaotic where some requests start earlier but
+  // land later, this is a condition many apps don't consider but Remix handles
+  // for you automatically. Open the network tab and watch as Remix
+  // automatically cancels the requests as they're interrupted.
+  await new Promise((res) => setTimeout(res, Math.random() * 1000));
+  const cats = getCategoryJobs(query);
+  const jobs = await getAllJobPosts();
+/*
+if (!filterValue || !filterValue.length) {
+    return items
+  }
+
+  const terms = filterValue.split(' ')
+  if (!terms) {
+    return items
+  }
+
+  // reduceRight will mean sorting is done by score for the _first_ entered word.
+  return terms.reduceRight(
+    (results, term) => matchSorter(results, term, {keys}),
+    items,
+  )
+  */
+  if (!query || !query.length) {
+    return jobs;
+  }
+  return matchSorter(jobs, query, { keys: ["title", "description"] });
+};
+
+
 
 /*
 type JobPost = {
@@ -29,14 +69,6 @@ type JobApplication = {
     jobId: string;
     status: string;
 }
-
-type Category = {
-    id: string;
-    createdAt: Date;
-    updatedAt: Date;
-    title: string;
-    description: string | null;
-}
 */
 
 // TODO: might be unnecessary to have other get functions. 
@@ -47,15 +79,19 @@ export async function getAllJobPosts() {
   return prisma.jobPost.findMany();
 };
 
+export async function getAllJobPostsByCategory(catId: string) {   
+  return prisma.jobPost.findMany({
+    where: {}
+  });
+};
+
 // TODO: maybe include a notification in each function to notify the user of results?
 
 export async function getAllJobApplications() {   
     return prisma.jobApplication.findMany();
   };
 
-  export async function categoryExists(title: Category['title']) {
-    return prisma.category.findFirst({where: {title}})
-  }
+  
 
   export async function createJobPost(userId: User["id"], job: Omit<JobPost, 'id' | 'createdAt' | 'updatedAt' | 'userId'>, categories: Pick<Category, 'id' | 'title'>[] = []) {
     
@@ -124,9 +160,7 @@ export async function createJobApplication(userId: User["id"], jobId: JobPost['i
     });
   };
 
-  export async function createCategory(data: Pick<Category, 'title' | 'description'>) {
-    return prisma.category.create({ data });
-  };
+  
 
 export async function deleteJobPost(id: JobPost["id"]) {
   return prisma.jobPost.delete({ where: { id } });
@@ -136,10 +170,3 @@ export async function deleteJobApplication(id: JobApplication["id"]) {
     return prisma.jobApplication.delete({ where: { id } });
   };
 
-  export async function deleteCategory(id: Category["id"]) {
-    return prisma.category.delete({ where: { id } });
-  };
-
-  export async function getAllCategories() {
-    return prisma.category.findMany();
-  }

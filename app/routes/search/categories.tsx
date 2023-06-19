@@ -11,6 +11,7 @@ import { json } from "@remix-run/node";
 
 import { searchJobs } from "~/models/job.server";
 import { searchCategoryJobs } from '~/models/category.server';
+
 /**
  * This route is called via `useFetcher` from the Combobox input. It returns a
  * set of languages as the user types. It's called a Resource Route because it
@@ -21,10 +22,12 @@ export const loader = async ({ request }: LoaderArgs) => {
   // https://developer.mozilla.org/en-US/docs/Web/API/URL
   // https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
   const url = new URL(request.url);
-  const query = url.searchParams.get("q");
-
+  const query = url.searchParams.get("category");
+if (!query) {
+  return json([]);
+}
   // Search the job posts, you can go look at `app/models/job.server.ts` to see what it's doing.
-  const jobs = (await searchJobs(query || "")).slice(0, 20);
+  const jobs = await searchCategoryJobs(query);
 
   return json(jobs, {
     // Add a little bit of caching so when the user backspaces a value in the
@@ -33,7 +36,7 @@ export const loader = async ({ request }: LoaderArgs) => {
     // library that caches results in memory, the browser has this ability
     // built-in.
     // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control
-    headers: { "Cache-Control": "max-age=60" },
+    // headers: { "Cache-Control": "max-age=60" },
   });
 };
 

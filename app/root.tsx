@@ -71,7 +71,7 @@ export default function App() {
 const [theme, toggle] = useToggle(['light', 'dark']);
 
   return (
-    <html lang="en" className={`h-full ${theme}`}>
+    <html lang="en" className={theme}>
       <head>
         <meta charSet="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
@@ -79,7 +79,7 @@ const [theme, toggle] = useToggle(['light', 'dark']);
         <Meta />
         <Links />
       </head>
-      <body className="h-full">
+      <body className="h-full font-normal text-base text-body dark:text-whiten bg-whiten dark:bg-body relative z-1">
         <Outlet context={[theme, toggle]} />
         <ScrollRestoration />
         <Scripts />
