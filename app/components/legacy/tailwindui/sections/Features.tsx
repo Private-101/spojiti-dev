@@ -27,13 +27,13 @@ const features = [
   },
 ]
 
-export default function AboutUs() {
+export default function FeatureSection() {
   return (
     <div className="bg-[#f58321] py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-2 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-white">Adding Millions of New Jobs Daily</h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl">
+          <h2 className="text-md font-semibold leading-7 text-white">Adding Millions of New Jobs Daily</h2>
+          <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
             It doesn't have to be hard!
           </p>
           <p className="mt-6 text-lg leading-8 text-white">

@@ -53,9 +53,9 @@ export default function Navbar() {
                           to={item.href}
                           className={classNames(
                             item.current
-                              ? "bg-gray-300 bg-opacity-0 hover:bg-opacity-20"
-                              : "bg-gray-300 bg-opacity-0 hover:bg-opacity-20",
-                            "text-md rounded-md px-3 py-2 font-medium text-white"
+                              ? "bg-white bg-opacity-20 hover:text-black"
+                              : "bg-opacity-0 hover:bg-opacity-20",
+                            "text-md bg-white rounded-md px-3 py-2 font-medium text-white"
                           )}
                         >
                           {item.name}

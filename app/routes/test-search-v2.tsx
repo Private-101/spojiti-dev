@@ -5,15 +5,13 @@ import WebsiteNavbar from '~/components/tailwind-components/WebsiteNavbar';
 import { Fragment, useState, useEffect } from 'react';
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { redirect, json } from "@remix-run/node";
-import { Listbox, Transition, Dialog, Tab } from "@headlessui/react";
+import { Listbox, Transition, Dialog } from "@headlessui/react";
 import { Form, useFetcher, useSearchParams, useLoaderData } from "@remix-run/react";
 // import { useInfiniteScroll } from 'react-infinite-scroll-hook';
 
 import { CheckIcon } from '@heroicons/react/24/solid';
 import { ApplyButtonModal } from '~/components/headlessui/ApplyDialog';
-import { JobActionButtons } from '~/components/tailwind-components/JobActionButtons';
 
-import { classNames, unslugify } from '~/utils';
 import type { JobPost } from '~/models/job.server';
 import type { Category } from "~/models/category.server";
 import { getAllCategories } from '~/models/category.server';
@@ -68,7 +66,7 @@ export default function TestSearchPage() {
       setPage(page + 1);
     },
   });
-  /
+  */
 
   /*
   const loadMoreData = async (query, page) => {
@@ -76,9 +74,6 @@ export default function TestSearchPage() {
     setData([...data, ...newData]);
   };
   */
-
-  // let [categoriesAlt] = useState()
-
 
   return (
     <>
@@ -89,78 +84,81 @@ export default function TestSearchPage() {
         <WebsiteNavbar />
       </header>
       {/* <!-- ===== Navbar End ===== --> */}
-      <section className='min-w-screen min-h-screen'>
-      <div className="w-full max-w-screen px-2 py-16 sm:px-0">
-      <Tab.Group>
-        <Tab.List className="flex space-x-1 rounded-xl bg-sp-primary/80 p-1">
-          {categories.map((category) => (
-            <Tab
-              key={category.id}
-              onClick={e => setSelectedCategory(category)}
-              // selected={selectedCategory}
-              className={({ selected }) =>
-                classNames(
-                  'w-full rounded-lg py-2.5 text-lg font-normal leading-5 text-black',
-                  'ring-white ring-opacity-60 ring-offset-1 ring-offset-black/20 focus:outline-none focus:ring-2',
-                  selected
-                    ? 'bg-white/20 shadow'
-                    : 'text-white hover:bg-white/[0.12] hover:text-white'
-                )
-              }
-            >
-              {unslugify(category.title)}
-            </Tab>
-          ))}
-        </Tab.List>
-        <Tab.Panels className="mt-2">
-          {categories.map((_, idx) => (
-            <Tab.Panel
-              key={idx}
-              className={classNames(
-                'rounded-xl bg-white p-3 border-2 border-sp-primary',
-                'ring-white ring-opacity-60 ring-offset-2 ring-offset-sp-primary/20 focus:outline-none focus:ring-2'
-              )}
-            >
-              <ul>
-                {jobs && jobs.data && jobs.data.map((job) => (
-                  <li
-                    key={job.id}
-                    className="relative flex flex-row w-full rounded-md p-3 hover:bg-sp-primary/80 text-sp-primary hover:text-black"
-                  >
-                    <JobActionButtons onClickApply={() => {}} onClickDetails={() => {}} />
-                    {/*<ApplyButtonModal />*/}
-                    {/*<a
-                      href={`/jobs/${job.id}`}
-                      className={classNames(
-                        'relative rounded-md m-2 p-2',
-                        'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
-                      )}
-                      >Apply</a>*/}
-                    <div className='flex-col justify-center items-center'>
-                    <h3 className="text-md font-medium hover:font-bold leading-5 ml-4">
-                      {job.title}
-                    </h3>
-                    <p className="text-md font-medium leading-5 ml-4">{job.description}</p>
-                    <ul className="mt-1 ml-2 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
-                      <li>Created On: {job.createdAt}</li>
-                      <li>&middot;</li>
-                      <li>Min: <span className='font-bold font-sm'>$</span>{job.salary_range_min/100}</li>
-                      <li>&middot;</li>
-                      <li>Max: <span className='font-bold font-sm'>$</span>{job.salary_range_max/100}</li>
-                    </ul>
-                    </div>
-                    
-                  </li>
-                ))}
-              </ul>
-            </Tab.Panel>
-          ))}
-        </Tab.Panels>
-      </Tab.Group>
-    </div>
-      </section>
 
-      
+
+      {/* <!-- section hero --> border-b-2 cursor-pointer text-center text-sm bg-white py-2*/}
+      <section>
+        <div className="bg-gray-100 sm:grid grid-cols-4 grid-rows-2 px-4 py-6 min-h-full lg:min-h-screen space-y-6 sm:space-y-0 sm:gap-4">
+
+          <div className="h-full col-span-1">
+            <div className="bg-white py-3 px-4 rounded-lg flex justify-around items-center ">
+              <input type="text" placeholder="seach" className=" bg-gray-100 rounded-md  outline-none pl-2 ring-indigo-700 w-full mr-2 p-2" />
+              <span><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor ">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg></span>
+            </div>
+            <div className="bg-white w-full rounded-md">
+
+              <h1 className="text-center text-md bg-white py-2 rounded-md text-gray-600">Categories:</h1>
+              <div className="bg-white border-t-2 rounded-md list-none text-center">
+                <Form>
+                  <Listbox value={selectedCategory} by='id' onChange={setSelectedCategory}>
+                    <Listbox.Button>{selectedCategory.title}</Listbox.Button>
+                    <div className="bg-white border-t-2 rounded-md list-none text-center">
+                      <Listbox.Options id="categories">
+                        {categories.map((cat) => (
+                          /* Use the `active` state to conditionally style the active option. */
+                          /* Use the `selected` state to conditionally style the selected option. */
+                          <Listbox.Option
+                            key={cat.id}
+                            value={cat}
+                            as={Fragment}
+                          // disabled={cat.jobs.length < 1}
+                          >
+                            {({ active, selected }) => (
+                              <li
+                                className={`p-2 m-6 cursor-pointer text-black ${active ? 'font-bold border-2 border-black' : ''
+                                  }`}
+                              >
+                                {selected && (
+                                  <span>
+                                    <CheckIcon width={12} height={12} />
+                                  </span>
+                                )}
+                                {cat.title}
+                              </li>
+                            )}
+                          </Listbox.Option>
+                        ))}
+                      </Listbox.Options>
+                    </div>
+                  </Listbox>
+
+                </Form>
+
+              </div>
+            </div>
+          </div>
+          {jobs.state === "loading" ? <Spinner /> : null}
+          {/* grid col-span-1 justify-between */}
+          {jobs && jobs.data && jobs.data?.length > 0 ? (
+            <>
+             
+              {jobs.data.map((job, i) => (
+
+                <div key={i} className='m-1 md:h-screen transform transition-transform duration-500 ease-in-out hover:scale-110'>
+                  <JobCard title={job.title} description={job.description} id={job.id} />
+                  <JobSearchCard title={job.title} description={job.description} id={job.id} is_full_time={job.is_full_time} salary_range_min={job.salary_range_min} salary_range_max={job.salary_range_max} />
+                </div>
+
+              ))}
+
+            </>
+          ) : null}
+
+        </div>
+      </section>
+      {/* <!-- ===== Page Wrapper End ===== --> */}
 
     </>
   );
@@ -175,124 +173,152 @@ function classNames(...classes) {
 }
 
 export default function Example() {
-  
+  let [categories] = useState({
+    Recent: [
+      {
+        id: 1,
+        title: 'Does drinking coffee make you smarter?',
+        date: '5h ago',
+        commentCount: 5,
+        shareCount: 2,
+      },
+      {
+        id: 2,
+        title: "So you've bought coffee... now what?",
+        date: '2h ago',
+        commentCount: 3,
+        shareCount: 2,
+      },
+    ],
+    Popular: [
+      {
+        id: 1,
+        title: 'Is tech making coffee better or worse?',
+        date: 'Jan 7',
+        commentCount: 29,
+        shareCount: 16,
+      },
+      {
+        id: 2,
+        title: 'The most innovative things happening in coffee',
+        date: 'Mar 19',
+        commentCount: 24,
+        shareCount: 12,
+      },
+    ],
+    Trending: [
+      {
+        id: 1,
+        title: 'Ask Me Anything: 10 answers to your questions about coffee',
+        date: '2d ago',
+        commentCount: 9,
+        shareCount: 5,
+      },
+      {
+        id: 2,
+        title: "The worst advice we've ever heard about coffee",
+        date: '4d ago',
+        commentCount: 1,
+        shareCount: 2,
+      },
+    ],
+  })
 
   return (
-    
+    <div className="w-full max-w-md px-2 py-16 sm:px-0">
+      <Tab.Group>
+        <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+          {Object.keys(categories).map((category) => (
+            <Tab
+              key={category}
+              className={({ selected }) =>
+                classNames(
+                  'w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700',
+                  'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+                  selected
+                    ? 'bg-white shadow'
+                    : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
+                )
+              }
+            >
+              {category}
+            </Tab>
+          ))}
+        </Tab.List>
+        <Tab.Panels className="mt-2">
+          {Object.values(categories).map((posts, idx) => (
+            <Tab.Panel
+              key={idx}
+              className={classNames(
+                'rounded-xl bg-white p-3',
+                'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+              )}
+            >
+              <ul>
+                {posts.map((post) => (
+                  <li
+                    key={post.id}
+                    className="relative rounded-md p-3 hover:bg-gray-100"
+                  >
+                    <h3 className="text-sm font-medium leading-5">
+                      {post.title}
+                    </h3>
+
+                    <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
+                      <li>{post.date}</li>
+                      <li>&middot;</li>
+                      <li>{post.commentCount} comments</li>
+                      <li>&middot;</li>
+                      <li>{post.shareCount} shares</li>
+                    </ul>
+
+                    <a
+                      href="#"
+                      className={classNames(
+                        'absolute inset-0 rounded-md',
+                        'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
+                      )}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </Tab.Panel>
+          ))}
+        </Tab.Panels>
+      </Tab.Group>
+    </div>
   )
 }
-
-
-
-
-
-
-
-{/* <!-- section hero --> border-b-2 cursor-pointer text-center text-sm bg-white py-2/}
-<section>
-<div className="bg-gray-100 sm:grid grid-cols-5 grid-rows-2 px-4 py-6 min-h-full lg:min-h-screen space-y-6 sm:space-y-0 sm:gap-4">
-
-  <div className="h-full col-span-1">
-    <div className="bg-white py-3 px-4 rounded-lg flex justify-around items-center ">
-      <input type="text" placeholder="seach" className=" bg-gray-100 rounded-md  outline-none pl-2 ring-indigo-700 w-full mr-2 p-2" />
-      <span><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor ">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-      </svg></span>
-    </div>
-    <div className="bg-white w-full rounded-md">
-
-      <h1 className="text-center text-md bg-white py-2 rounded-md text-gray-600">Categories:</h1>
-      <div className="bg-white border-t-2 rounded-md list-none text-center">
-        <Form>
-          <Listbox value={selectedCategory} by='id' onChange={setSelectedCategory}>
-            <Listbox.Button>{selectedCategory.title}</Listbox.Button>
-            <div className="bg-white border-t-2 rounded-md list-none text-center">
-              <Listbox.Options id="categories">
-                {categories.map((cat) => (
-                  /* Use the `active` state to conditionally style the active option. /
-                  /* Use the `selected` state to conditionally style the selected option. /
-                  <Listbox.Option
-                    key={cat.id}
-                    value={cat}
-                    as={Fragment}
-                  // disabled={cat.jobs.length < 1}
-                  >
-                    {({ active, selected }) => (
-                      <li
-                        className={`p-2 m-6 cursor-pointer text-black ${active ? 'font-bold border-2 border-black' : ''
-                          }`}
-                      >
-                        {selected && (
-                          <span>
-                            <CheckIcon width={12} height={12} />
-                          </span>
-                        )}
-                        {cat.title}
-                      </li>
-                    )}
-                  </Listbox.Option>
-                ))}
-              </Listbox.Options>
-            </div>
-          </Listbox>
-
-        </Form>
-
-      </div>
-    </div>
-  </div>
-  {jobs.state === "loading" ? <Spinner /> : null}
-  {/* grid col-span-1 justify-between /}
-  {jobs && jobs.data && jobs.data?.length > 0 ? (
-    <>
-     
-      {jobs.data.map((job, i) => (
-
-        <div key={i} className='m-1 md:h-screen transform transition-transform duration-500 ease-in-out hover:scale-110'>
-          <JobCard title={job.title} description={job.description} id={job.id} />
-          <JobSearchCard title={job.title} description={job.description} id={job.id} is_full_time={job.is_full_time} salary_range_min={job.salary_range_min} salary_range_max={job.salary_range_max} />
-        </div>
-
-      ))}
-
-    </>
-  ) : null}
-
-</div>
-</section>
-{/* <!-- ===== Page Wrapper End ===== --> /}
-
-
-
-
-
-
-
+*/
 
 function JobSearchCard({ title, description, id, is_full_time, salary_range_min, salary_range_max }: Partial<JobPost>) {
   // const startDate = start_date ? start_date.toJSON() : null;
   return (
     <>
       <div className="relative mx-auto w-full max-w-sm pt-6">
-        <a href={`/app/jobs/${id}`} className="relative inline-block w-full transform transition-transform duration-300 ease-in-out">
+        <div className="relative inline-block w-full transform transition-transform duration-300 ease-in-out">
           <div className="rounded-lg">
-          <div className="m-2 p-2 col-span-2 bg-gradient-to-tr from-sp-primary to-orange-300 rounded-md flex items-center">
+          <div className="m-2 p-2 col-span-2 text-center justify-center bg-gradient-to-tr from-sp-primary to-orange-300 rounded-md flex items-center">
+          <ApplyButtonModal />
+            {/*<p className='uppercase inline-block mt-8 text-lg bg-transparent hover:bg-white/20 text-white py-2 px-4 rounded font-semibold'>Apply</p>*/}
         {is_full_time && <span className="absolute right-0 top-0 z-10 ml-3 mt-3 inline-flex select-none rounded-lg bg-red-500 px-3 py-2 text-sm font-medium text-white"> Full-Time </span>}
-        <div className="mt-4 grid grid-cols-2">
-        <div className="flex items-center">
-                  <div className="relative">
-                    <h2 className="line-clamp-1 text-base font-medium text-gray-800 md:text-lg" title={title}>{title}</h2>
-                    <p className="mt-2 line-clamp-1 text-sm text-gray-800" title={description}>{description}</p>
-                  </div>
-                </div>
-                
-          {/*<a href={`/app/jobs/${id}`} className="uppercase inline-block mt-8 text-sm bg-white py-2 px-4 rounded font-semibold hover:bg-indigo-100">apply</a>/}
+        {/*<a href={`/app/jobs/${id}`} className="uppercase inline-block mt-8 text-lg bg-white py-2 px-4 rounded font-semibold hover:bg-indigo-100">apply</a>*/}
         </div>
+        {/*<div className="mt-4 grid grid-cols-2">*/}
         
-      </div>
+                
+          {/*<div className="flex items-center min-h-fit">
+        
+        <h2 className="line-clamp-1 text-base font-medium text-gray-800 md:text-lg" title={title}>{title}</h2>
+                    <p className="mt-2 line-clamp-1 text-sm text-gray-800" title={description}>{description}</p>
+                  
+                </div>*/}
+        {/*</div>*/}
+        
+      
             
             <div className="transform transition-transform duration-500 ease-in-out hover:scale-110">
-              <div className="">
+              {/*<div className="">
                 
 
                 <div className="flex items-center justify-end">
@@ -301,7 +327,7 @@ function JobSearchCard({ title, description, id, is_full_time, salary_range_min,
               <span className="text-lg">{startDate}</span>/}
                   </p>
                 </div>
-              </div>
+              </div>*/}
 
               <div className="mt-2 border-t border-gray-200 pt-3">{title}</div>
 
@@ -323,7 +349,7 @@ function JobSearchCard({ title, description, id, is_full_time, salary_range_min,
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </>
   )
@@ -394,7 +420,7 @@ function JobSearchCard({ title, description, id, is_full_time, salary_range_min,
   </>
 )
 };
-/
+*/
 
 /*
 <div className="absolute bottom-0 mb-3 flex justify-center">
@@ -415,18 +441,18 @@ function JobSearchCard({ title, description, id, is_full_time, salary_range_min,
             </p>
           </div>
         </div>
-        /
+        */
 function JobCard({ title, description, id }: Partial<JobPost>) {
   return (
     <>
-      <div className="m-2 p-2 col-span-2 bg-gradient-to-tr from-sp-primary to-orange-300 rounded-md flex items-center">
-        <div className="ml-20 w-80">
-          <h2 className="text-white font-bold text-2xl sm:text-4xl">{title}</h2>
+      <div className="m-2 p-2 col-span-2 bg-gradient-to-tr from-sp-primary to-orange-300 rounded-md">
+        <div className="ml-20 w-full">
+          <p className="text-white font-semibold text-sm sm:text-4xl">{title}</p>
           <p className="text-white mt-4 capitalize font-normal tracking-wider leading-7">{description}</p>
-
-          {/*<a href={`/app/jobs/${id}`} className="uppercase inline-block mt-8 text-sm bg-white py-2 px-4 rounded font-semibold hover:bg-indigo-100">apply</a>/}
+          {/*<ApplyButtonModal />*/}
+          {/*<a href={`/app/jobs/${id}`} className="uppercase inline-block mt-8 text-sm bg-white py-2 px-4 rounded font-semibold hover:bg-indigo-100">apply</a>*/}
         </div>
-        <JobDetailsModal />
+        
       </div>
     </>
   )
@@ -436,9 +462,9 @@ function tempLayout() {
   return (
     <>
       <div className="dark:bg-boxdark-2 dark:text-bodydark">
-        {/* <!-- ===== Page Wrapper Start ===== --> /}
+        {/* <!-- ===== Page Wrapper Start ===== --> */}
         <div className="flex h-screen overflow-hidden">
-          {/* <!-- ===== Sidebar Start ===== --> /}
+          {/* <!-- ===== Sidebar Start ===== --> */}
           <nav className="bg-gray-800 py-4">
             <div className="container mx-auto flex justify-between items-center">
               <Link to="/" className="text-white font-bold text-xl">
@@ -474,32 +500,32 @@ function tempLayout() {
               </div>
             </div>
           </nav>
-          {/*<Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />/}
-          {/* <!-- ===== Sidebar End ===== --> /}
+          {/*<Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />*/}
+          {/* <!-- ===== Sidebar End ===== --> */}
 
-          {/* <!-- ===== Content Area Start ===== --> /}
+          {/* <!-- ===== Content Area Start ===== --> */}
           <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-            {/* <!-- ===== Header Start ===== --> /}
+            {/* <!-- ===== Header Start ===== --> */}
             <header className="bg-white py-12">
               <div className="container mx-auto text-center">
                 <h2 className="text-4xl font-bold text-gray-800 mb-4">Find Good Jobs Here</h2>
-                {/* Additional content for the header /}
+                {/* Additional content for the header */}
               </div>
             </header>
-            {/*<Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />/}
-            {/* <!-- ===== Header End ===== --> /}
+            {/*<Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />*/}
+            {/* <!-- ===== Header End ===== --> */}
 
-            {/* <!-- ===== Main Content Start ===== --> /}
+            {/* <!-- ===== Main Content Start ===== --> */}
             <main>
               <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
                 <Outlet />
               </div>
             </main>
-            {/* <!-- ===== Main Content End ===== --> /}
+            {/* <!-- ===== Main Content End ===== --> */}
           </div>
-          {/* <!-- ===== Content Area End ===== --> /}
+          {/* <!-- ===== Content Area End ===== --> */}
         </div>
-        {/* <!-- ===== Page Wrapper End ===== --> /}
+        {/* <!-- ===== Page Wrapper End ===== --> */}
       </div>
     </>
   )
@@ -548,7 +574,7 @@ function List(listItems: Partial<JobPost>[]) {
                   </div>
                 </div>
               </div>
-              /
+              */
   return (
     <>
       <div className="bg-white">
@@ -558,7 +584,7 @@ function List(listItems: Partial<JobPost>[]) {
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {listItems.map((item) => (
               <a key={item.id} href={`/jobs/${item.id}`} className="group">
-                {/*<ListItem title={item.title ?? 'Ttile Error'} description={item.description ?? 'Description Error'} />/}
+                {/*<ListItem title={item.title ?? 'Ttile Error'} description={item.description ?? 'Description Error'} />*/}
               </a>
             ))}
           </div>
@@ -588,7 +614,7 @@ interface ListItemProps {
     salary_range_min: number;
     salary_range_max: number;
     userId: string;
-    /
+    */
 };
 
 function ListItem(props: ListItemProps) {
@@ -599,7 +625,7 @@ function ListItem(props: ListItemProps) {
                   src={product.imageSrc}
                   alt={product.imageAlt}
                   className="h-full w-full object-cover object-center group-hover:opacity-75"
-  />/}
+  />*/}
   <p className="mt-1 text-md font-medium text-gray-900">{props.createdAt}</p>
         <h2 className="mt-1 text-lg font-medium text-gray-900">{props.title}</h2>
         <p className="mt-1 text-sm font-medium text-gray-900">{props.description}</p>
@@ -609,5 +635,3 @@ function ListItem(props: ListItemProps) {
     </>
   )
 }
-
-*/

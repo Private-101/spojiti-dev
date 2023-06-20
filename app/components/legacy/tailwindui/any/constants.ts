@@ -8,7 +8,7 @@ export const user = {
   };
   
   export const navigation = [
-    { name: "Top", href: "#top", current: true },
+    { name: "Help", href: "#top", current: true },
     { name: "Features", href: "#features", current: false },
     { name: "Pricing", href: "#pricing", current: false },
     { name: "Contact Us", href: "#contact-us", current: false },
