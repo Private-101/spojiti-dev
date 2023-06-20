@@ -49,7 +49,7 @@ function isUser(user: any): user is User {
 }
 
 export function useOptionalUser(): User | undefined {
-  const data = useMatchesData("root");
+  const data = useMatchesData("__auth");
   if (!data || !isUser(data.user)) {
     return undefined;
   }

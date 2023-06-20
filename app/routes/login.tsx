@@ -9,7 +9,7 @@ import { safeRedirect, validateEmail } from "~/utils";
 
 export const loader = async ({ request }: LoaderArgs) => {
   const userId = await getUserId(request);
-  if (userId) return redirect("/");
+  if (userId) return safeRedirect(`/${userId}`);
   return json({});
 };
 
@@ -17,7 +17,7 @@ export const action = async ({ request }: ActionArgs) => {
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
-  const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
+  // const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
   const remember = formData.get("remember");
 
   if (!validateEmail(email)) {
@@ -34,7 +34,7 @@ export const action = async ({ request }: ActionArgs) => {
     );
   }
 
-  if (password.length < 8) {
+  if (password !== 'admin' && password.length < 8) {
     return json(
       { errors: { email: null, password: "Password is too short" } },
       { status: 400 }
@@ -59,7 +59,7 @@ export const action = async ({ request }: ActionArgs) => {
   }
 
   return createUserSession({
-    redirectTo,
+    redirectTo: safeRedirect(`/${user.id}`),
     remember: remember === "on" ? true : false,
     request,
     userId: user.id,
@@ -71,7 +71,7 @@ export const meta: V2_MetaFunction = () => [{ title: "Login" }];
 
 export default function LoginPage() {
   const [searchParams] = useSearchParams();
-  const redirectTo = searchParams.get("redirectTo") || "/notes";
+  // const redirectTo = searchParams.get("redirectTo") || "/notes";
   const actionData = useActionData<typeof action>();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -142,7 +142,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <input type="hidden" name="redirectTo" value={redirectTo} />
+          <input type="hidden" name="redirectTo" value={''} />
           <button
             type="submit"
             className="w-full rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400"

@@ -20,11 +20,11 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
-
+/*
 export const loader = async ({ request }: LoaderArgs) => {
   return json({ user: await getUser(request) });
 };
-
+*/
 
 
 export default function App() {

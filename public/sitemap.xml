@@ -1,39 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.spojiti.com/_index.tsx</loc>
-    <lastmod>2023-06-17</lastmod>
+    <loc>https://www.spojiti.com/__auth/</loc>
+    <lastmod>2023-06-20</lastmod>
+  </url>
+  <url>
+    <loc>https://www.spojiti.com/__auth.tsx</loc>
+    <lastmod>2023-06-20</lastmod>
+  </url>
+  <url>
+    <loc>https://www.spojiti.com/__landing/</loc>
+    <lastmod>2023-06-20</lastmod>
+  </url>
+  <url>
+    <loc>https://www.spojiti.com/__landing.tsx</loc>
+    <lastmod>2023-06-20</lastmod>
+  </url>
+  <url>
+    <loc>https://www.spojiti.com/__search/</loc>
+    <lastmod>2023-06-20</lastmod>
+  </url>
+  <url>
+    <loc>https://www.spojiti.com/__search.tsx</loc>
+    <lastmod>2023-06-20</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/app/</loc>
-    <lastmod>2023-06-17</lastmod>
+    <lastmod>2023-06-20</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/healthcheck.tsx</loc>
-    <lastmod>2023-06-17</lastmod>
+    <lastmod>2023-06-20</lastmod>
   </url>
   <url>
-    <loc>https://www.spojiti.com/home.tsx</loc>
-    <lastmod>2023-06-17</lastmod>
+    <loc>https://www.spojiti.com/index.tsx</loc>
+    <lastmod>2023-06-20</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/join.tsx</loc>
-    <lastmod>2023-06-17</lastmod>
+    <lastmod>2023-06-20</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/login.tsx</loc>
-    <lastmod>2023-06-17</lastmod>
+    <lastmod>2023-06-20</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/logout.tsx</loc>
-    <lastmod>2023-06-17</lastmod>
+    <lastmod>2023-06-20</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/search/</loc>
-    <lastmod>2023-06-17</lastmod>
+    <lastmod>2023-06-20</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/search.tsx</loc>
-    <lastmod>2023-06-17</lastmod>
+    <lastmod>2023-06-20</lastmod>
+  </url>
+  <url>
+    <loc>https://www.spojiti.com/test-search/</loc>
+    <lastmod>2023-06-20</lastmod>
+  </url>
+  <url>
+    <loc>https://www.spojiti.com/test-search-v2.tsx</loc>
+    <lastmod>2023-06-20</lastmod>
+  </url>
+  <url>
+    <loc>https://www.spojiti.com/test-search.tsx</loc>
+    <lastmod>2023-06-20</lastmod>
   </url>
 </urlset>
