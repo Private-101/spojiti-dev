@@ -49,7 +49,7 @@ function isUser(user: any): user is User {
 }
 
 export function useOptionalUser(): User | undefined {
-  const data = useMatchesData("root");
+  const data = useMatchesData("__auth");
   if (!data || !isUser(data.user)) {
     return undefined;
   }
@@ -68,4 +68,72 @@ export function useUser(): User {
 
 export function validateEmail(email: unknown): email is string {
   return typeof email === "string" && email.length > 3 && email.includes("@");
+}
+
+export async function safeTry<T>(fn: (args?: any[]) => T, args?: any[]): Promise<T> {
+    return new Promise((resolve, reject) => {
+      try {
+        if (args && args.length > 0) {
+          const result = fn(...args);
+          resolve(result);
+        } else {
+          const result = fn();
+          resolve(result);
+        }
+      } catch (error) {
+        console.error(error);
+        reject(error);
+        // handle error...
+      }
+    });
+  }
+  
+  /**
+   * @example
+   * const fn = () => getUser();
+   * const user = await safeTry<User>(fn); // Calling with zero arguments
+   * // Alternatively, you can provide an empty array
+  const user = await safeTry<User>(fn, []); // Calling with an empty array
+  So, whether you call safeTry without passing any arguments or with an empty array, it will handle the case correctly.
+   */
+  
+
+/**
+ * Converts a string into a URL-friendly string (also known as a "slug").
+ * @param str - The string to be converted.
+ */
+export function slugify(input: string): string {
+  return input
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')       // Replace spaces with -
+    .replace(/&/g, '-and-')     // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '')   // Remove all non-word characters except -
+    .replace(/\-\-+/g, '-')     // Replace multiple - with single -
+    .replace(/^-+/, '')         // Trim - from start of text
+    .replace(/-+$/, '');        // Trim - from end of text
+}
+
+/**
+ * Capitalizes the first letter of a string.
+ * @param str - The string to be capitalized.
+ */
+export function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+/**
+ * Capitalizes the first letter of every word in a string.
+ * @param str - The string to be transformed.
+ */
+export function titleCase(str: string): string {
+  return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+};
+
+export function unslugify(str: string): string {
+  return str.toLowerCase().split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+};
+
+export function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(' ')
 }

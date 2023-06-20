@@ -13,6 +13,8 @@ module.exports = {
     // makes the warning go away in v1.15+
     v2_routeConvention: true,
   },
+  // ignore all files in routes folder to prevent
+  // default remix convention from picking up the routes
   ignoredRouteFiles: ["**/.*", "**/*.test.{js,jsx,ts,tsx}"],
   postcss: true,
   serverModuleFormat: "cjs",
@@ -23,3 +25,4 @@ module.exports = {
     return createRoutesFromFolders(defineRoutes);
   },
 };
+

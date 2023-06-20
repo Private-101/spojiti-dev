@@ -1,0 +1,87 @@
+model User {
+  id    String @id @default(cuid()) @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email          String  @unique
+  password_hash  String
+  role  String @default("guest") // employer or client or guest. all start out as guest until payment is made. admin is set at runtime. this is a system admin.
+  avatarUrl          String?
+  notificationsCount Int @default(0)
+  notifications Notification[]
+
+  // admin full name 
+  firstName  String?
+  lastName   String?
+
+  // billing location 
+  streetAddress String?
+  unit          String? // apt/suite/etc
+  city          String?
+  state         String?
+  zipCode       String?
+
+  jobPosts         JobPost[]         
+  applications JobApplication[]
+  
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  title       String
+  description String?
+  jobs        JobPost[]
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title            String
+  description      String
+  is_read     Boolean    @default(false)
+
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId     String  
+}
+
+model JobPost {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  categories       Category[]
+  title            String
+  description      String
+  is_full_time     Boolean    @default(false)
+  start_date       DateTime   @default(now())
+  end_date         DateTime?
+  responsibilities String?
+  requirements     String?
+  salary_range_min Int        @default(0)
+  salary_range_max Int        @default(0)
+
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId     String  
+  applications JobApplication[]
+}
+
+model JobApplication {
+  id         String @id @default(cuid())
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId     String  
+  job        JobPost    @relation(fields: [jobId], references: [id])
+  jobId      String
+  // resumePath String? // Path to the uploaded resume
+  status     String @default("submitted") // Status of the application (e.g., "submitted", "in review", "rejected", "accepted")
+  // Other application-related fields
+}
+
+
+npx prisma migrate diff \ 
+--from-empty \ 
+--to-schema-datamodel prisma/schema.prisma \ 
+--script > prisma/migrations/0_init/migration.sql

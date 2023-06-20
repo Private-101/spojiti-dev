@@ -1,0 +1,1 @@
+<!-- TODO: create a script that parses asset folders and generates the required seo stuff -->
