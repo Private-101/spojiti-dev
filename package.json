@@ -14,7 +14,7 @@
     "init": "node ./scripts/init.js",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "prisma": "npx prisma db push && npx prisma generate",
-    "setup-dev": "npm install && npm run prisma && npx prisma db seed && node ./scripts/generate-sitemap.js",
+    "setup-dev": "npm install && npm run prisma && npx prisma db seed && node ./scripts/generate-sitemap.js && npm run build",
     "setup": "npm install && npx prisma generate && npx prisma migrate deploy && npx prisma db seed && node ./scripts/generate-sitemap.js",
     "generate-sitemap": "node ./scripts/generate-sitemap.js",
     "start": "remix-serve build",
