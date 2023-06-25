@@ -1,0 +1,27 @@
+.search{
+    align-items: center;
+    background-color: #fff;
+    border-radius: 5px;
+    display: flex;
+    gap: 18px;
+    height: 42px;
+    justify-content: space-between;
+    padding: 0 15px;
+    width: 400px;
+
+    @media (max-width: 528px){
+      width: 100%;
+    };
+
+    input {
+      background-color: #fff;
+      border: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      outline: none;
+      width: 100%;
+      &::placeholder{
+        color: #000;
+      }
+    }
+  } 

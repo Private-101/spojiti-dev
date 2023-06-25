@@ -8,9 +8,10 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  isRouteErrorResponse, useRouteError
 } from "@remix-run/react";
 import { useEffect, useState } from 'react';
-import { getUser } from "~/session.server";
+import { getUser } from "~/services/session.server";
 import stylesheet from "~/tailwind.css";
 import useLocalStorage from '~/hooks/useLocalStorage';
 import useColorMode from "./hooks/useColorMode";
@@ -79,7 +80,7 @@ const [theme, toggle] = useToggle(['light', 'dark']);
         <Meta />
         <Links />
       </head>
-      <body className="h-full font-normal text-base text-body dark:text-whiten bg-whiten dark:bg-body relative z-1">
+      <body>
         <Outlet context={[theme, toggle]} />
         <ScrollRestoration />
         <Scripts />
@@ -88,3 +89,52 @@ const [theme, toggle] = useToggle(['light', 'dark']);
     </html>
   );
 }
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div>
+        <h1>
+          Route Error: {error.status} {error.statusText}
+        </h1>
+        <p>{error.data}</p>
+      </div>
+    );
+  } else if (error instanceof Error) {
+    return (
+      <div>
+        <h1>Client Error</h1>
+        <p>{error.message}</p>
+        <p>The stack trace is:</p>
+        <pre>{error.stack}</pre>
+      </div>
+    );
+  } else {
+    return <h1>Unknown Error</h1>;
+  }
+};
+
+/*
+function OptimisticFavorite({ contact }: { contact: ContactRecord }) {
+  const fetchers = useFetchers();
+
+  // start with the default case, read the actual data.
+  let isFavorite = contact.favorite;
+
+  // Now check if there are any pending fetchers that are changing this contact
+  for (const fetcher of fetchers) {
+    // @ts-expect-error https://github.com/remix-run/remix/pull/5476
+    if (fetcher.formAction === `/contacts/${contact.id}`) {
+      // Ask for the optimistic version of the data
+      // @ts-expect-error https://github.com/remix-run/remix/pull/5476
+      isFavorite = fetcher.formData.get("favorite") === "true";
+    }
+  }
+
+  // Now the star in the sidebar will immediately update as the user clicks
+  // instead of waiting for the network to respond
+  return isFavorite ? <span>★</span> : null;
+}
+*/

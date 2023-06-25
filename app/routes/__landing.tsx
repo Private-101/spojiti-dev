@@ -23,7 +23,7 @@ import FeaturesSection from "~/components/legacy/tailwindui/sections/Features";
 import ContactUsSection from '~/components/legacy/tailwindui/sections/ContactUs';
 
 // import Reviews from "~/components/temp/Reviews";
-import { generateReviews } from "~/faker.server";
+import { generateReviews } from "~/services/faker.server";
 import ReviewCards, {
   type Review,
 } from "~/components/legacy/tailwindui/sections/ReviewCard";

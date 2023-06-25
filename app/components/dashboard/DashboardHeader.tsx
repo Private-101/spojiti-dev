@@ -1,14 +1,18 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '~/components/common/assets/spojiti-logo.svg';
 import DarkModeToggle from '~/components/common/DarkModeToggle';
 import DropdownMessage from '~/components/dashboard/DropdownMessage';
 import DropdownNotification from '~/components/dashboard/DropdownNotification';
 import DropdownUser from '~/components/dashboard/DropdownUser';
+import useColorMode from '~/hooks/useColorMode';
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
+  const [colorMode, setColorMode] = useColorMode();
+
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between py-4 px-4 shadow-2 md:px-6 2xl:px-11">
@@ -57,7 +61,7 @@ const Header = (props: {
           {/* <!-- Hamburger Toggle BTN --> */}
 
           <Link className="block flex-shrink-0 lg:hidden" to="/">
-            <img src={Logo} alt="Logo" />
+            <img src={Logo} alt="Logo" width={64} height={64} />
           </Link>
         </div>
 
@@ -100,7 +104,7 @@ const Header = (props: {
         <div className="flex items-center gap-3 2xsm:gap-7">
           <ul className="flex items-center gap-2 2xsm:gap-4">
             {/* <!-- Dark Mode Toggler --> */}
-            <DarkModeToggle />
+            <DarkModeToggle theme={'light'} trigger={() => {}} />
             {/* <!-- Dark Mode Toggler --> */}
 
             {/* <!-- Notification Menu Area --> */}

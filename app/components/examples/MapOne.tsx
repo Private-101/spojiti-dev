@@ -24,7 +24,7 @@ const MapOne = () => {
       },
       regionLabelStyle: {
         initial: {
-          fontFamily: 'Satoshi',
+          fontFamily: 'sans-serif',
           fontWeight: 'semibold',
           fill: '#fff',
         },

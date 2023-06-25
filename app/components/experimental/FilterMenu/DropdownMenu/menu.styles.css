@@ -1,0 +1,48 @@
+.computer{
+    align-items: center;
+    background-color: $grey;
+    border: none;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    font-size: 1rem;
+    font-weight: bold;
+    height: 40px;
+    justify-content: space-between;
+    min-width: 240px;
+    padding: 0 40px;
+    position: relative;
+    cursor: pointer; 
+    
+    &--active{
+      background-color: $red;
+      color: $white;
+    }
+    &__options{
+      display: none;
+      position: absolute;
+      left: 0;
+      flex-direction: column;
+      top: 100%;
+      width: 100%;      
+      &--active{
+        display: flex;
+      }
+    }
+    &__option{
+      transition: .1s;
+      align-items: center;
+      background-color: $grey;
+      border-top: 2px solid $light-grey;
+      box-sizing: border-box;
+      color: $black;
+      display: flex;
+      height: 40px;
+      justify-content: center;
+      width: inherit;
+      &:hover, &--active{
+        background-color: $red;
+        cursor: pointer;
+        color: $white;
+      }
+    }
+  }

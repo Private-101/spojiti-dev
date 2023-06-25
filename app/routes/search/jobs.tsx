@@ -1,15 +1,15 @@
 // import type { ActionArgs } from "@remix-run/node";
 // import { redirect } from "@remix-run/node";
 
-// import { logout } from "~/session.server";
+// import { logout } from "~/services/session.server";
 
 // export const action = async ({ request }: ActionArgs) => logout(request);
 
 // export const loader = async () => redirect("/");
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-
-import { searchJobs } from "~/models/job.server";
+import { matchSorter } from "match-sorter";
+import { searchJobs, getAllJobPosts } from "~/models/job.server";
 import { searchCategoryJobs } from '~/models/category.server';
 /**
  * This route is called via `useFetcher` from the Combobox input. It returns a
@@ -24,9 +24,45 @@ export const loader = async ({ request }: LoaderArgs) => {
   const query = url.searchParams.get("q");
 
   // Search the job posts, you can go look at `app/models/job.server.ts` to see what it's doing.
-  const jobs = (await searchJobs(query || "")).slice(0, 20);
+  // const jobs = (await searchJobs(query || "")).slice(0, 20);
 
-  return json(jobs, {
+  /**
+ * This is just matching a hard-coded list of values, but often you'd be
+ * querying your database for a set of records. If you're using prisma with
+ * postgres, you can use "fulltext" to let the database make it really fast for
+ * you:
+ * https://www.prisma.io/docs/concepts/components/prisma-client/full-text-search
+ */
+//   export async function searchJobs(query: string) {
+  // artificially slowed down and chaotic where some requests start earlier but
+  // land later, this is a condition many apps don't consider but Remix handles
+  // for you automatically. Open the network tab and watch as Remix
+  // automatically cancels the requests as they're interrupted.
+  // await new Promise((res) => setTimeout(res, Math.random() * 1000));
+  //const cats = getCategoryJobs(query);
+  const jobs = await getAllJobPosts();
+/*
+if (!filterValue || !filterValue.length) {
+    return items
+  }
+
+  const terms = filterValue.split(' ')
+  if (!terms) {
+    return items
+  }
+
+  // reduceRight will mean sorting is done by score for the _first_ entered word.
+  return terms.reduceRight(
+    (results, term) => matchSorter(results, term, {keys}),
+    items,
+  )
+  */
+  if (!query || !query.length) {
+    return jobs;
+  }
+  // return matchSorter(jobs, query, { keys: ["title", "description"] });
+// };
+  return json(matchSorter(jobs, query, { keys: ["title", "description"] }), {
     // Add a little bit of caching so when the user backspaces a value in the
     // Combobox, the browser has a local copy of the data and doesn't make a
     // request to the server for it. No need to send a client side data fetching

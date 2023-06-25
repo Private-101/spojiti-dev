@@ -23,7 +23,7 @@ import FeaturesSection from "~/components/legacy/tailwindui/sections/Features";
 import ContactUsSection from '~/components/legacy/tailwindui/sections/ContactUs';
 
 // import Reviews from "~/components/temp/Reviews";
-import { generateReviews } from "~/faker.server";
+import { generateReviews } from "~/services/faker.server";
 import ReviewCards, {
   type Review,
 } from "~/components/legacy/tailwindui/sections/ReviewCard";
@@ -31,7 +31,7 @@ import AppFooter from "~/components/legacy/tailwindui/AppFooter";
 
 import DarkModeToggle from "~/components/common/DarkModeToggle";
 import { useOptionalUser, safeRedirect, useUser } from '~/utils';
-import { getUser } from "~/session.server";
+import { getUser } from "~/services/session.server";
 import type { User } from '~/models/user.server';
 
 interface LoaderData {

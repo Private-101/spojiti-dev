@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/*@layer base {
+@layer base {
   body {
-    @apply
+    @apply font-sans font-normal text-base text-body dark:text-whiten bg-whiten dark:bg-body relative z-1 h-full 
   }
 }
-
+/*
 @layer components {
 }
 

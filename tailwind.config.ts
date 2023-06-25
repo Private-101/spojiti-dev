@@ -3,6 +3,7 @@ import defaultColors from 'tailwindcss/colors';
 
 import defaultTheme from 'tailwindcss/defaultTheme';
 
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   /**
@@ -35,11 +36,19 @@ We are also still ironing out some compatibility issues with certain build tools
   content: ['./app/**/*.{js,jsx,ts,tsx}'],
   darkMode: 'class',
   theme: {
-    ...defaultTheme,
+    // ...defaultTheme,
     fontFamily: {
-      satoshi: ['Satoshi', 'sans-serif'],
+      ...defaultTheme.fontFamily,
+      // satoshi: ['Satoshi', 'sans-serif'],
       // inter: ['Inter', 'sans-serif'],
     },
+    container: {
+			center: true,
+			padding: "2rem",
+			screens: {
+				"2xl": "1400px"
+			}
+		},
     colors: {
       ...defaultColors,
       'sp-primary': '#F58321',
@@ -1400,6 +1409,20 @@ We are also still ironing out some compatibility issues with certain build tools
           '0%, 100%': { transform: 'rotate(360deg)' },
           '50%': { transform: 'rotate(0deg)' },
         },
+        blob: {
+          "0%": {
+            transform: "translate(0px, 0px) scale(1)",
+          },
+          "33%": {
+            transform: "translate(30px, -50px) scale(1.1)",
+          },
+          "66%": {
+            transform: "translate(-20px, 20px) scale(0.9)",
+          },
+          "100%": {
+            transform: "tranlate(0px, 0px) scale(1)",
+          },
+        },
       },
       animation: {
         'ping-once': 'ping 5s cubic-bezier(0, 0, 0.2, 1)',
@@ -1407,6 +1430,7 @@ We are also still ironing out some compatibility issues with certain build tools
         'spin-1.5': 'spin 1.5s linear infinite',
         'spin-2': 'spin 2s linear infinite',
         'spin-3': 'spin 3s linear infinite',
+        blob: "blob 7s infinite",
       },
     },
   },

@@ -1,6 +1,6 @@
 import { matchSorter } from "match-sorter";
 import type { JobPost, JobApplication, User, Category } from "@prisma/client";
-import { prisma } from "~/db.server";
+import { prisma } from "~/services/db.server";
 // TODO: include strict validation to ensure only clients can make applications and employers can make job posts
 // import { getUserById, updateUserById } from '~/models/user.server';
 import { getCategoryJobs } from '~/models/category.server';

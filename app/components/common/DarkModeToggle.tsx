@@ -18,9 +18,7 @@ export default function DarkModeToggle({theme, trigger}: ToggleProps) {
   return (
     <li>
       <label
-        className={`relative m-0 block h-8 w-16.5 rounded-full bg-stroke dark:bg-primary ${/*
-          theme === 'dark' ? 'bg-primary' : 'bg-stroke'
-  */''}`}
+        className={`relative m-0 block h-8 w-16.5 rounded-full bg-stroke dark:bg-primary ${theme === 'dark' ? 'bg-primary' : 'bg-stroke'}`}
       >
         <input
           type="checkbox"
