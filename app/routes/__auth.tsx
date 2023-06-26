@@ -49,9 +49,6 @@ export const loader = async ({ request }: LoaderArgs) => {
   };
 
 // type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
-interface OutletContextProps {
-  user: User
-};
 
 export default function AuthRoute() {
   const { user } = useLoaderData<LoaderData>();

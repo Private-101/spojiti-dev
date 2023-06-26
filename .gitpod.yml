@@ -38,7 +38,8 @@ tasks:
       fi
 
   - init: npm install
-    command: npm run setup-dev && npm run dev
+  # npm run setup-dev && npm run dev
+    command: npm run dev
 
 vscode:
   extensions:

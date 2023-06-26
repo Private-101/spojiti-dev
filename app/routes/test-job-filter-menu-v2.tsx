@@ -72,13 +72,6 @@ interface MenuOption {
 };
 
 // const animatedComponents = makeAnimated();
-interface FormattedCategory {
-  id: string;
-    createdAt: string;
-    updatedAt: string;
-    title: string;
-    description: string | null;
-}
 interface FormattedJobPost {
   id: string;
       createdAt: string;
@@ -94,35 +87,9 @@ interface FormattedJobPost {
       salary_range_max: number;
       userId: string;
 }
-interface JobMenuData {
-  categories: Category[];
-  jobs: JobPost[];
-}
 export default function TestLayoutPage() {
-  const fetcher = useFetcher<JobMenuData>();
+  const { categories, jobs } = useLoaderData<TestLoaderData>();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [jobs, setJobs] = useState<FormattedJobPost[]>([]);
-  const [categories, setCategories] = useState<FormattedCategory[]>([]);
-
-  // const [menuOptionsX, setMenuOptionsX] = useState<MenuOption[] | undefined>(undefined);
-  useEffect(() => {
-    if (fetcher.state === "idle" && fetcher.data == null) {
-      fetcher.load(`/api/job-menu-data?${searchParams}`)
-    }
-    
-    // setMenuOptionsX(menuOptions);
-  }, [fetcher]);
-
-  useEffect(() => {
-    if (fetcher.data) {
-      setJobs(fetcher.data.jobs);
-      setCategories(fetcher.data.categories);
-    }
-  }, [fetcher.data]);
-
-  
-  // const { categories, jobs } = useLoaderData<TestLoaderData>();
-  // const [searchParams, setSearchParams] = useSearchParams();
   // const [error, setError] = useState<boolean>(false);
   // const [loading, setLoading] = useState<boolean>(false);
   // const [checkedItems, setCheckedItems] = useState<Array<string>>([]);
@@ -165,7 +132,7 @@ export default function TestLayoutPage() {
       ] 
     }); 
     // console.log(JSON.stringify(checkedItems));
-  };
+  };*/
   const checkboxRef = useRef<HTMLInputElement | null>(null);
   const [checkedItems, setCheckedItems] = useState<Array<string>>([]);
   const handleChange = ({name, option}: {name: string, option: OptionProps}) => {
@@ -186,7 +153,7 @@ export default function TestLayoutPage() {
 
   useEffect(() => console.log(JSON.stringify(checkedItems)), [checkedItems]);
 
-   const handleCheckboxClick = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+  /* const handleCheckboxClick = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     const arr = Array.from(checkedItems ?? []);
     if (event.currentTarget.checked === true) {
       console.log(`handleCheckboxClick:\n${event.currentTarget.value}\nchecked: true`);
@@ -217,13 +184,13 @@ export default function TestLayoutPage() {
     'Vegetarian',
     'Vegan',
     'Pescatarian'
-  ]; 
+  ]; */
   const menuOptions: MenuOption[] = categories.map((cat) => {
     return {value: cat.id, label: cat.title}
   });
   
   
-  [
+  /*[
     {value: 'No Diet', label: 'No Diet'},
     {value: 'Vegetarian', label: 'Vegetarian'},
     {value: 'Vegan', label: 'Vegan'},
@@ -237,7 +204,7 @@ const categories: {
     title: string;
     description: string | null;
 }[]
-
+*/
   const [selectedMenuOption, setSelectedMenuOption] = useState<MenuOption | null>(null);
   
   
@@ -251,12 +218,12 @@ const categories: {
     }
   }, [selectedMenuOption, setSearchParams]);
 
-  // const [menuData, setMenuData] = useState<FormattedJobPost[]>([]);
+  const [menuData, setMenuData] = useState<FormattedJobPost[]>([]);
 
   
 
   // const [optionValue, setOptionValue] = useState<string>('No Diet');
-  
+  /*
     react-select
   */
     // const selectRef = useRef<SelectInstance<MenuOption> | null>(null);
@@ -270,7 +237,7 @@ const categories: {
     return Boolean(filteredMenuOptions)
   }; */
 
-  // const handleSelectChange = (newValue: SingleValue<MenuOption>, actionMeta: ActionMeta<MenuOption>): void => {
+  const handleSelectChange = (newValue: SingleValue<MenuOption>, actionMeta: ActionMeta<MenuOption>): void => {
     // (newValue: SingleValue<MenuOption>, actionMeta: ActionMeta<MenuOption>) => void
     /*
     let x = actionMeta.removedValues
@@ -284,9 +251,9 @@ const categories: {
     (property) removedValues?: Options<MenuOption> | undefined // same
     */
     
-    // setSelectedMenuOption(newValue);
-    // console.log('New Option Value Selected: ' + JSON.stringify(newValue));
-  // }
+    setSelectedMenuOption(newValue);
+    console.log('New Option Value Selected: ' + JSON.stringify(newValue));
+  }
 
     // Focus handlers
     /*
@@ -323,7 +290,7 @@ const categories: {
   // const apiFetcher = useFetcher<FetcherData>();
   
 
-  // useEffect(() => {
+  useEffect(() => {
     // TODO: just map checkedItems, since all allergens are set as the initialState?
     // console.log('item checked, filtering allergy data...');
     // const usersDiet = allergens
@@ -352,7 +319,7 @@ const categories: {
       salary_range_max: number;
       userId: string;
 }
-
+*/
     const formattedJobs = jobs.map((job) => {
       return {
         id: job.id,
@@ -375,7 +342,7 @@ const categories: {
   }, [jobs]);
 
   // useEffect(() => console.log(`filtered menu: ${JSON.stringify(menuData)}`), [menuData])
-
+/*
   if (loading) {
     // TODO: replace with spinner
     return <div>loading...</div>
@@ -393,9 +360,9 @@ const categories: {
 */
 
 // TODO: just a hack for now, need 5 elements for worst-case 'fallback' render
-// const [items, setItems] = useState<JSX.Element[]>([<></>]);
+const [items, setItems] = useState<JSX.Element[]>([<></>]);
 
-/* useEffect(() => {
+useEffect(() => {
   const menuItems = menuData.map((job) => (
         <MenuItem
           key={job.id}
@@ -405,22 +372,119 @@ const categories: {
         />
       ));
   setItems(menuItems)
-}, [menuData]); */
+}, [menuData]);
 
   return (
     <>
       {/* <!-- ===== Page Wrapper Start ===== --> */}
-    <div className='flex flex-col min-h-screen font-sans bg-white dark:bg-gray-800'>
+    <div key={Math.random()} className='flex flex-col min-h-screen font-sans bg-white dark:bg-gray-800'>
     <Header />
-      <main className='grow'>
+      <main key={Math.random()} className='grow'>
         {/** <!-- ===== Main Section Starts ===== --> */}
-        <div className={"main"}>
+        <div key={Math.random()} className={"main"}>
       <h1>Interactive Diet Menu</h1>
       <JobMenu
+       key={Math.random()}
         id={`menu-items`}
-        jobs={jobs}
-        categories={categories}
-        />
+        jobs={items}
+        category={selectedMenuOption}
+        // small={items[1]}
+        // main={items[2]}
+        // sides={items[3]}
+        // desserts={items[4]}
+      >
+        <section className={"controller"} key={Math.random()}>
+          <div className={"selectList"} key={Math.random()}>
+          <Fragment>
+          <h4>Select</h4>
+          <Select
+           key={Math.random()}
+          id={`select-menu`}
+          name="menu-options"
+          // filterOption={(o, i) => filterOptions(i)}
+        defaultValue={null}
+        onChange={handleSelectChange}
+        options={menuOptions}
+        // autoFocus
+        closeMenuOnSelect={true}
+        openMenuOnFocus
+      />
+      {/*<Select
+        ref={selectRef}
+        // defaultValue={menuOptions[0]}
+        name="menu-options"
+        // onInputChange={e => setSelectedMenuOption(e)}
+        defaultValue={selectedMenuOption}
+        onChange={(n, a) => setSelectedMenuOption(n ?? menuOptions[0])}
+        options={menuOptions}
+  />*/}
+          </Fragment>
+            {/*<Select 
+            ref={selectInputRef}
+            options={menuOptions} 
+          // onChange={setOption}
+          // value={optionValue?.value ?? 'Error'}
+          closeMenuOnSelect={true}
+      components={animatedComponents}
+      // defaultValue={[option]}
+      // isMulti
+      // options={colourOptions}
+  />*/}
+            {/**
+             * <select
+              defaultValue=" "
+              name="selectList"
+              id="selectList"
+              onChange={handleSelect}
+            >
+              <option value=" ">-- Choose Diet --</option> {" "}
+              <option value=" ">No Diet</option> {" "}
+              <option value="Veg">Vegetarian</option> {" "}
+              <option value="Vegan">Vegan</option>
+              <option value="Pesc">Pescatarian</option>
+            </select>
+             */}
+          </div>
+          {/* <div className={"checkboxContainer"}> */}
+          {/* <div className={"checkboxItems"}> */}
+          <fieldset className={"group"} key={Math.random()}>
+            <legend>Select any of the 14 allergens</legend>
+            <ul className={"checkbox"}>
+              {allergens.map((item, i) => (
+                <li key={item.key}>
+                  {/*<label className={"checkboxLabel"} key={item.key} htmlFor={item.name}>*/}
+                    <TestCheckboxWithRef
+                    key={i}
+                    innerRef={checkboxRef}
+                    option={{ label: item.name, value: item.name, disabled: false }}
+                      name={item.name}
+                      // type is removed here because it is set internally
+                      // type="checkbox"
+                      //checked={checkedItems.includes(item.name)}
+                      onChange={handleChange}
+                      // onClick={handleCheckboxClick}
+                    />
+                    {/*item.name*/}
+                 {/* </label>*/}
+                </li>
+              ))}
+            </ul>
+            {/*<div className="abc">
+              {Array.from([{ label: "I am checked", value: "abc", disabled: false }, { label: "I am not checked", value: "def", disabled: false }]).map((item, i) => (
+                <TestCheckboxWithRef
+                key={i}
+                option={{ label: item.label, value: item.value, disabled: item.disabled }}
+                name="ck-test"
+                innerRef={innerCheckboxRef}
+                // onChange={item => }
+              />
+              ))}
+              </div>*/}
+          </fieldset>
+          {/* </div> */}
+          {/* </div> */}
+        </section>
+      </JobMenu>
     </div>
         {/** <!-- ===== Main Section Ends ===== --> */}
       </main>

@@ -164,6 +164,7 @@ interface TestChckboxProps {
   customLabelClassName?: string;
   value?: boolean;
   defaultChecked?: boolean;
+  // checked?: boolean; this is listed as value prop here...
   innerRef: React.ForwardedRef<HTMLInputElement>;
 };
 
@@ -201,7 +202,7 @@ interface TestChckboxProps {
  */
 const TestCheckbox: React.FC<TestChckboxProps> = (props, ref) => {
   const { 
-    className, labelClassName, name, option, value, defaultChecked, 
+    className, labelClassName, name, option, value, defaultChecked,
     inputClassName, checkedItemLabelClassName, customLabelClassName
   } = props;
 

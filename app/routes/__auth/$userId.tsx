@@ -33,7 +33,7 @@ import DarkModeToggle from "~/components/common/DarkModeToggle";
 import { useOptionalUser, safeRedirect, useUser } from '~/utils';
 import { getUser } from "~/services/session.server";
 import type { User } from '~/models/user.server';
-
+/*
 interface LoaderData {
   user: User;
 }
@@ -45,11 +45,15 @@ export const loader = async ({ request }: LoaderArgs) => {
     return json({ user });
     // return json({})
   };
+*/
 
-type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
+// type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
+interface OutletContextProps {
+  user: User
+};
 
 export default function UserRoute() {
-    const { user } = useLoaderData<LoaderData>();
+    // const { user } = useLoaderData<LoaderData>();
   // const user = useUser();
 
   // const submit = useSubmit();
@@ -57,13 +61,13 @@ export default function UserRoute() {
 
   // const fetcher = useFetcher();
 
-  const [theme, toggle] = useOutletContext<OutletContextProps>();
+  const { user } = useOutletContext<OutletContextProps>();
 
   return (
     <>
     <h1>Welcome User!</h1>
     <p>userid: {user.id}</p>
-            <Outlet context={[theme, toggle]} />
+            {/*<Outlet context={[theme, toggle]} />*/}
           
     </>
   );
