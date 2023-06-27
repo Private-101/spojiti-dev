@@ -107,7 +107,7 @@ export default function TestLayoutPage() {
   // const [menuOptionsX, setMenuOptionsX] = useState<MenuOption[] | undefined>(undefined);
   useEffect(() => {
     if (fetcher.state === "idle" && fetcher.data == null) {
-      fetcher.load(`/api/job-menu-data?${searchParams}`)
+      fetcher.load(`api/job-menu-data`)
     }
     
     // setMenuOptionsX(menuOptions);

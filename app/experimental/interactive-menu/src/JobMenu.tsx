@@ -47,6 +47,7 @@ import makeAnimated from 'react-select/animated';
 
 import styles from "../../styles/home.styles.css";
 import Select from 'react-select';
+import { Items } from "~/experimental/interactive-menu/src/JobItems";
 
 interface JobMenuData {
   categories: Category[];
@@ -135,7 +136,7 @@ const JobMenu = (props: MenuProps) => {
     };
   };
 
-  // useEffect(() => console.log(JSON.stringify(checkedItems)), [checkedItems]);
+  useEffect(() => console.log(JSON.stringify(checkedItems)), [checkedItems]);
   // const categoryJobsFetcher = useFetcher<JobPost[]>();
   // const [checkedCategories, setCheckedCategories] = useState<string[]>([]);
   // const [selectedCategoryJobs, setSelectedCategoryJobs] = useState<FormattedJobPost[][]>([]);
@@ -319,21 +320,24 @@ const JobMenu = (props: MenuProps) => {
           </ul>
         </fieldset>
       </section>
+      {checkedItems.map((item) => (
+        <Items key={item} categoryId={item} />
+      ))}
       {/*selectedMenuOption ? (
         <h3 key={Math.random()}>Available Jobs for {selectedMenuOption.title}:</h3>
       ) : (
         <h3 key={Math.random()}>Available Jobs:</h3>
       )*/}
       {/*props.jobs*/}
-      <p>MENU ITEMS:</p>
-      {props.jobs.map((job) => (
+      {/*<p>MENU ITEMS:</p>*/}
+      {/*props.jobs.map((job) => (
         <MenuItem
           key={job.id}
           title={job.title}
           salary_range_min={(job.salary_range_min / 100).toFixed(2)}
           salary_range_max={(job.salary_range_max / 100).toFixed(2)}
         />
-      ))}
+      ))*/}
     </section>
   );
 };

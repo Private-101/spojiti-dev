@@ -3,6 +3,8 @@ import type { JobPost } from '~/models/job.server';
 
 type MenuItemProps = {
   [K in keyof JobPost]?: string;
+} & {
+  categoryId?: string
 }
 
 function MenuItem(props: MenuItemProps) {

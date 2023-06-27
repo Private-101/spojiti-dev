@@ -100,7 +100,7 @@ async function main() {
           jobPosts: {
             create: Array.from({ length: employerJobPostCount }).map(() => ({
               title: faker.person.jobTitle(),
-              description: faker.person.jobDescriptor(),
+              description: faker.company.buzzPhrase(),
               is_full_time: faker.datatype.boolean(),
               start_date: faker.date.soon(),
               end_date: faker.date.future(),

@@ -2,70 +2,90 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.spojiti.com/__auth/</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/__auth.tsx</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/__landing/</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/__landing.tsx</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/__search/</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/__search.tsx</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/app/</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/healthcheck.tsx</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/index.tsx</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/join.tsx</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/login.tsx</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/logout.tsx</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/search/</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/search.tsx</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
+  </url>
+  <url>
+    <loc>https://www.spojiti.com/test/</loc>
+    <lastmod>2023-06-26</lastmod>
+  </url>
+  <url>
+    <loc>https://www.spojiti.com/test-filter-menu-v1.tsx</loc>
+    <lastmod>2023-06-26</lastmod>
+  </url>
+  <url>
+    <loc>https://www.spojiti.com/test-job-filter-menu-v2.tsx</loc>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/test-search/</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/test-search-v2.tsx</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
+  </url>
+  <url>
+    <loc>https://www.spojiti.com/test-search-v3.tsx</loc>
+    <lastmod>2023-06-26</lastmod>
   </url>
   <url>
     <loc>https://www.spojiti.com/test-search.tsx</loc>
-    <lastmod>2023-06-20</lastmod>
+    <lastmod>2023-06-26</lastmod>
+  </url>
+  <url>
+    <loc>https://www.spojiti.com/test.tsx</loc>
+    <lastmod>2023-06-26</lastmod>
   </url>
 </urlset>
