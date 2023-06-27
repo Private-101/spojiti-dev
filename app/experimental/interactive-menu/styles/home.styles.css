@@ -49,14 +49,6 @@
   white-space: nowrap;
 }
 /* 
-.controller {
-  padding: 2rem;
-  width: 80%;
-}
-
-.selectList {
-  margin-right: 2rem;
-}
 
 .checkBox {
   margin-right: 5px;
@@ -69,7 +61,7 @@
 .checkboxItem {
   margin-right: 5px;
 }
-*/
+*/ 
 
 fieldset.group {
   margin-bottom: 1.25em;

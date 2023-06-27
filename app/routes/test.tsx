@@ -33,7 +33,7 @@ import { getAllJobPosts, getAllJobPostsByCategory } from '~/models/job.server';
 
 import { useFetcher, useLoaderData } from "@remix-run/react";
 import { allergyFilter, type Menu as IMenu } from "~/experimental/interactive-menu/alleryFilterFunc";
-
+import Footer from '~/components/legacy/temp/Footer';
 import MenuItem from "~/experimental/interactive-menu/src/JobMenuItem";
 import JobMenu from "~/experimental/interactive-menu/src/JobMenu";
 import { Checkbox, TestCheckboxWithRef, type OptionProps } from "~/experimental/interactive-menu/src/Checkbox";
@@ -59,11 +59,11 @@ export const loader = async ({request}: LoaderArgs) => {
 
 // export const action = async ({request}: ActionArgs) => {}
 
-export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: HomeStylesUrl },
-  { rel: "stylesheet", href: GlobaltylesUrl },
-  { rel: "stylesheet", href: CheckboxStylesUrl },
-];
+ export const links: LinksFunction = () => [
+  //{ rel: "stylesheet", href: HomeStylesUrl },
+  //{ rel: "stylesheet", href: GlobaltylesUrl },
+  //{ rel: "stylesheet", href: CheckboxStylesUrl },
+]; 
 
 interface MenuOption {
   [key: string]: string
@@ -414,8 +414,11 @@ const categories: {
    {/* <Header />*/}
       <main className='grow'>
         {/** <!-- ===== Main Section Starts ===== --> */}
-        <div className={"main"}>
-      <h1>Interactive Diet Menu</h1>
+        <div className='flex flex-1 flex-col justify-center items-center pb-4'>
+      <p>Are you a restaurant looking to hire? Click here to search candidates</p>
+      <Link to='/test/search/candidates'>
+        Search Candidates
+      </Link>
       <JobMenu
         id={`menu-items`}
         jobs={jobs}
@@ -540,7 +543,7 @@ const HeaderIcons = () => {
     );
   };
 
-  const Footer = () => {
+  const OldFooter = () => {
     return (
       <footer className='bg-sp-body-bg dark:bg-gray-700 text-gray-400 dark:text-gray-100 py-5 border-t border-sp-primary border-opacity-60 dark:border-opacity-100'>
         <div className='flex justify-center'>© spojiti.com</div>

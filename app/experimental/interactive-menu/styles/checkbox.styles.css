@@ -1,6 +1,6 @@
 .checkbox-test {
     display: none;
-  }
+  }  
   
   .checkbox-test:checked + .customLabel {
     background: #68c721;
