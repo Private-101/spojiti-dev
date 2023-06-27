@@ -32,7 +32,7 @@ export default function DarkModeToggle({theme, trigger}: ToggleProps) {
           className="absolute top-0 z-50 m-0 h-full w-full cursor-pointer opacity-0"
         />
         <span
-          className={`absolute top-1/2 left-[5px] flex h-7 w-7 -translate-y-1/2 translate-x-0 dark:!right-[5px] dark:!translate-x-full items-center justify-center rounded-full bg-white shadow-switcher duration-75 ease-linear ${/*
+          className={`absolute top-1/2 left-[5px] flex h-7 w-7 -translate-y-1/2 translate-x-0 dark:!right-[5px] dark:!translate-x-full items-center justify-center rounded-full bg-sp-body-bg shadow-switcher duration-75 ease-linear ${/*
             theme === 'dark' && 'dark:!right-[3px] dark:!translate-x-full'
         */''}`}
         >

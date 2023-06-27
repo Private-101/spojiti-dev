@@ -410,7 +410,7 @@ const categories: {
   return (
     <>
       {/* <!-- ===== Page Wrapper Start ===== --> */}
-    <div className='flex flex-col min-h-screen font-sans bg-white dark:bg-gray-800'>
+    <div className='flex flex-col min-h-screen font-sans bg-sp-body-bg dark:bg-gray-800'>
    {/* <Header />*/}
       <main className='grow'>
         {/** <!-- ===== Main Section Starts ===== --> */}
@@ -542,7 +542,7 @@ const HeaderIcons = () => {
 
   const Footer = () => {
     return (
-      <footer className='bg-white dark:bg-gray-700 text-gray-400 dark:text-gray-100 py-5 border-t border-sp-primary border-opacity-60 dark:border-opacity-100'>
+      <footer className='bg-sp-body-bg dark:bg-gray-700 text-gray-400 dark:text-gray-100 py-5 border-t border-sp-primary border-opacity-60 dark:border-opacity-100'>
         <div className='flex justify-center'>© spojiti.com</div>
       </footer>
     );

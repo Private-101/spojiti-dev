@@ -13,7 +13,7 @@ export const RegistrationForm: React.FC = () => {
 
   <div className="container mx-auto py-8 bg-gray-100">
     <h1 className="text-2xl font-bold mb-6 text-center">Registration Form</h1>
-    <Form method='POST' className="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md">
+    <Form method='POST' className="w-full max-w-sm mx-auto bg-sp-body-bg p-8 rounded-md shadow-md">
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">Name</label>
         <input className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"

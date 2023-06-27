@@ -18,7 +18,7 @@ const FormElements = () => {
       <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
         <div className="flex flex-col gap-9">
           {/* <!-- Input Fields --> */}
-          <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <div className="rounded-sm border border-stroke bg-sp-body-bg shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
                 Input Fields
@@ -32,7 +32,7 @@ const FormElements = () => {
                 <input
                   type="text"
                   placeholder="Default Input"
-                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-sp-body-bgr dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                 />
               </div>
 
@@ -43,7 +43,7 @@ const FormElements = () => {
                 <input
                   type="text"
                   placeholder="Active Input"
-                  className="w-full rounded-lg border-[1.5px] border-primary bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:bg-form-input"
+                  className="w-full rounded-lg border-[1.5px] border-primary bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-sp-body-bgr dark:bg-form-input"
                 />
               </div>
 
@@ -55,14 +55,14 @@ const FormElements = () => {
                   type="text"
                   placeholder="Disabled label"
                   disabled
-                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:disabled:bg-black"
+                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-sp-body-bgr dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:disabled:bg-black"
                 />
               </div>
             </div>
           </div>
 
           {/* <!-- Toggle switch input --> */}
-          <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <div className="rounded-sm border border-stroke bg-sp-body-bg shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
                 Toggle switch input
@@ -77,7 +77,7 @@ const FormElements = () => {
           </div>
 
           {/* <!-- Time and date --> */}
-          <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <div className="rounded-sm border border-stroke bg-sp-body-bg shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
                 Time and date
@@ -111,7 +111,7 @@ const FormElements = () => {
           </div>
 
           {/* <!-- File upload --> */}
-          <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <div className="rounded-sm border border-stroke bg-sp-body-bg shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
                 File upload
@@ -124,7 +124,7 @@ const FormElements = () => {
                 </label>
                 <input
                   type="file"
-                  className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
+                  className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-sp-body-bgr file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-sp-body-bgr dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-sp-body-bg/30 dark:file:text-white dark:focus:border-primary"
                 />
               </div>
 
@@ -134,7 +134,7 @@ const FormElements = () => {
                 </label>
                 <input
                   type="file"
-                  className="w-full rounded-md border border-stroke p-3 outline-none transition file:mr-4 file:rounded file:border-[0.5px] file:border-stroke file:bg-[#EEEEEE] file:py-1 file:px-2.5 file:text-sm file:font-medium focus:border-primary file:focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-strokedark dark:file:bg-white/30 dark:file:text-white"
+                  className="w-full rounded-md border border-stroke p-3 outline-none transition file:mr-4 file:rounded file:border-[0.5px] file:border-stroke file:bg-[#EEEEEE] file:py-1 file:px-2.5 file:text-sm file:font-medium focus:border-primary file:focus:border-primary active:border-primary disabled:cursor-default disabled:bg-sp-body-bgr dark:border-form-strokedark dark:bg-form-input dark:file:border-strokedark dark:file:bg-sp-body-bg/30 dark:file:text-white"
                 />
               </div>
             </div>
@@ -143,7 +143,7 @@ const FormElements = () => {
 
         <div className="flex flex-col gap-9">
           {/* <!-- Textarea Fields --> */}
-          <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <div className="rounded-sm border border-stroke bg-sp-body-bg shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
                 Textarea Fields
@@ -157,7 +157,7 @@ const FormElements = () => {
                 <textarea
                   rows={6}
                   placeholder="Default textarea"
-                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-sp-body-bgr dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                 ></textarea>
               </div>
 
@@ -168,7 +168,7 @@ const FormElements = () => {
                 <textarea
                   rows={6}
                   placeholder="Active textarea"
-                  className="w-full rounded-lg border-[1.5px] border-primary bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:bg-form-input"
+                  className="w-full rounded-lg border-[1.5px] border-primary bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-sp-body-bgr dark:bg-form-input"
                 ></textarea>
               </div>
 
@@ -180,14 +180,14 @@ const FormElements = () => {
                   rows={6}
                   disabled
                   placeholder="Disabled textarea"
-                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:disabled:bg-black"
+                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-sp-body-bgr dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:disabled:bg-black"
                 ></textarea>
               </div>
             </div>
           </div>
 
           {/* <!-- Checkbox and radio --> */}
-          <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <div className="rounded-sm border border-stroke bg-sp-body-bg shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
                 Checkbox and radio
@@ -203,7 +203,7 @@ const FormElements = () => {
           </div>
 
           {/* <!-- Select input --> */}
-          <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <div className="rounded-sm border border-stroke bg-sp-body-bg shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
                 Select input
@@ -214,7 +214,7 @@ const FormElements = () => {
                 <label className="mb-3 block text-black dark:text-white">
                   Select Country
                 </label>
-                <div className="relative z-20 bg-white dark:bg-form-input">
+                <div className="relative z-20 bg-sp-body-bg dark:bg-form-input">
                   <span className="absolute top-1/2 left-4 z-30 -translate-y-1/2">
                     <svg
                       width="20"
@@ -277,7 +277,7 @@ const FormElements = () => {
                 </label>
                 <div className="relative z-20 w-full rounded border border-stroke p-1.5 pr-8 font-medium outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
                   <div className="flex flex-wrap items-center">
-                    <span className="m-1.5 flex items-center justify-center rounded border-[.5px] border-stroke bg-grayFlat py-1.5 px-2.5 text-sm font-medium dark:border-strokedark dark:bg-white/30">
+                    <span className="m-1.5 flex items-center justify-center rounded border-[.5px] border-stroke bg-grayFlat py-1.5 px-2.5 text-sm font-medium dark:border-strokedark dark:bg-sp-body-bg/30">
                       Design
                       <span className="cursor-pointer pl-2 hover:text-danger">
                         <svg
@@ -296,7 +296,7 @@ const FormElements = () => {
                         </svg>
                       </span>
                     </span>
-                    <span className="m-1.5 flex items-center justify-center rounded border-[.5px] border-stroke bg-grayFlat py-1.5 px-2.5 text-sm font-medium dark:border-strokedark dark:bg-white/30">
+                    <span className="m-1.5 flex items-center justify-center rounded border-[.5px] border-stroke bg-grayFlat py-1.5 px-2.5 text-sm font-medium dark:border-strokedark dark:bg-sp-body-bg/30">
                       Development
                       <span className="cursor-pointer pl-2 hover:text-danger">
                         <svg

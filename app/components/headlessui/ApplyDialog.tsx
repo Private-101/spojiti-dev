@@ -16,11 +16,11 @@ export function ApplyButtonModal() {
         setIsOpen(true)
       };
     // fixed inset-0 flex items-center justify-center
-      // uppercase inline-block mt-8 text-sm bg-white py-2 px-4 rounded font-semibold hover:bg-indigo-100
+      // uppercase inline-block mt-8 text-sm bg-sp-body-bg py-2 px-4 rounded font-semibold hover:bg-indigo-100
       // fixed inset-0 flex items-center justify-center 
       return (
         <>
-          <div className="uppercase inline-block mt-8 text-lg bg-transparent hover:bg-white/20 text-white py-2 px-4 rounded font-semibold">
+          <div className="uppercase inline-block mt-8 text-lg bg-transparent hover:bg-sp-body-bg/20 text-white py-2 px-4 rounded font-semibold">
             <button
               type="button"
               onClick={openModal}
@@ -55,7 +55,7 @@ export function ApplyButtonModal() {
                     leaveFrom="opacity-100 scale-100"
                     leaveTo="opacity-0 scale-95"
                   >
-                    <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                    <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-sp-body-bg p-6 text-left align-middle shadow-xl transition-all">
                       <Dialog.Title
                         as="h3"
                         className="text-lg font-medium leading-6 text-gray-900"

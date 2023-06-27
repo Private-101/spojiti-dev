@@ -90,7 +90,7 @@ import type {
         <template x-for="post in posts">
            {/*<!-- Card Item -->*/}
             <div
-                className="my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1"
+                className="my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-sp-body-bg dark:bg-gray-800 duration-300 hover:-translate-y-1"
                 x-for="(post, index) in posts">
                 {/*<!-- Clickable Area -->*/}
                 <a href="link" className="cursor-pointer">

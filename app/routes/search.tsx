@@ -103,8 +103,8 @@ export default function TestSearchPage() {
                   'w-full rounded-lg py-2.5 text-lg font-normal leading-5 text-black',
                   'ring-white ring-opacity-60 ring-offset-1 ring-offset-black/20 focus:outline-none focus:ring-2',
                   selected
-                    ? 'bg-white/20 shadow'
-                    : 'text-white hover:bg-white/[0.12] hover:text-white'
+                    ? 'bg-sp-body-bg/20 shadow'
+                    : 'text-white hover:bg-sp-body-bg/[0.12] hover:text-white'
                 )
               }
             >
@@ -117,7 +117,7 @@ export default function TestSearchPage() {
             <Tab.Panel
               key={idx}
               className={classNames(
-                'rounded-xl bg-white p-3 border-2 border-sp-primary',
+                'rounded-xl bg-sp-body-bg p-3 border-2 border-sp-primary',
                 'ring-white ring-opacity-60 ring-offset-2 ring-offset-sp-primary/20 focus:outline-none focus:ring-2'
               )}
             >
@@ -188,25 +188,25 @@ export default function Example() {
 
 
 
-{/* <!-- section hero --> border-b-2 cursor-pointer text-center text-sm bg-white py-2/}
+{/* <!-- section hero --> border-b-2 cursor-pointer text-center text-sm bg-sp-body-bg py-2/}
 <section>
 <div className="bg-gray-100 sm:grid grid-cols-5 grid-rows-2 px-4 py-6 min-h-full lg:min-h-screen space-y-6 sm:space-y-0 sm:gap-4">
 
   <div className="h-full col-span-1">
-    <div className="bg-white py-3 px-4 rounded-lg flex justify-around items-center ">
+    <div className="bg-sp-body-bg py-3 px-4 rounded-lg flex justify-around items-center ">
       <input type="text" placeholder="seach" className=" bg-gray-100 rounded-md  outline-none pl-2 ring-indigo-700 w-full mr-2 p-2" />
       <span><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor ">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg></span>
     </div>
-    <div className="bg-white w-full rounded-md">
+    <div className="bg-sp-body-bg w-full rounded-md">
 
-      <h1 className="text-center text-md bg-white py-2 rounded-md text-gray-600">Categories:</h1>
-      <div className="bg-white border-t-2 rounded-md list-none text-center">
+      <h1 className="text-center text-md bg-sp-body-bg py-2 rounded-md text-gray-600">Categories:</h1>
+      <div className="bg-sp-body-bg border-t-2 rounded-md list-none text-center">
         <Form>
           <Listbox value={selectedCategory} by='id' onChange={setSelectedCategory}>
             <Listbox.Button>{selectedCategory.title}</Listbox.Button>
-            <div className="bg-white border-t-2 rounded-md list-none text-center">
+            <div className="bg-sp-body-bg border-t-2 rounded-md list-none text-center">
               <Listbox.Options id="categories">
                 {categories.map((cat) => (
                   /* Use the `active` state to conditionally style the active option. /
@@ -286,7 +286,7 @@ function JobSearchCard({ title, description, id, is_full_time, salary_range_min,
                   </div>
                 </div>
                 
-          {/*<a href={`/app/jobs/${id}`} className="uppercase inline-block mt-8 text-sm bg-white py-2 px-4 rounded font-semibold hover:bg-indigo-100">apply</a>/}
+          {/*<a href={`/app/jobs/${id}`} className="uppercase inline-block mt-8 text-sm bg-sp-body-bg py-2 px-4 rounded font-semibold hover:bg-indigo-100">apply</a>/}
         </div>
         
       </div>
@@ -347,7 +347,7 @@ function JobSearchCard({ title, description, id, is_full_time, salary_range_min,
           <h2 className="text-white font-bold text-2xl sm:text-4xl">{title}</h2>
           <p className="text-white mt-4 capitalize font-normal tracking-wider leading-7">{description}</p>
 
-          <a href={`/app/jobs/${id}`} className="uppercase inline-block mt-8 text-sm bg-white py-2 px-4 rounded font-semibold hover:bg-indigo-100">apply</a>
+          <a href={`/app/jobs/${id}`} className="uppercase inline-block mt-8 text-sm bg-sp-body-bg py-2 px-4 rounded font-semibold hover:bg-indigo-100">apply</a>
         </div>
 
       </div>
@@ -398,7 +398,7 @@ function JobSearchCard({ title, description, id, is_full_time, salary_range_min,
 
 /*
 <div className="absolute bottom-0 mb-3 flex justify-center">
-          <div className="flex space-x-5 overflow-hidden rounded-lg bg-white/70 px-4 py-1 shadow">
+          <div className="flex space-x-5 overflow-hidden rounded-lg bg-sp-body-bg/70 px-4 py-1 shadow">
             <p className="flex items-center font-medium text-gray-500">
               <svg className="mr-2 h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M480,226.15V80a48,48,0,0,0-48-48H80A48,48,0,0,0,32,80V226.15C13.74,231,0,246.89,0,266.67V472a8,8,0,0,0,8,8H24a8,8,0,0,0,8-8V416H480v56a8,8,0,0,0,8,8h16a8,8,0,0,0,8-8V266.67C512,246.89,498.26,231,480,226.15ZM64,192a32,32,0,0,1,32-32H208a32,32,0,0,1,32,32v32H64Zm384,32H272V192a32,32,0,0,1,32-32H416a32,32,0,0,1,32,32ZM80,64H432a16,16,0,0,1,16,16v56.9a63.27,63.27,0,0,0-32-8.9H304a63.9,63.9,0,0,0-48,21.71A63.9,63.9,0,0,0,208,128H96a63.27,63.27,0,0,0-32,8.9V80A16,16,0,0,1,80,64ZM32,384V266.67A10.69,10.69,0,0,1,42.67,256H469.33A10.69,10.69,0,0,1,480,266.67V384Z"></path></svg>
               3
@@ -424,7 +424,7 @@ function JobCard({ title, description, id }: Partial<JobPost>) {
           <h2 className="text-white font-bold text-2xl sm:text-4xl">{title}</h2>
           <p className="text-white mt-4 capitalize font-normal tracking-wider leading-7">{description}</p>
 
-          {/*<a href={`/app/jobs/${id}`} className="uppercase inline-block mt-8 text-sm bg-white py-2 px-4 rounded font-semibold hover:bg-indigo-100">apply</a>/}
+          {/*<a href={`/app/jobs/${id}`} className="uppercase inline-block mt-8 text-sm bg-sp-body-bg py-2 px-4 rounded font-semibold hover:bg-indigo-100">apply</a>/}
         </div>
         <JobDetailsModal />
       </div>
@@ -480,7 +480,7 @@ function tempLayout() {
           {/* <!-- ===== Content Area Start ===== --> /}
           <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
             {/* <!-- ===== Header Start ===== --> /}
-            <header className="bg-white py-12">
+            <header className="bg-sp-body-bg py-12">
               <div className="container mx-auto text-center">
                 <h2 className="text-4xl font-bold text-gray-800 mb-4">Find Good Jobs Here</h2>
                 {/* Additional content for the header /}
@@ -532,7 +532,7 @@ interface ListProps {
 
 function List(listItems: Partial<JobPost>[]) {
   /*
-   <div className="bg-white min-w-screen">
+   <div className="bg-sp-body-bg min-w-screen">
                 <div className="mx-auto min-w-screen max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
                   <h2 className="sr-only">Job Posts</h2>
 
@@ -551,7 +551,7 @@ function List(listItems: Partial<JobPost>[]) {
               /
   return (
     <>
-      <div className="bg-white">
+      <div className="bg-sp-body-bg">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
           <h2 className="sr-only">Job Posts</h2>
 

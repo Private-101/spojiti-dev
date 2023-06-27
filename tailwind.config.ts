@@ -52,7 +52,7 @@ We are also still ironing out some compatibility issues with certain build tools
     colors: {
       ...defaultColors,
       'sp-primary': '#F58321',
-      'sp-body-bg': '#FFFFFF',
+      'sp-body-bg': '#ffffff',
       'sp-accent': '#F49D50',
       'sp-body-text': '#58595B',
       'sp-grid-bg': '#F4F4F4',

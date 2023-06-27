@@ -18,7 +18,7 @@ export const SettingsOverlay = ({hidden, setHidden}: OverlayProps) => {
         // style="max-width: 100vw; z-index: 1080; inset: 0px; transition: background-color 0.15s ease-in 0s;"
       >
         <div
-          className="visible static mx-auto my-0 hidden h-full w-screen max-w-full overflow-auto bg-white p-0 leading-5 text-neutral-800 opacity-100 md:mb-24 md:block md:h-auto md:w-auto md:p-8"
+          className="visible static mx-auto my-0 hidden h-full w-screen max-w-full overflow-auto bg-sp-body-bg p-0 leading-5 text-neutral-800 opacity-100 md:mb-24 md:block md:h-auto md:w-auto md:p-8"
           tabIndex={-1}
           role="dialog"
           aria-modal="true"
@@ -35,7 +35,7 @@ export const SettingsOverlay = ({hidden, setHidden}: OverlayProps) => {
             Find the Perfect Match
           </div>
           <button
-            className="font-sans absolute mb-0 inline cursor-pointer select-none whitespace-nowrap bg-white bg-opacity-[0] p-0 text-center align-middle text-sm font-bold text-blue-600 hover:text-blue-800"
+            className="font-sans absolute mb-0 inline cursor-pointer select-none whitespace-nowrap bg-sp-body-bg bg-opacity-[0] p-0 text-center align-middle text-sm font-bold text-blue-600 hover:text-blue-800"
             aria-label="Close Modal"
             data-qa-id="modal-button-close"
             // role="button"
@@ -280,7 +280,7 @@ export const SettingsOverlay = ({hidden, setHidden}: OverlayProps) => {
                   // channel="ssr-search"
                   id="location-input-wizard-modal"
                   placeholder="Zip code or Address"
-                  className="block h-10 w-full overflow-ellipsis rounded border-2 border-solid border-gray-300 bg-white p-2 text-gray-900 focus-within:border-blue-600"
+                  className="block h-10 w-full overflow-ellipsis rounded border-2 border-solid border-gray-300 bg-sp-body-bg p-2 text-gray-900 focus-within:border-blue-600"
                   // haserror="false"
                   data-element="Wrapper"
                   data-component="AsInput"

@@ -6,7 +6,7 @@ import React from 'react';
 
 const Header: React.FC = () => {
   return (
-    <header className="bg-white py-12">
+    <header className="bg-sp-body-bg py-12">
       <div className="container mx-auto text-center">
         <h2 className="text-4xl font-bold text-gray-800 mb-4">Find Good Jobs Here</h2>
         {/* Additional content for the header */}

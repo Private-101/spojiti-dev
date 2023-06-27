@@ -16,7 +16,7 @@ const Star = () => (
 );
 
 const ReviewCard: React.FC<{ review: Review }> = ({review}) => (
-  <div className="p-4 bg-white shadow rounded-lg hover:shadow-lg transition-shadow duration-500 ease-in-out" role="article" aria-label={`Review by ${review.name}`}>
+  <div className="p-4 bg-sp-body-bg shadow rounded-lg hover:shadow-lg transition-shadow duration-500 ease-in-out" role="article" aria-label={`Review by ${review.name}`}>
     <div className="mt-2 text-gray-600">{review.description}</div>
     <div className="flex items-center">
       <img className="w-12 h-12 rounded-full mr-4 hover:scale-105 transition-transform duration-500 ease-in-out" src={review.avatarUrl} alt={review.name} />
@@ -52,9 +52,9 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({quote, imgUrl, name, jobT
 
     return (
     <>
-      <section className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:px-8">
+      <section className="relative isolate overflow-hidden bg-sp-body-bg px-6 py-24 sm:py-32 lg:px-8">
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-orange-600 to-gray-800 opacity-20" />
-        <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center" />
+        <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-sp-body-bg shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center" />
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
           <img className="mx-auto h-12" src="https://tailwindui.com/img/logos/workcation-logo-indigo-600.svg" alt="" />
           <figure className="mt-10">

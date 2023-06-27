@@ -53,9 +53,9 @@ export default function Navbar() {
                           to={item.href}
                           className={classNames(
                             item.current
-                              ? "bg-white bg-opacity-20 hover:text-black"
+                              ? "bg-sp-body-bg bg-opacity-20 hover:text-black"
                               : "bg-opacity-0 hover:bg-opacity-20",
-                            "text-md bg-white rounded-md px-3 py-2 font-medium text-white"
+                            "text-md bg-sp-body-bg rounded-md px-3 py-2 font-medium text-white"
                           )}
                         >
                           {item.name}
@@ -393,7 +393,7 @@ export default function Navbar() {
                                                     leaveFrom="transform opacity-100 scale-100"
                                                     leaveTo="transform opacity-0 scale-95"
                                                 >
-                                                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-sp-body-bg py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                                         {userNavigation.map((item) => (
                                                             <Menu.Item key={item.name}>
                                                                 {({ active }) => (
