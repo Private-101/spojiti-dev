@@ -6,7 +6,7 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-sp-body-bg dark:bg-sp-accent text-gray-800 rounded-md ring-2 ring-sp-accent dark:ring-black flex justify-between items-center scroll-smooth mx-4 my-4 px-12 py-12">
+    <footer className="bg-sp-body-bg dark:bg-sp-accent text-gray-800 rounded-md ring-2 ring-sp-accent dark:ring-black flex justify-between items-center scroll-smooth m-2 px-12 py-12 fixed bottom-0 left-0 right-0 md:sticky w-full ">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         <div className="flex space-x-4 mb-4 md:mb-0">
           <a href="#top" className="hover:text-gray-300">

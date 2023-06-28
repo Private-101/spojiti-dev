@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect, Fragment, useRef } from "react";
 import { Link } from '@remix-run/react';
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import {
   isRouteErrorResponse, useRouteError
 } from "@remix-run/react";
@@ -18,17 +18,21 @@ import type { FormattedCategory, FormattedJobPost } from "~/models/job.server";
 import type { JobMenuData } from '~/types';
 
 
-
+/*
 interface TestLoaderData {
   categories: Category[];
   jobs: JobPost[];
 }
+*/
 export const loader = async ({request}: LoaderArgs) => {
-  const searchParams = new URL(request.url).searchParams;
+  const url = new URL(request.url);
+  if (url.pathname !== '/search/jobs') return redirect('/search/jobs');
+  return json({});
+  /*const searchParams = new URL(request.url).searchParams;
   const selectedCategory = searchParams.has("category") ? searchParams.get("category") : '';
   const categories = await getAllCategories();
   const jobs = await getAllJobPostsByCategory(selectedCategory ?? categories[0].id);
-  return json<TestLoaderData>({categories, jobs})
+  return json<TestLoaderData>({categories, jobs})*/
 };
 
 // export const action = async ({request}: ActionArgs) => {}

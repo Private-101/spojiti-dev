@@ -6,7 +6,7 @@ import { ArrowUpCircleIcon } from '@heroicons/react/24/solid';
 
 const Footer = () => {
   const year = new Date().getFullYear();
-
+ 
   return (
     <footer className="bg-gray-100 text-gray-800 rounded-md ring-4 ring-gray-800 flex justify-between items-center scroll-smooth px-6 py-4 fixed bottom-0 left-0 right-0 md:sticky outline-2">
       <div className="text-lg">
