@@ -3,40 +3,51 @@
  */
 
 import React from 'react';
-
+import { Link } from '@remix-run/react';
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-sp-body-bg dark:bg-sp-accent text-gray-800 rounded-md ring-2 ring-sp-accent dark:ring-black flex justify-between items-center scroll-smooth m-2 px-12 py-12 fixed bottom-0 left-0 right-0 md:sticky w-full ">
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-        <div className="flex space-x-4 mb-4 md:mb-0">
-          <a href="#top" className="hover:text-gray-300">
+    <footer className="bg-sp-body-bg dark:bg-sp-accent text-gray-800 rounded-md ring-2 ring-sp-accent dark:ring-black flex justify-between items-center scroll-smooth m-2 px-12 py-12 fixed bottom-0 left-0 right-0 md:sticky w-full">
+      <div className="container mx-auto flex flex-row md:flex-col justify-between items-center">
+        {/*<div className="flex flex-col md:flex-row md:space-x-4 mb-0 md:mb-4">
+          <Link to="/home#top" className="hover:text-sp-primary">
             Facebook
-          </a>
-          <a href="#top" className="hover:text-gray-300">
+          </Link>
+          <Link to="/home#top" className="hover:text-sp-primary">
             Twitter
-          </a>
-          <a href="#top" className="hover:text-gray-300">
+          </Link>
+          <Link to="/home#top" className="hover:text-sp-primary">
             Instagram
-          </a>
-        </div>
-        <div className="flex space-x-4">
-          <a href="/" className="hover:text-gray-300">
+          </Link>
+  </div>*/}
+        <div className="flex flex-col md:flex-row md:space-x-4 mb-0 md:mb-4">
+          <Link to="/home#top" className="hover:text-sp-primary">
             Home
-          </a>
-          <a href="/about" className="hover:text-gray-300">
-            About
-          </a>
-          <a href="/pricing" className="hover:text-gray-300">
+          </Link>
+          <Link to="/home#features" className="hover:text-sp-primary">
+            Features
+          </Link>
+          <Link to="/home#pricing" className="hover:text-sp-primary">
             Pricing
-          </a>
-          <a href="/contact" className="hover:text-gray-300">
+          </Link>
+          <Link to="/home#contact-us" className="hover:text-sp-primary">
             Contact
-          </a>
+          </Link>
         </div>
+        <p className="mb-2 text-gray-400 text-sm text-center flex-grow w-full">© 2023 Spojiti. All rights reserved.</p>
       </div>
-      <div className="container mx-auto mt-4 text-gray-400 text-sm text-center">
-        <p className="mb-2">© 2023 Your Company. All rights reserved.</p>
-        <p>Terms of Service | Privacy Policy | Cookie Policy</p>
+      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center text-gray-400 text-lg text-center">
+        <Link to='/terms-of-service' className='hover:text-sp-primary'>
+        <p>Terms of Service</p>
+        </Link>
+        <span className='hidden md:inline-block'>|</span>
+        <Link to='/privacy-policy' className='hover:text-sp-primary'>
+        <p>Privacy Policy</p>
+        </Link>
+        <span className='hidden md:inline-block'>|</span>
+        <Link to='/cookie-policy' className='hover:text-sp-primary'>
+        <p>Cookie Policy</p>
+        </Link>
+        
       </div>
     </footer>
   );
