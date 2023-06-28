@@ -6,7 +6,7 @@ import React from 'react';
 import { Link } from '@remix-run/react';
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-sp-body-bg dark:bg-sp-accent text-gray-800 rounded-md ring-2 ring-sp-accent dark:ring-black flex justify-between items-center scroll-smooth m-2 px-12 py-12 fixed bottom-0 left-0 right-0 md:sticky w-full">
+    <footer className="bg-sp-body-bg dark:bg-sp-accent text-gray-800 rounded-md ring-2 ring-sp-accent dark:ring-black flex justify-between items-center scroll-smooth m-2 px-12 py-12 w-full">
       <div className="container mx-auto flex flex-row md:flex-col justify-between items-center">
         {/*<div className="flex flex-col md:flex-row md:space-x-4 mb-0 md:mb-4">
           <Link to="/home#top" className="hover:text-sp-primary">

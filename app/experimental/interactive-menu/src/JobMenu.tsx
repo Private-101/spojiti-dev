@@ -141,15 +141,15 @@ const JobMenu = (props: MenuProps) => {
         </fieldset>
         <p className="text-sm">*Note* Every time a new category is added to the database, it will be automatically updated here!</p>
       </section>
-      {checkedItems.map((item) => (
-        <>
+      {checkedItems.map((item, i) => (
+        <div className="min-h-screen" key={`${item}-${i}`}>
         {props.categories.filter((category) => category.id === item).map((cat) => (
           <>
           <p className="text-lg font-bold text-sp-body-text mb-2 max-w-fit border-b-2 border-sp-primary">{unslugify(cat.title)}</p>
           </>
         ))}
         <Items key={item} categoryId={item} />
-        </>
+        </div>
       ))}
       {props.children ? (
         <>
