@@ -5,7 +5,10 @@ import { slugify } from '~/utils';
 
 interface NavOptionProps {
     title: string;
-    items: string[];
+    items: {
+      title: string; 
+      url: string;
+    }[];
 };
 
 const NavOption: React.FC<NavOptionProps> = ({title, items}) => {
@@ -41,12 +44,12 @@ const NavOption: React.FC<NavOptionProps> = ({title, items}) => {
                         <Menu.Item key={i}>
                         {({ active }) => (
                           <a
-                            href={`/${slugify(item)}`}
+                            href={item.url}
                             className={`${
                               active ? 'bg-[#f58321] text-white' : 'bg-opacity-50 text-gray-700'
                             } flex justify-between px-4 py-2 text-md leading-5`}
                           >
-                            {item}
+                            {item.title}
                           </a>
                         )}
                       </Menu.Item>

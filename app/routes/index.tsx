@@ -38,7 +38,7 @@ export const meta: V2_MetaFunction = () => [{ title: "Spojiti Cover Page" }];
 
 export const loader = async ({ request }: LoaderArgs) => {
   console.log('Route: /index');
-  return redirect('/home');
+  return redirect('/home#top');
 };
 
 

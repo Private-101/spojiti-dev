@@ -5,7 +5,7 @@ import {
 } from "~/components/legacy/tailwindui/any/constants"; 
 import { classNames } from '~/utils';
 import { Fragment } from "react";
-import { Link, NavLink } from "@remix-run/react";
+import { Link, NavLink, useLocation } from "@remix-run/react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -14,6 +14,7 @@ import SpojitiLogoUrl from '~/components/common/assets/spojiti-logo.svg';
 // import { useRootLoaderData, type RootLoaderData, type UserProps } from '~/root';
 
 export default function Navbar() {
+  const { hash } = useLocation();
   // TODO: replace with types from db
   // const { user } = useRootLoaderData();
   return (
@@ -52,7 +53,8 @@ export default function Navbar() {
                           key={item.name}
                           to={item.href}
                           className={classNames(
-                            item.current
+                            // item.current
+                            hash === item.href
                               ? "bg-sp-body-bg bg-opacity-20 hover:text-black"
                               : "bg-opacity-0 hover:bg-opacity-20",
                             "text-md bg-sp-body-bg rounded-md px-3 py-2 font-medium text-white"

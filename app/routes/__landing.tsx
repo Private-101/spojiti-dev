@@ -83,11 +83,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-    <div className="">
-      <div className="">
       <CookiePopup />
-      </div>
-      </div>
       <Navbar />
       <main id="top" className="scroll-smooth">
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">

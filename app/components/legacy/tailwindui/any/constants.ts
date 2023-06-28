@@ -8,7 +8,7 @@ export const user = {
   };
   
   export const navigation = [
-    { name: "Help", href: "#top", current: true },
+    { name: "Top", href: "#top", current: true },
     { name: "Features", href: "#features", current: false },
     { name: "Pricing", href: "#pricing", current: false },
     { name: "Contact Us", href: "#contact-us", current: false },
@@ -23,8 +23,8 @@ export const user = {
   ];
   
   export const dropdownItems = {
-    Candidates: ["Find Job", "Post Resume", "Company Listings"],
-    Employers: ["Find Candidates", "Post Job", "Pricing"],
+    Candidates: [{title: "Find Jobs", url: '/search/jobs'}, {title: "Post Resume", url: '/login?redirectTo=post-resume'}, {title: "Company Listings", url: '/search/restaurants'}],
+    Employers: [{title: "Find Candidates", url: '/search/candidates'}, {title: "Post Job", url: '/login?redirectTo=post-job'}, {title: "Pricing", url: '/home#pricing'}],
   };
 
 
