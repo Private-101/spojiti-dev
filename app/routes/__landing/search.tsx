@@ -44,6 +44,10 @@ import Select, { SelectInstance } from 'react-select';
 import AsyncSelect from 'react-select/async';
 import CreatableSelect from 'react-select/creatable';
 import makeAnimated from 'react-select/animated';
+import type { FormattedCategory, FormattedJobPost } from "~/models/job.server";
+import type { JobMenuData } from '~/types';
+
+
 
 interface TestLoaderData {
   categories: Category[];
@@ -59,45 +63,8 @@ export const loader = async ({request}: LoaderArgs) => {
 
 // export const action = async ({request}: ActionArgs) => {}
 
- export const links: LinksFunction = () => [
-  //{ rel: "stylesheet", href: HomeStylesUrl },
-  //{ rel: "stylesheet", href: GlobaltylesUrl },
-  //{ rel: "stylesheet", href: CheckboxStylesUrl },
-]; 
-
-interface MenuOption {
-  [key: string]: string
-    // value: string;
-    // label: string;
-};
-
 // const animatedComponents = makeAnimated();
-interface FormattedCategory {
-  id: string;
-    createdAt: string;
-    updatedAt: string;
-    title: string;
-    description: string | null;
-}
-interface FormattedJobPost {
-  id: string;
-      createdAt: string;
-      updatedAt: string;
-      title: string;
-      description: string;
-      is_full_time: boolean;
-      start_date: string;
-      end_date: string | null;
-      responsibilities: string | null;
-      requirements: string | null;
-      salary_range_min: number;
-      salary_range_max: number;
-      userId: string;
-}
-interface JobMenuData {
-  categories: Category[];
-  jobs: JobPost[];
-}
+
 export default function TestLayoutPage() {
   const fetcher = useFetcher<JobMenuData>();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -434,6 +401,7 @@ const categories: {
     </>
   );
 };
+
 
 export function ErrorBoundary() {
   const error = useRouteError();

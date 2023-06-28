@@ -1,7 +1,3 @@
-import type { ActionArgs } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
-
-import { logout } from "~/services/session.server";
 import {
     isRouteErrorResponse,
     useRouteError,
@@ -32,6 +28,3 @@ import {
       return <h1>Unknown Error</h1>;
     }
   }
-export const action = async ({ request }: ActionArgs) => logout(request);
-
-export const loader = async () => redirect("/");

@@ -80,7 +80,8 @@ interface FormattedCategory {
 interface MenuProps {
   id: string;
   categories: FormattedCategory[];
-  jobs?: FormattedJobPost[];
+  jobs: FormattedJobPost[];
+  children?: JSX.Element
   // children: JSX.Element;
   // category: MenuOption | null;
   // jobs: JSX.Element[];
@@ -143,6 +144,11 @@ const JobMenu = (props: MenuProps) => {
       {checkedItems.map((item) => (
         <Items key={item} categoryId={item} />
       ))}
+      {props.children ? (
+        <>
+        {props.children}
+        </>
+      ): null}
     </section>
   );
 };
