@@ -33,7 +33,7 @@ export const loader = async ({request}: LoaderArgs) => {
 
 // export const action = async ({request}: ActionArgs) => {}
 
-export default function TestLayoutPage() {
+export default function SearchLayoutPage() {
   const fetcher = useFetcher<JobMenuData>();
   const [jobs, setJobs] = useState<FormattedJobPost[]>([]);
   const [categories, setCategories] = useState<FormattedCategory[]>([]);
@@ -58,14 +58,17 @@ export default function TestLayoutPage() {
       {/* <!-- ===== Page Wrapper Start ===== --> */}
     <div className='flex flex-col min-h-screen font-sans bg-sp-body-bg dark:bg-gray-800'>
    {/* <Header />*/}
-      <main className='grow'>
+      <main className='grow mt-12'>
         {/** <!-- ===== Main Section Starts ===== --> */}
         <div className='flex flex-1 flex-col justify-center items-center pb-4'>
-      <p>Are you a restaurant looking to hire? Click here to search candidates</p>
-      <Link to='/test/search/candidates'>
-        Search Candidates
+      <p className="font-bold text-lg">Are you a restaurant looking to hire?</p>
+      <Link to='/candidates' className="mb-4 mt-2 p-2 rounded-md font-semibold text-sm transition-all text-sp-primary hover:text-black border-2 border-solid border-black hover:border-sp-primary hover:cursor-pointer hover:shadow-md">
+      <p className=''>
+        Click Here to Search Candidates
+      </p>
       </Link>
       <JobMenu
+      // key={`menu-items-${Math.random() * 999}`}
         id={`menu-items`}
         jobs={jobs}
         categories={categories}
@@ -73,7 +76,6 @@ export default function TestLayoutPage() {
     </div>
         {/** <!-- ===== Main Section Ends ===== --> */}
       </main>
-      <Footer />
     </div>
       {/* <!-- ===== Page Wrapper End ===== --> */}
 

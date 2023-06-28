@@ -134,7 +134,7 @@ export const Items = ({ search, filter, menuOption, categoryId }: Props) => {
       
       {menuData.length > 0 ? menuData.map((job) => (
           <>
-          <div className="flex">
+          <div key={job.id + '-key'} className="flex">
           <Item key={job.id} {...job} />
           </div>
           </>
