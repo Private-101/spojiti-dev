@@ -5,14 +5,17 @@ import { slugify } from '~/utils';
 
 interface NavOptionProps {
     title: string;
-    items: string[];
+    items: {
+      title: string; 
+      url: string;
+    }[];
 };
 
 const NavOption: React.FC<NavOptionProps> = ({title, items}) => {
   return (
     <nav>
       {/* Navbar content */}
-      <Menu as="button" className="relative inline-block text-left">
+      <Menu as="div" className="relative inline-block text-left">
         {({ open }) => (
           <>
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black bg-opacity-0 px-4 py-2 text-md font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
@@ -34,19 +37,19 @@ const NavOption: React.FC<NavOptionProps> = ({title, items}) => {
             >
               <Menu.Items
                 static
-                className="absolute right-0 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg outline-none"
+                className="absolute right-0 mt-2 origin-top-right bg-sp-body-bg divide-y divide-gray-100 rounded-md shadow-lg outline-none"
               >
                 <div className="px-1 py-1">
                     {items.map((item, i) => (
                         <Menu.Item key={i}>
                         {({ active }) => (
                           <a
-                            href={`/${slugify(item)}`}
+                            href={item.url}
                             className={`${
                               active ? 'bg-[#f58321] text-white' : 'bg-opacity-50 text-gray-700'
                             } flex justify-between px-4 py-2 text-md leading-5`}
                           >
-                            {item}
+                            {item.title}
                           </a>
                         )}
                       </Menu.Item>

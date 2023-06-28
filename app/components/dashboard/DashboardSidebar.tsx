@@ -2,6 +2,7 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import Logo from '~/components/common/assets/spojiti-logo.svg';
 import SidebarLinkGroup from '~/components/dashboard/SidebarLinkGroup';
+import useLocalStorage from '~/hooks/useLocalStorage';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -14,11 +15,12 @@ export default function DashboardSidebar({ sidebarOpen, setSidebarOpen }: Sideba
 
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
-
-  const storedSidebarExpanded = localStorage.getItem('sidebar-expanded');
-  const [sidebarExpanded, setSidebarExpanded] = useState(
-    storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true'
-  );
+  
+  // const [sidebarExpanded, setSidebarExpanded] = useLocalStorage('sidebar-expanded', false);
+  // const storedSidebarExpanded = window.localStorage.getItem('sidebar-expanded');
+  // const [sidebarExpanded, setSidebarExpanded] = useState(
+    // storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true'
+  // );
 
   // close on click outside
   useEffect(() => {
@@ -37,23 +39,23 @@ export default function DashboardSidebar({ sidebarOpen, setSidebarOpen }: Sideba
   });
 
   // close if the esc key is pressed
-  useEffect(() => {
+  /* useEffect(() => {
     const keyHandler = ({ keyCode }: KeyboardEvent) => {
       if (!sidebarOpen || keyCode !== 27) return;
       setSidebarOpen(false);
     };
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
-  });
+  }); */
 
-  useEffect(() => {
-    localStorage.setItem('sidebar-expanded', sidebarExpanded.toString());
+  /* useEffect(() => {
+    // window.localStorage.setItem('sidebar-expanded', sidebarExpanded.toString());
     if (sidebarExpanded) {
       document.querySelector('body')?.classList.add('sidebar-expanded');
     } else {
       document.querySelector('body')?.classList.remove('sidebar-expanded');
     }
-  }, [sidebarExpanded]);
+  }, [sidebarExpanded]); */
 
   return (
     <aside
@@ -65,7 +67,7 @@ export default function DashboardSidebar({ sidebarOpen, setSidebarOpen }: Sideba
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <NavLink to="/">
-          <img src={Logo} alt="Logo" />
+          <img src={Logo} alt="Logo" width={64} height={64} />
         </NavLink>
 
         <button
@@ -120,9 +122,9 @@ export default function DashboardSidebar({ sidebarOpen, setSidebarOpen }: Sideba
                         }`}
                         onClick={(e) => {
                           e.preventDefault();
-                          sidebarExpanded
+                          sidebarOpen
                             ? handleClick()
-                            : setSidebarExpanded(true);
+                            : setSidebarOpen(true);
                         }}
                       >
                         <svg
@@ -271,9 +273,9 @@ export default function DashboardSidebar({ sidebarOpen, setSidebarOpen }: Sideba
                         }`}
                         onClick={(e) => {
                           e.preventDefault();
-                          sidebarExpanded
+                          sidebarOpen
                             ? handleClick()
-                            : setSidebarExpanded(true);
+                            : setSidebarOpen(true);
                         }}
                       >
                         <svg
@@ -509,9 +511,9 @@ export default function DashboardSidebar({ sidebarOpen, setSidebarOpen }: Sideba
                         }`}
                         onClick={(e) => {
                           e.preventDefault();
-                          sidebarExpanded
+                          sidebarOpen
                             ? handleClick()
-                            : setSidebarExpanded(true);
+                            : setSidebarOpen(true);
                         }}
                       >
                         <svg
@@ -621,9 +623,9 @@ export default function DashboardSidebar({ sidebarOpen, setSidebarOpen }: Sideba
                         }`}
                         onClick={(e) => {
                           e.preventDefault();
-                          sidebarExpanded
+                          sidebarOpen
                             ? handleClick()
-                            : setSidebarExpanded(true);
+                            : setSidebarOpen(true);
                         }}
                       >
                         <svg

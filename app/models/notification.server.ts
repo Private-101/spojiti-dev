@@ -1,6 +1,6 @@
 import type { Notification, User } from "@prisma/client";
 
-import { prisma } from "~/db.server";
+import { prisma } from "~/services/db.server";
 import { getUserById, updateUserById } from '~/models/user.server';
 
 export type { Notification } from "@prisma/client";

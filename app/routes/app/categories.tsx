@@ -3,7 +3,7 @@ import { json } from "@remix-run/node";
 import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
 
 import { getNoteListItems } from "~/models/note.server";
-import { requireUserId } from "~/session.server";
+import { requireUserId } from "~/services/session.server";
 import { useUser } from "~/utils";
 
 export const loader = async ({ request }: LoaderArgs) => {
@@ -33,7 +33,7 @@ export default function NotesPage() {
         </Form>
       </header>
 
-      <main className="flex h-full bg-white">
+      <main className="flex h-full bg-sp-body-bg">
         <div className="h-full w-80 border-r bg-gray-50">
           <Link to="new" className="block p-4 text-xl text-blue-500">
             + New Note
@@ -49,7 +49,7 @@ export default function NotesPage() {
                 <li key={note.id}>
                   <NavLink
                     className={({ isActive }) =>
-                      `block border-b p-4 text-xl ${isActive ? "bg-white" : ""}`
+                      `block border-b p-4 text-xl ${isActive ? "bg-sp-body-bg" : ""}`
                     }
                     to={note.id}
                   >

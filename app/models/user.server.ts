@@ -1,8 +1,27 @@
 import type { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
-import { prisma } from "~/db.server";
+import { prisma } from "~/services/db.server";
 import { matchSorter } from "match-sorter";
+/*
+type User = {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    email: string;
+    password_hash: string;
+    role: string;
+    avatarUrl: string | null;
+    notificationsCount: number;
+    firstName: string | null;
+    lastName: string | null;
+    streetAddress: string | null;
+    unit: string | null;
+    city: string | null;
+    state: string | null;
+    zipCode: string | null;
+}
+    */
 
 /**
  * This is just matching a hard-coded list of values, but often you'd be
@@ -11,6 +30,7 @@ import { matchSorter } from "match-sorter";
  * you:
  * https://www.prisma.io/docs/concepts/components/prisma-client/full-text-search
  */
+/*
 export async function searchLangs(query: string) {
   // artificially slowed down and chaotic where some requests start earlier but
   // land later, this is a condition many apps don't consider but Remix handles
@@ -19,6 +39,7 @@ export async function searchLangs(query: string) {
   await new Promise((res) => setTimeout(res, Math.random() * 1000));
   return matchSorter(langs, query, { keys: ["alpha2", "name"] });
 }
+*/
 export type { User } from "@prisma/client";
 
 export async function updateUserById(id: User["id"], updates: Partial<User>) {

@@ -46,8 +46,8 @@ const Header: React.FC<HeaderProps> = ({context}) => {
             <h2 className="mb-10 text-2xl font-semibold text-white">
               Search Employers
             </h2>
-            <button className="cursor-pointer rounded-md bg-white ml-4 px-8 py-2 text-xl outline-2 outline-double outline-sp-primary hover:outline-white text-sp-primary hover:bg-sp-primary hover:text-white scale-125 hover:scale-150 transition-all duration-200">
-              <Link to='/search/employers'>
+            <button className="cursor-pointer rounded-md bg-sp-body-bg ml-4 px-8 py-2 text-xl outline-2 outline-double outline-sp-primary hover:outline-white text-sp-primary hover:bg-sp-primary hover:text-white scale-125 hover:scale-150 transition-all duration-200">
+              <Link to='/search/jobs'>
                 Meet
               </Link>
             </button>
@@ -58,8 +58,8 @@ const Header: React.FC<HeaderProps> = ({context}) => {
             <h2 className="mb-10 text-2xl font-semibold text-white">
               Search Candidates
             </h2>
-            <button className="cursor-pointer rounded-md bg-white ml-4 px-8 py-2 text-xl outline-2 outline-double outline-sp-primary hover:outline-white text-sp-primary hover:bg-sp-primary hover:text-white scale-125 hover:scale-150 transition-all duration-200">
-            <Link to='/search/clients'>
+            <button className="cursor-pointer rounded-md bg-sp-body-bg ml-4 px-8 py-2 text-xl outline-2 outline-double outline-sp-primary hover:outline-white text-sp-primary hover:bg-sp-primary hover:text-white scale-125 hover:scale-150 transition-all duration-200">
+            <Link to='/search/candidates'>
                 Meet
               </Link>
             </button>

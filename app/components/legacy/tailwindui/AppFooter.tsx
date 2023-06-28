@@ -6,7 +6,7 @@ import { ArrowUpCircleIcon } from '@heroicons/react/24/solid';
 
 const Footer = () => {
   const year = new Date().getFullYear();
-
+ 
   return (
     <footer className="bg-gray-100 text-gray-800 rounded-md ring-4 ring-gray-800 flex justify-between items-center scroll-smooth px-6 py-4 fixed bottom-0 left-0 right-0 md:sticky outline-2">
       <div className="text-lg">
@@ -18,15 +18,15 @@ const Footer = () => {
         </Link>
       </div>
       <div className="flex space-x-4">
-        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-          <SocialIcon network='facebook' className="h-6 w-6 fill-current hover:scale-110 transition-all duration-200 hover:text-white" label="Facebook" />
-        </a>
-        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-          <SocialIcon network='instagram' className="h-6 w-6fill-current hover:scale-110 transition-all duration-200 hover:text-white" label="Instagram" />
-        </a>
-        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-          <SocialIcon network='linkedin' className="h-6 w-6fill-current hover:scale-110 transition-all duration-200 hover:text-white" label="LinkedIn" />
-        </a>
+        <div aria-label="Facebook">
+          <SocialIcon network='facebook' url='https://facebook.com' className="h-6 w-6 fill-current hover:scale-110 transition-all duration-200 hover:text-white" label="Facebook" />
+        </div>
+        <div aria-label="Instagram">
+          <SocialIcon network='instagram' url='https://www.instagram.com' className="h-6 w-6fill-current hover:scale-110 transition-all duration-200 hover:text-white" label="Instagram" />
+        </div>
+        <div aria-label="LinkedIn">
+          <SocialIcon network='linkedin' url='https://www.linkedin.com' className="h-6 w-6fill-current hover:scale-110 transition-all duration-200 hover:text-white" label="LinkedIn" />
+        </div>
       </div>
     </footer>
   );

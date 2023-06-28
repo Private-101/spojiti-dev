@@ -14,7 +14,7 @@ export const Navbar = () => {
         role="navigation"
         data-element="HorizontalWrapper"
         data-source-file="HorizontalLayout.tsx"
-        className="container flex flex-shrink-0 flex-row items-start justify-start border-b border-solid border-gray-300 bg-white leading-5 md:relative md:text-gray-500"
+        className="container flex flex-shrink-0 flex-row items-start justify-start border-b border-solid border-gray-300 bg-sp-body-bg leading-5 md:relative md:text-gray-500"
         data-component="HorizontalLayout"
         // style="flex-flow: row wrap; z-index: 1;" //  border-4 border-solid border-red-300
       >
@@ -99,7 +99,7 @@ export const Navbar = () => {
                 // region="US"
                 id="element-id-0"
                 placeholder="Zip code or Address"
-                className="block h-8 w-48 overflow-ellipsis rounded border-2 border-solid border-gray-300 bg-white py-1 pl-2 pr-10 text-xs text-gray-900 focus-within:border-blue-600"
+                className="block h-8 w-48 overflow-ellipsis rounded border-2 border-solid border-gray-300 bg-sp-body-bg py-1 pl-2 pr-10 text-xs text-gray-900 focus-within:border-blue-600"
                 // haserror="false"
                 data-element="Wrapper"
                 data-component="AsInput"
@@ -142,7 +142,7 @@ export const Navbar = () => {
               data-component="HorizontalLayout"
             >
                 <span
-                className="mb-0 flex flex-shrink-0 flex-grow cursor-pointer select-none items-center whitespace-nowrap border-gray-300 bg-white p-2 text-center align-middle text-sm font-normal text-gray-800 focus-within:text-gray-900 hover:bg-gray-100 hover:text-gray-900"
+                className="mb-0 flex flex-shrink-0 flex-grow cursor-pointer select-none items-center whitespace-nowrap border-gray-300 bg-sp-body-bg p-2 text-center align-middle text-sm font-normal text-gray-800 focus-within:text-gray-900 hover:bg-gray-100 hover:text-gray-900"
                 tabIndex={-1}
                 // type="button"
                 data-element="StyledButton"
@@ -167,7 +167,7 @@ export const Navbar = () => {
                 Become a Sitter
               </span>
               <button
-                className="mb-0 flex flex-shrink-0 flex-grow cursor-pointer select-none items-center whitespace-nowrap border-gray-300 bg-white p-2 text-center align-middle text-sm font-normal text-gray-800 focus-within:text-gray-900 hover:bg-gray-100 hover:text-gray-900"
+                className="mb-0 flex flex-shrink-0 flex-grow cursor-pointer select-none items-center whitespace-nowrap border-gray-300 bg-sp-body-bg p-2 text-center align-middle text-sm font-normal text-gray-800 focus-within:text-gray-900 hover:bg-gray-100 hover:text-gray-900"
                 aria-expanded="true"
                 id="navabarDropdown-button"
                 type="button"
@@ -212,7 +212,7 @@ data-id='middle-toe'
                 className="cursor-pointer leading-5 text-blue-600 no-underline focus-within:text-blue-800 focus-within:no-underline hover:text-blue-800 hover:no-underline"
               >
                 <span
-                  className="mb-0 flex flex-shrink-0 flex-grow cursor-pointer select-none items-center whitespace-nowrap border-gray-300 bg-white p-2 text-center align-middle text-sm font-normal text-gray-800 focus-within:text-gray-900 hover:bg-gray-100 hover:text-gray-900"
+                  className="mb-0 flex flex-shrink-0 flex-grow cursor-pointer select-none items-center whitespace-nowrap border-gray-300 bg-sp-body-bg p-2 text-center align-middle text-sm font-normal text-gray-800 focus-within:text-gray-900 hover:bg-gray-100 hover:text-gray-900"
                   tabIndex={-1}
                   // type="button"
                   data-element="StyledButton"
@@ -229,7 +229,7 @@ data-id='middle-toe'
                 className="cursor-pointer leading-5 text-blue-600 no-underline focus-within:text-blue-800 focus-within:no-underline hover:text-blue-800 hover:no-underline"
               >
                 <span
-                  className="mb-0 flex flex-shrink-0 flex-grow cursor-pointer select-none items-center whitespace-nowrap border-gray-300 bg-white p-2 text-center align-middle text-sm font-normal text-gray-800 focus-within:text-gray-900 hover:bg-gray-100 hover:text-gray-900"
+                  className="mb-0 flex flex-shrink-0 flex-grow cursor-pointer select-none items-center whitespace-nowrap border-gray-300 bg-sp-body-bg p-2 text-center align-middle text-sm font-normal text-gray-800 focus-within:text-gray-900 hover:bg-gray-100 hover:text-gray-900"
                   tabIndex={-1}
                   // type="button"
                   data-element="StyledButton"
@@ -246,7 +246,7 @@ data-id='middle-toe'
                 className="cursor-pointer leading-5 text-blue-600 no-underline focus-within:text-blue-800 focus-within:no-underline hover:text-blue-800 hover:no-underline"
               >
                 <span
-                  className="mb-0 flex flex-shrink-0 flex-grow cursor-pointer select-none items-center whitespace-nowrap border-gray-300 bg-white p-2 text-center align-middle text-sm font-normal text-gray-800 focus-within:text-gray-900 hover:bg-gray-100 hover:text-gray-900"
+                  className="mb-0 flex flex-shrink-0 flex-grow cursor-pointer select-none items-center whitespace-nowrap border-gray-300 bg-sp-body-bg p-2 text-center align-middle text-sm font-normal text-gray-800 focus-within:text-gray-900 hover:bg-gray-100 hover:text-gray-900"
                   data-element="StyledButton"
                   data-source-file="Button.tsx"
                   tabIndex={-1}

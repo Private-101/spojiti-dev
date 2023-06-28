@@ -1,0 +1,13 @@
+{
+	"impm": {
+		"prefix": "impm",
+		"description": "impm",
+		"scope": "typescriptreact",
+		"body": [
+			"import type { JobPost } from '~/models/job.server';",
+			"import type { Category } from \"~/models/category.server\";",
+			"import { getAllCategories } from '~/models/category.server';",
+			"import { getAllJobPosts, getAllJobPostsByCategory } from '~/models/job.server';"
+		]
+	}
+}

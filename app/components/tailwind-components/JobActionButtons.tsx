@@ -7,8 +7,8 @@ import { Listbox, Transition, Dialog } from "@headlessui/react";
 import { Form, useFetcher, useSearchParams, useLoaderData } from "@remix-run/react";
 
 interface ActionButtonProps {
-  onClickApply: (ev: React.MouseEvent) => void;
-  onClickDetails: (ev: React.MouseEvent) => void;
+  onClickApply?: (ev: React.MouseEvent) => void;
+  onClickDetails?: (ev: React.MouseEvent) => void;
   classes?: string;
 }
 export const JobActionButtons = ({ onClickApply, onClickDetails, classes }: ActionButtonProps) => {
@@ -68,16 +68,18 @@ export const JobActionButtons = ({ onClickApply, onClickDetails, classes }: Acti
                     leaveFrom="opacity-100 scale-100"
                     leaveTo="opacity-0 scale-95"
                   >
-                    <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                    <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-sp-body-bg p-6 text-left align-middle shadow-xl transition-all">
                       <Dialog.Title
                         as="h3"
                         className="text-lg font-medium leading-6 text-gray-900"
                       >
-                        Applied Successfully!
+                        {/*Applied Successfully!*/}
+                        Unsuccessful!
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          Your application has been successfully submitted. We'll notify you when you get a response..
+                          {/*Your application has been successfully submitted. We'll notify you when you get a response..*/}
+                          You must be logged in to apply...
                         </p>
                       </div>
     

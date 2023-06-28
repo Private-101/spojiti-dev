@@ -1,14 +1,68 @@
-import { type ReactNode, useState } from 'react';
+import type { ReactNode } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import { NavLink, useLocation } from '@remix-run/react';
+
 import DashboardHeader from '~/components/dashboard/DashboardHeader';
 import DashboardSidebar from '~/components/dashboard/DashboardSidebar';
+import Logo from '~/components/common/assets/spojiti-logo.svg';
+// import useLocalStorage from '~/hooks/useLocalStorage';
 
-interface DefaultLayoutProps {
+interface DashboardLayoutProps {
   children: ReactNode;
 }
 
-const DefaultLayout = ({ children }: DefaultLayoutProps) => {
+const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  // const [sidebarExpanded, setSidebarExpanded] = useLocalStorage('sidebar-expanded', false);
+  const location = useLocation();
+  const { pathname } = location;
+  const sidebarRef = useRef<JSX.IntrinsicElements['aside']>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
+  useEffect(() => {
+    // window.localStorage.setItem('sidebar-expanded', sidebarExpanded.toString());
+    if (sidebarOpen) {
+      document.querySelector('body')?.classList.add('sidebar-expanded');
+    } else {
+      document.querySelector('body')?.classList.remove('sidebar-expanded');
+    }
+  }, [sidebarOpen]);
+
+  // TODO: make this work, fix errors
+  // close on click outside
+  /* useEffect(() => {
+    const clickHandler = ({ currentTarget }: MouseEvent) => {
+      if (!sidebarRef.current || !triggerRef.current) return;
+      if (
+        !sidebarExpanded ||
+        sidebarRef.current.contains(target) ||
+        triggerRef.current.contains(target)
+      )
+        return;
+      setSidebarExpanded(false);
+    };
+    document.addEventListener('click', clickHandler);
+    return () => document.removeEventListener('click', clickHandler);
+  }); */
+
+  // close if the esc key is pressed
+  useEffect(() => {
+    const keyHandler = ({ key }: KeyboardEvent) => {
+      // key: "Esc" is for Firefox browsers v 39 and earlier
+      if (sidebarOpen && key === "Escape" || sidebarOpen && key === "Esc") {
+        setSidebarOpen(false);
+      }
+      return;
+    };
+    document.addEventListener('keydown', keyHandler);
+    return () => document.removeEventListener('keydown', keyHandler);
+  });
+
+  /* useEffect(() => {
+    if (sidebarRef.current && sidebarExpanded) {
+      sidebarRef.current.focus();
+    }
+  }, []); */
   return (
     <div className="dark:bg-boxdark-2 dark:text-bodydark">
       {/* <!-- ===== Page Wrapper Start ===== --> */}
@@ -38,4 +92,4 @@ const DefaultLayout = ({ children }: DefaultLayoutProps) => {
   );
 };
 
-export default DefaultLayout;
+export default DashboardLayout;

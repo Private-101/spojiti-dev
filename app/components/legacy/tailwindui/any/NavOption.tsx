@@ -34,7 +34,7 @@ const NavOption: React.FC<NavOptionProps> = ({title, items}) => {
             >
               <Menu.Items
                 static
-                className="absolute right-0 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg outline-none"
+                className="absolute right-0 mt-2 origin-top-right bg-sp-body-bg divide-y divide-gray-100 rounded-md shadow-lg outline-none"
               >
                 <div className="px-1 py-1">
                     {items.map((item, i) => (

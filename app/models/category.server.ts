@@ -1,6 +1,6 @@
 import { matchSorter } from "match-sorter";
 import type { Category } from "@prisma/client";
-import { prisma } from "~/db.server";
+import { prisma } from "~/services/db.server";
 // TODO: include strict validation to ensure only clients can make applications and employers can make job posts
 // import { getUserById, updateUserById } from '~/models/user.server';
 
@@ -75,4 +75,10 @@ export async function deleteCategory(id: Category["id"]) {
 
   export async function getAllCategoriesWithJobs() {
     return prisma.category.findMany({include: {jobs: true}});
+  }
+
+
+  export async function filterCategories(by: 'createdAt' | 'updatedAt' | 'title') {
+    const categories = await getAllCategories();
+    
   }

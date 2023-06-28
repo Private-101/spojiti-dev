@@ -20,8 +20,8 @@ async function main() {
   );
 
   // Create Admin User
-  const randomNumber = faker.number.int({min: 100, max: 10000});
-  const adminEmail = `admin${randomNumber}@example.com`;
+  // const randomNumber = faker.number.int({min: 100, max: 10000});
+  const adminEmail = `spojiti-admin@example.com`;
   const adminPassword = 'admin';
   const hashedPassword = await hash(adminPassword, 10);
   const adminUser = await prisma.user.create({
@@ -100,7 +100,7 @@ async function main() {
           jobPosts: {
             create: Array.from({ length: employerJobPostCount }).map(() => ({
               title: faker.person.jobTitle(),
-              description: faker.person.jobDescriptor(),
+              description: faker.company.buzzPhrase(),
               is_full_time: faker.datatype.boolean(),
               start_date: faker.date.soon(),
               end_date: faker.date.future(),

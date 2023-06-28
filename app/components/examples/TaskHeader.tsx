@@ -37,7 +37,7 @@ const TaskHeader = () => {
   });
 
   return (
-    <div className="flex flex-col gap-y-4 rounded-sm border border-stroke bg-white p-3 shadow-default dark:border-strokedark dark:bg-boxdark sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-y-4 rounded-sm border border-stroke bg-sp-body-bg p-3 shadow-default dark:border-strokedark dark:bg-boxdark sm:flex-row sm:items-center sm:justify-between">
       <div>
         <h3 className="pl-2 text-title-lg font-semibold text-black dark:text-white">
           Tasks
@@ -57,7 +57,7 @@ const TaskHeader = () => {
           <button className="h-9 w-9 rounded-full border-2 border-white dark:border-boxdark">
             <img src={userTen} alt="User" />
           </button>
-          <button className="flex h-9 w-9 items-center justify-center rounded-full border border-stroke bg-white text-primary dark:border-strokedark dark:bg-[#4f5e77] dark:text-white">
+          <button className="flex h-9 w-9 items-center justify-center rounded-full border border-stroke bg-sp-body-bg text-primary dark:border-strokedark dark:bg-[#4f5e77] dark:text-white">
             <svg
               className="fill-current"
               width="16"

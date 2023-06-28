@@ -1,0 +1,119 @@
+[
+    {
+      "title": "Temaki com Cream Cheese",
+      "description": "Nori (Alga Japonesa), Shari (Arroz Para Sushi), Recheado com Salmão, Cream Cheese e Cebolinha.",
+      "photo": "/assets/img/plates/temaki_creamCreamCheese.jpg",
+      "size": 400,
+      "serving": 2,
+      "price": 73.50,
+      "id": 1,
+      "category": {
+        "id": 1,
+        "label": "Temakis"
+      }
+    },
+    {
+      "title": "Temaki Califórnia ",
+      "description": "Nori (Alga Japonesa), Shari (Arroz Para Sushi), Recheado com Manga, Pepino e Kani-Kama.",
+      "photo": "/assets/img/plates/temaki-california.jpg",
+      "size": 400,
+      "serving": 2,
+      "price": 54.0,
+      "id": 2,
+      "category": {
+        "id": 1,
+        "label": "Temakis"
+      }
+    },
+    {
+      "title": "Temaki Salmão Grelhado ",
+      "description": "Nori (Alga Japonesa), Shari (Arroz Para Sushi), Recheado com Salmão Grelhado.",
+      "photo": "/assets/img/plates/temaki-kony-sushi-bar.jpg",
+      "size": 350,
+      "serving": 1,
+      "price": 58.0,
+      "id": 3,
+      "category": {
+        "id": 1,
+        "label": "Temakis"
+      }
+    },
+    {
+      "title": "Shimeji na Manteiga",
+      "description": "Cogumelo Branco com Shoyu e Cebolinha",
+      "photo": "/assets/img/plates/shimeji-na-manteiga.jpg",
+      "size": 450,
+      "serving": 1,
+      "price": 42.0,
+      "id": 4,
+      "category": {
+        "id": 2,
+        "label": "Entradas"
+      }
+    },
+    {
+      "title": "Sunomono",
+      "description": "Pepino Temperado com aromas orientais e ervas",
+      "photo": "/assets/img/plates/sunomono.jpg",
+      "size": 550,
+      "serving": 2,
+      "price": 86.0,
+      "id": 5,
+      "category": {
+        "id": 2,
+        "label": "Entradas"
+      }
+    },
+    {
+      "title": "Combo Tosaka que é Top",
+      "description": "18 sashimi 14 jhou 14 uramaki 14 hossomaki 14 hot holls",
+      "photo": "/assets/img/plates/combo-top.jpg",
+      "size": 850,
+      "serving": 3,
+      "price": 123.0,
+      "id": 6,
+      "category": {
+        "id": 3,
+        "label": "Combinados"
+      }
+    },
+    {
+      "title": "Combo Tosaka que é Ótimo",
+      "description": "8 sashimi 4 jhou 4 uramaki 4 hossomaki 4 hot holls",
+      "photo": "/assets/img/plates/combo-otimo.jpg",
+      "size": 350,
+      "serving": 1,
+      "price": 45.0,
+      "id": 7,
+      "category": {
+        "id": 3,
+        "label": "Combinados"
+      }
+    },
+    {
+      "title": "Sushi Veganos",
+      "description": "Sushi sem peixe? Sem problemas! Se você é fã de sushi, vai amar esse sushi vegano que leva tofu, legumes e cogumelos.",
+      "photo": "/assets/img/plates/sushi-vegano.jpg",
+      "size": 350,
+      "serving": 1,
+      "price": 37.0,
+      "id": 8,
+      "category": {
+        "id": 4,
+        "label": "Veganos"
+      }
+    },
+    {
+      "title": "Udon picante",
+      "description": "Udon picante com tofu, broto de feijão, e shitake",
+      "photo": "/assets/img/plates/udon-vegano.jpg",
+      "size": 740,
+      "serving": 3,
+      "price": 120.0,
+      "id": 9,
+      "category": {
+        "id": 4,
+        "label": "Veganos"
+      }
+    }
+  ]

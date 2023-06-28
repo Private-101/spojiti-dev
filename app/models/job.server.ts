@@ -1,11 +1,34 @@
 import { matchSorter } from "match-sorter";
 import type { JobPost, JobApplication, User, Category } from "@prisma/client";
-import { prisma } from "~/db.server";
+import { prisma } from "~/services/db.server";
 // TODO: include strict validation to ensure only clients can make applications and employers can make job posts
 // import { getUserById, updateUserById } from '~/models/user.server';
 import { getCategoryJobs } from '~/models/category.server';
 
-export type { JobPost, JobApplication } from "@prisma/client";
+export type { JobPost, JobApplication, Category } from "@prisma/client";
+
+export interface FormattedCategory {
+  id: string;
+    createdAt: string;
+    updatedAt: string;
+    title: string;
+    description: string | null;
+}
+export interface FormattedJobPost {
+  id: string;
+      createdAt: string;
+      updatedAt: string;
+      title: string;
+      description: string;
+      is_full_time: boolean;
+      start_date: string;
+      end_date: string | null;
+      responsibilities: string | null;
+      requirements: string | null;
+      salary_range_min: number;
+      salary_range_max: number;
+      userId: string;
+}
 
 /**
  * This is just matching a hard-coded list of values, but often you'd be
