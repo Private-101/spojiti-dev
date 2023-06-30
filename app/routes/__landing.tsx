@@ -3,14 +3,12 @@ import { json } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
 import React from "react";
 // import { NavLink } from "@remix-run/react";
-// placeholder elements
-// import Navbar from "~/components/temp/Navbar";
 import Header from "~/components/legacy/tailwindui/sections/Header";
 // import PricingSection from "~/components/sections/PricingSection";
 // import AboutUsSection from "~/components/sections/AboutUsSection";
 // import ContactInfoSection from "~/components/sections/ContactInfoSection";
-import Footer from "~/components/legacy/temp/Footer";
-import CookiePopup from "~/components/legacy/temp/CookiePopup";
+import Footer from "~/components/landing/Footer";
+import CookiePopup from "~/components/landing/CookiePopup";
 
 // spojiti website elements - old version
 // import OldHeader from "~/components/Header";
