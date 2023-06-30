@@ -9,7 +9,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useLocation } from '@remix-run/react';
-
+import { classNames } from '~/utils';
 interface CookiePopupProps {
   // in seconds
   delay?: number
@@ -76,10 +76,10 @@ console.log(`default delay provided: 3 seconds`);
     return null;
   };
 
-  if (loading) {
+  /* if (loading) {
     console.log('loading: true\nreturn null');
     return null;
-  }
+  } */
 /*
 <!-- Item -->
                 <div class="flex justify-between py-6 px-4 bg-white/30 rounded-lg">
@@ -98,7 +98,7 @@ console.log(`default delay provided: 3 seconds`);
 */
   return (
       <>
-      <div className="flex w-full md:w-1/2 py-6 px-4 justify-between rounded-lg fixed bottom-0 left-0 right-0 z-10 bg-white border-2 border-black hover:shadow-md transition-all">
+      <div className={classNames('flex w-full md:w-1/2 py-6 px-4 justify-between rounded-lg fixed bottom-0 left-0 right-0 z-10 bg-white border-2 border-black hover:shadow-md transition-all', loading ? 'opacity-0' : 'opacity-100')}>
       <div className='flex flex-col space-y-4 items-start rounded-lg'>
       <p className="mb-2 font-bold text-md text-sp-body-text">We use cookies to enhance your experience on our website.</p>
       

@@ -22,7 +22,16 @@ export const user = {
     { name: "Sign out", href: "#" },
   ];
   
-  export const dropdownItems = {
+  interface DropdownItemProps {
+    title: string;
+    url: string;
+  };
+
+  interface IDropdownItems {
+    [key: string]: DropdownItemProps[]
+  }
+
+  export const dropdownItems: IDropdownItems = {
     Candidates: [{title: "Find Jobs", url: '/search/jobs'}, {title: "Post Resume", url: '/login?redirectTo=post-resume'}, {title: "Company Listings", url: '/search/restaurants'}],
     Employers: [{title: "Find Candidates", url: '/search/candidates'}, {title: "Post Job", url: '/login?redirectTo=post-job'}, {title: "Pricing", url: '/home#pricing'}],
   };
