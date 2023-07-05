@@ -45,9 +45,9 @@ We are also still ironing out some compatibility issues with certain build tools
     container: {
 			center: true,
 			padding: "2rem",
-			screens: {
+			/*screens: {
 				"2xl": "1400px"
-			}
+			}*/
 		},
     colors: {
       ...defaultColors,
