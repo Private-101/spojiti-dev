@@ -2,6 +2,7 @@ import { useLoaderData, useFetcher, useSubmit, useFormAction, useOutletContext, 
 import { json } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
 import React from "react";
+import { type RootContextType, useRootContext } from "~/context/root.context";
 // import { NavLink } from "@remix-run/react";
 import Header from "~/components/legacy/tailwindui/sections/Header";
 // import PricingSection from "~/components/sections/PricingSection";
@@ -67,7 +68,8 @@ export const loader = async ({ request }: LoaderArgs) => {
 
   return json<LoaderData>({ reviews });
 };
-type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
+
+// type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
 
 const Home: React.FC = () => {
   const { reviews } = useLoaderData<LoaderData>();
@@ -77,7 +79,7 @@ const Home: React.FC = () => {
 
   const fetcher = useFetcher();
 
-  const [theme, toggle] = useOutletContext<OutletContextProps>();
+  const [theme, toggle]: RootContextType = useRootContext();
 
   return (
     <>
@@ -87,7 +89,7 @@ const Home: React.FC = () => {
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           {/* Your content */}
           <Container classNames="rounded-md rounded">
-            <Outlet context={[theme, toggle]} />
+            <Outlet />
           </Container>
           <Footer />
         </div>

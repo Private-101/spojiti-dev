@@ -10,7 +10,8 @@ import {
   ScrollRestoration,
   isRouteErrorResponse, useRouteError
 } from "@remix-run/react";
-import { useEffect, useState } from 'react';
+import RootContext, {type RootContextType} from "./context/root.context";
+import { useContext, useEffect, useState } from 'react';
 import { getUser } from "~/services/session.server";
 import stylesheet from "~/tailwind.css";
 import useLocalStorage from '~/hooks/useLocalStorage';
@@ -81,14 +82,16 @@ const [theme, toggle] = useToggle(['light', 'dark']);
         <Links />
       </head>
       <body>
-        <Outlet context={[theme, toggle]} />
+        <RootContext.Provider value={[theme, toggle]}>
+        <Outlet />
+        </RootContext.Provider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
       </body>
     </html>
   );
-}
+};
 
 export function ErrorBoundary() {
   const error = useRouteError();

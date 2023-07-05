@@ -2,6 +2,7 @@ import { useLoaderData, useFetcher, useSubmit, useFormAction, useOutletContext, 
 import { json, redirect } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
 import React from "react";
+import { type RootContextType, useRootContext } from "~/context/root.context";
 // import { NavLink } from "@remix-run/react";
 // placeholder elements
 // import Navbar from "~/components/temp/Navbar";
@@ -87,7 +88,7 @@ export default function AuthRoute() {
 
   // const fetcher = useFetcher();
 
-  // const [theme, toggle] = useOutletContext<OutletContextProps>();
+  const [theme, toggle]: RootContextType = useRootContext();
 
   return (
     <>
