@@ -89,7 +89,7 @@ const Home: React.FC = () => {
 
           <Container id="features" classNames="rounded-md">
             <FeaturesSection />
-            <div className="container bg-gray-200 py-8">
+            <div className="container bg-gray-200 dark:bg-gray-800 py-8">
               <ReviewCards reviews={reviews} />
               {/*<div className="mx-auto max-w-7xl px-6 lg:px-8">
         <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">*/}
@@ -97,7 +97,7 @@ const Home: React.FC = () => {
             <div key={review.name} className="mx-auto flex max-w-xs flex-col gap-y-4">
             <dt className="text-md text-gray-600">{review.name}</dt>
             <dt className="text-md text-gray-600">{review.jobTitle}</dt>
-            <dd className="order-first text-sm font-semibold tracking-tight text-gray-900 sm:text-sm">
+            <dd className="order-first text-sm font-semibold tracking-tight text-sp-text-light sm:text-sm">
               {review.quote}
             </dd>
           </div>
@@ -146,7 +146,7 @@ export default Home;
             <div key={review.name} className="mx-auto flex max-w-xs flex-col gap-y-4">
             <dt className="text-md text-gray-600">{review.name}</dt>
             <dt className="text-md text-gray-600">{review.jobTitle}</dt>
-            <dd className="order-first text-sm font-semibold tracking-tight text-gray-900 sm:text-sm">
+            <dd className="order-first text-sm font-semibold tracking-tight text-sp-text-light sm:text-sm">
               {review.quote}
             </dd>
           </div>
