@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = () => {
           The Food and Beverage Meeting Place
         </h2>
         <div className="flex min-h-full min-w-full flex-1 flex-row justify-center space-x-5 px-6 py-12 lg:px-8">
-          <div className="flex min-w-fit items-center justify-center bg-sp-primary-light dark:bg-sp-primary-dark-light dark:bg-sp-primary-light dark:bg-sp-primary-dark-dark px-12 py-12 text-lg font-semibold text-white shadow">
+          <div className="flex min-w-fit items-center justify-center bg-sp-primary-light dark:bg-sp-primary-dark dark:bg-sp-primary-light dark:bg-sp-primary-dark-dark px-12 py-12 text-lg font-semibold text-white shadow">
             <div className="flex flex-col mx-24 my-8 items-center justify-center">
             <h2 className="mb-10 text-2xl font-semibold text-white">
               Search Employers
@@ -53,7 +53,7 @@ const Header: React.FC<HeaderProps> = () => {
             </button>
             </div>
           </div>
-          <div className="flex min-w-fit items-center justify-center bg-sp-primary-light dark:bg-sp-primary-dark-light dark:bg-sp-primary-light dark:bg-sp-primary-dark-dark px-12 py-12 text-lg font-semibold text-white shadow">
+          <div className="flex min-w-fit items-center justify-center bg-sp-primary-light dark:bg-sp-primary-dark dark:bg-sp-primary-light dark:bg-sp-primary-dark-dark px-12 py-12 text-lg font-semibold text-white shadow">
           <div className="flex flex-col mx-24 my-8 items-center justify-center">
             <h2 className="mb-10 text-2xl font-semibold text-white">
               Search Candidates
