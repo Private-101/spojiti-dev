@@ -104,7 +104,7 @@ console.log(`default delay provided: 3 seconds`);
       
       <div className="flex flex-row space-x-4 p-4 mt-4 border-t-2 border-black">
         <button
-          className="bg-white hover:bg-sp-primary text-sp-primary hover:text-white font-bold text-base py-2 px-4 rounded-md hover:shadow-sm border-2 border-sp-primary hover:border-black transition-all"
+          className="bg-white hover:bg-sp-primary-light dark:bg-sp-primary-dark text-sp-primary hover:text-white font-bold text-base py-2 px-4 rounded-md hover:shadow-sm border-2 border-sp-primary hover:border-black transition-all"
           onClick={handleAcceptCookies}
         >
           Accept

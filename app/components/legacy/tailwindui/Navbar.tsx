@@ -21,7 +21,7 @@ export default function Navbar() {
     <div className="min-w-full">
       <Disclosure
         as="nav"
-        className="fixed top-0 z-10 w-full rounded-sm bg-sp-primary"
+        className="fixed top-0 z-10 w-full rounded-sm bg-sp-primary-light dark:bg-sp-primary-dark"
       >
         {({ open }) => (
           <>
@@ -85,7 +85,7 @@ export default function Navbar() {
 
                 <div className="-mr-2 flex lg:hidden">
                   {/* Mobile menu button */}
-                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-sp-primary p-2 text-gray-800 hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-sp-primary-light dark:bg-sp-primary-dark p-2 text-gray-800 hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XMarkIcon className="block h-6 w-6" aria-hidden="true" />

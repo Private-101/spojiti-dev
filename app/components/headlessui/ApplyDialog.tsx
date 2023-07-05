@@ -71,7 +71,7 @@ export function ApplyButtonModal() {
                       <div className="mt-4">
                         <button
                           type="button"
-                          className="inline-flex justify-center rounded-md border border-transparent bg-sp-primary/60 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-sp-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-sp-primary-light dark:bg-sp-primary-dark/60 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-sp-primary-light dark:bg-sp-primary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                           onClick={closeModal}
                         >
                           Log In/Sign Up

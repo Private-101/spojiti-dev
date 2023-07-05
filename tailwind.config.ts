@@ -60,8 +60,8 @@ We are also still ironing out some compatibility issues with certain build tools
           'body': '#ffffff',
         },
         'text': {
-          'light': '#171717',
-          'dark': '#58595B',
+          'light': '#58595B',
+          'dark': '#F1F5F9',
           'primary': {
             'light': '#171717',
             'dark': '#58595B',

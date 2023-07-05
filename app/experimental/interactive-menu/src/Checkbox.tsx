@@ -94,7 +94,7 @@ const TestCheckbox: React.FC<TestChckboxProps> = (props, ref) => {
       />
 
       <label
-        className={classNames(customLabelClassName ?? '', 'customLabel border-2 border-solid rounded-md min-w-[20px] min-h-[20px] cursor-pointer', option.disabled ? 'cursor-default' : 'cursor-pointer', value === true ? 'bg-sp-primary border-black' : 'bg-sp-body-bg border-sp-primary',)}
+        className={classNames(customLabelClassName ?? '', 'customLabel border-2 border-solid rounded-md min-w-[20px] min-h-[20px] cursor-pointer', option.disabled ? 'cursor-default' : 'cursor-pointer', value === true ? 'bg-sp-primary-light dark:bg-sp-primary-dark border-black' : 'bg-sp-body-bg border-sp-primary',)}
         htmlFor={`${name}-${option.value}`}
       ></label>
 
