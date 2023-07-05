@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from '@remix-run/react';
 import DarkModeToggle from "~/components/common/DarkModeToggle";
+import { type RootContextType, useRootContext } from "~/context/root.context";
 
 type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
 
-interface HeaderProps {
-  context: OutletContextProps
-};
-const Header: React.FC<HeaderProps> = ({context}) => {
+interface HeaderProps {}; 
 
+const Header: React.FC<HeaderProps> = () => {
+  // const [theme, toggle]: RootContextType = useRootContext();
   return (
     <>
       {/*<section id="#top" className="bg-gray-100 shadow py-16">
@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({context}) => {
           ) : (
             <h2 className="mb-2 text-lg font-semibold text-gray-2">DARK MODE</h2>
           )*/}
-          <DarkModeToggle theme={context[0]} trigger={context[1]} />
+          <DarkModeToggle />
         </div>
         <h1 className="my-2 text-4xl font-semibold text-gray-600">SPOJITI</h1>
         <h2 className="mb-6 text-2xl font-semibold text-gray-600">

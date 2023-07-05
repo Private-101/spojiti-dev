@@ -81,11 +81,11 @@ const Home: React.FC = () => {
 
   const fetcher = useFetcher();
 
-  const [theme, toggle]: RootContextType = useRootContext();
+  // const [theme, toggle]: RootContextType = useRootContext();
 
   return (
     <>
-            <Header context={[theme, toggle]} />
+            <Header /> 
 
           <Container id="features" classNames="rounded-md">
             <FeaturesSection />
