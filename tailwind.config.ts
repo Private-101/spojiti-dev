@@ -1263,6 +1263,14 @@ We are also still ironing out some compatibility issues with certain build tools
       'disabled',
     ],
     extend: {
+      colors: {
+        lightCyan: '#EFFAFA',
+        darkCyan: '#66a3a3',
+        veryDarkCyan: '#2C3A3A',
+      },
+      fontFamily: {
+        spartan: ['League Spartan', 'sans-serif'],
+      },
       fontSize: {
         'title-xxl': ['44px', '55px'],
         'title-xl': ['36px', '45px'],
