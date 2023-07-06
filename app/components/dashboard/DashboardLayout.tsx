@@ -1,17 +1,24 @@
 import type { ReactNode } from 'react';
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { NavLink, useLocation } from '@remix-run/react';
+import { NavLink, useLocation, useOutletContext } from '@remix-run/react';
 
 import DashboardHeader from '~/components/dashboard/DashboardHeader';
 import DashboardSidebar from '~/components/dashboard/DashboardSidebar';
 import Logo from '~/components/common/assets/spojiti-logo.svg';
+import type { User } from '~/models/user.server';
 // import useLocalStorage from '~/hooks/useLocalStorage';
+
+interface OutletContextProps {
+  user: User;
+};
 
 interface DashboardLayoutProps {
   children: ReactNode;
 }
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
+  const { user } = useOutletContext<OutletContextProps>();
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   // const [sidebarExpanded, setSidebarExpanded] = useLocalStorage('sidebar-expanded', false);
   const location = useLocation();
@@ -66,7 +73,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
     <div className="dark:bg-boxdark-2 dark:text-bodydark">
       {/* <!-- ===== Page Wrapper Start ===== --> */}
-      <div className="flex h-screen overflow-hidden">
+      <div className="flex overflow-hidden">
         {/* <!-- ===== Sidebar Start ===== --> */}
         <DashboardSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         {/* <!-- ===== Sidebar End ===== --> */}
@@ -74,14 +81,12 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         {/* <!-- ===== Content Area Start ===== --> */}
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           {/* <!-- ===== Header Start ===== --> */}
-          <DashboardHeader sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          <DashboardHeader user={user} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           {/* <!-- ===== Header End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}
-          <main>
-            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+          <main className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
               {children}
-            </div>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}
         </div>

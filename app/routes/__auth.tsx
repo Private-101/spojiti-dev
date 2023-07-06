@@ -1,44 +1,21 @@
-import { useLoaderData, useFetcher, useSubmit, useFormAction, useOutletContext, Outlet } from "@remix-run/react";
+import * as React from "react";
+import { useLoaderData, useFetcher, useSubmit, useFormAction, useOutletContext, Outlet, Link } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
-import React from "react";
-import { type RootContextType, useRootContext } from "~/context/root.context";
-// import { NavLink } from "@remix-run/react";
-// placeholder elements
-// import Navbar from "~/components/temp/Navbar";
-import Header from "~/components/legacy/tailwindui/sections/Header";
-// import PricingSection from "~/components/sections/PricingSection";
-// import AboutUsSection from "~/components/sections/AboutUsSection";
-// import ContactInfoSection from "~/components/sections/ContactInfoSection";
-import Footer from "~/components/legacy/temp/Footer";
-import CookiePopup from "~/components/legacy/temp/CookiePopup";
-
-// spojiti website elements - old version
-// import OldHeader from "~/components/Header";
-// import SpojitiHeader from "~/components/SpojitiHeader";
-// import SpojitiHeaderNew from "~/components/SpojitiHeader.new";
-import Navbar from "~/components/legacy/tailwindui/Navbar";
-import { Container } from "~/components/legacy/tailwindui/Container";
-import PricingSection from "~/components/legacy/tailwindui/sections/Pricing";
-import FeaturesSection from "~/components/legacy/tailwindui/sections/Features";
-import ContactUsSection from '~/components/legacy/tailwindui/sections/ContactUs';
-
-// import Reviews from "~/components/temp/Reviews";
-import { generateReviews } from "~/services/faker.server";
-import ReviewCards, {
-  type Review,
-} from "~/components/legacy/tailwindui/sections/ReviewCard";
-import AppFooter from "~/components/legacy/tailwindui/AppFooter";
-
-import DarkModeToggle from "~/components/common/DarkModeToggle";
-import { useOptionalUser, safeRedirect } from '~/utils';
-import { getUser } from "~/services/session.server";
-import type { User } from '~/models/user.server';
-import DashboardLayout from "~/components/dashboard/DashboardLayout";
 import {
   isRouteErrorResponse,
   useRouteError,
 } from "@remix-run/react";
+
+export default function AuthRoute() {
+  return (
+    <>
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <Outlet />
+      </div>
+    </>
+  );
+}
 
 export function ErrorBoundary() {
   const error = useRouteError();
@@ -65,6 +42,7 @@ export function ErrorBoundary() {
     return <h1>Unknown Error</h1>;
   }
 }
+/*
 interface LoaderData {
   user: User;
 }
@@ -100,3 +78,4 @@ export default function AuthRoute() {
     </>
   );
 };
+*/

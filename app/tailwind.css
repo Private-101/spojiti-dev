@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    @apply h-full
+  }
   body {
     @apply font-sans font-normal text-base text-body dark:text-whiten bg-sp-body-bg dark:bg-body relative z-1 h-full 
   }

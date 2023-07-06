@@ -1,4 +1,6 @@
-import { useLoaderData, useFetcher, useSubmit, useFormAction, useOutletContext, Outlet } from "@remix-run/react";
+import { requireUserId } from "~/services/session.server";
+
+import { useLoaderData, useFetcher, useSubmit, useFormAction, useOutletContext, Outlet, Form, Link, NavLink } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
 import React from "react";
@@ -34,75 +36,51 @@ import DarkModeToggle from "~/components/common/DarkModeToggle";
 import { useOptionalUser, safeRedirect, useUser } from '~/utils';
 import { getUser } from "~/services/session.server";
 import type { User } from '~/models/user.server';
+import UserContext from "~/context/user.context";
 import {
   isRouteErrorResponse,
   useRouteError,
 } from "@remix-run/react";
 
 interface LoaderData {
-  user: User;
-}
-
-export const loader = async ({ request }: LoaderArgs) => {
-    const user = await getUser(request);
-    // if (user) return safeRedirect(`/${user.id}/profile`);
-    if (!user) return redirect('/login');
-    return json<LoaderData>({ user });
-    // return json({})
-  };
-
-
-// type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
-/* interface OutletContextProps {
-  user: User
-}; */
-
-export default function UserRoute() {
-  const { user } = useLoaderData<LoaderData>();
-  // const user = useUser();
-
-  // const submit = useSubmit();
-  // const action = useFormAction();
-
-  // const fetcher = useFetcher();
-
-  // const { user } = useOutletContext<OutletContextProps>();
-  const [theme, toggle]: RootContextType = useRootContext();
-  return (
-    <>
-    <DashboardLayout>
-      <header>
+    user: User;
+  }
+  
+  export const loader = async ({ request }: LoaderArgs) => {
+      const user = await getUser(request);
+      // const url = new URL(request.url);
+  
+      if (!user) return redirect('/login');
+      // return safeRedirect(`/${user.id}/profile`); `/login?redirectTo=${url}`
+      return json({ user });
+    };
+  
+  // type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
+  
+  export default function AuthRoute() {
+    const { user } = useLoaderData<LoaderData>();
+  
+    // const submit = useSubmit();
+    // const action = useFormAction();
+  
+    // const fetcher = useFetcher();
+  
+    const [theme, toggle]: RootContextType = useRootContext();
+  
+    return (
+      <>
+      <UserContext.Provider value={user ?? undefined}>
+      <DashboardLayout>
+      {/*<header className="flex flex-col items-center justify-center w-full">
       <h1>Welcome User!</h1>
     <p>userid: {user.id}</p>
-      </header>
-    <Outlet />
+    <Link to='/app/dashboard' className="font-semibold text-indigo-600 hover:text-indigo-500">
+        Go To Dashboard
+    </Link>
+    </header>*/}
+      <Outlet context={user} />
     </DashboardLayout>
-    </>
-  );
-};
-
-export function ErrorBoundary() {
-  const error = useRouteError();
-
-  if (isRouteErrorResponse(error)) {
-    return (
-      <div>
-        <h1>
-          {error.status} {error.statusText}
-        </h1>
-        <p>{error.data}</p>
-      </div>
+    </UserContext.Provider>
+      </>
     );
-  } else if (error instanceof Error) {
-    return (
-      <div>
-        <h1>Error</h1>
-        <p>{error.message}</p>
-        <p>The stack trace is:</p>
-        <pre>{error.stack}</pre>
-      </div>
-    );
-  } else {
-    return <h1>Unknown Error</h1>;
-  }
-}
+  };

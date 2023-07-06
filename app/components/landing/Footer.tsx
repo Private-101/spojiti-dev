@@ -6,7 +6,7 @@ import React from 'react';
 import { Link } from '@remix-run/react';
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-sp-body-bg dark:bg-sp-accent text-gray-800 rounded-md ring-2 ring-sp-accent dark:ring-black flex justify-between items-center scroll-smooth m-2 px-12 py-12 w-full">
+    <footer className="bg-sp-body-bg dark:bg-sp-primary-dark text-sp-text-light dark:text-sp-text-dark rounded-md ring-2 ring-sp-primary-light dark:ring-black flex justify-between items-center scroll-smooth m-2 px-12 py-12 w-full">
       <div className="container mx-auto flex flex-row md:flex-col justify-between items-center">
         {/*<div className="flex flex-col md:flex-row md:space-x-4 mb-0 md:mb-4">
           <Link to="/home#top" className="hover:text-sp-primary">
@@ -33,9 +33,9 @@ const Footer: React.FC = () => {
             Contact
           </Link>
         </div>
-        <p className="mb-2 text-gray-400 text-sm text-center flex-grow w-full">© 2023 Spojiti. All rights reserved.</p>
+        <p className="mb-2 text-gray-400 dark:text-sp-text-dark text-sm text-center flex-grow w-full">© 2023 Spojiti. All rights reserved.</p>
       </div>
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center text-gray-400 text-lg text-center">
+      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center text-gray-400 dark:text-sp-text-dark text-lg text-center">
         <Link to='/terms-of-service' className='hover:text-sp-primary'>
         <p>Terms of Service</p>
         </Link>
