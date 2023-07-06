@@ -41,7 +41,7 @@ import {
   isRouteErrorResponse,
   useRouteError,
 } from "@remix-run/react";
-
+import { useUserContext } from "~/context/user.context";
 interface LoaderData {
   user: User;
 }
@@ -70,7 +70,7 @@ export default function UserRoute() {
 
   // const fetcher = useFetcher();
 
-  const { user } = useOutletContext<OutletContextProps>();
+  const { user } = useUserContext();
   const [theme, toggle]: RootContextType = useRootContext();
   
   return (

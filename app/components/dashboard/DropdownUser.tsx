@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import UserOne from '~/components/common/assets/images/user/user-01.png';
-import type { User } from '~/models/user.server';
-
+// import type { User } from '~/models/user.server';
+import type { FormattedUser } from '~/context/user.context';
 interface UserProps {
-  user: User
+  user: FormattedUser
 };
 
 const DropdownUser = (props: UserProps) => {

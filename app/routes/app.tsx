@@ -42,6 +42,7 @@ import {
   useRouteError,
 } from "@remix-run/react";
 
+
 interface LoaderData {
     user: User;
   }
@@ -69,8 +70,8 @@ interface LoaderData {
   
     return (
       <>
-      <UserContext.Provider value={user ?? undefined}>
-      <DashboardLayout>
+      <UserContext.Provider value={{user: user}}>
+      <DashboardLayout user={user}>
       {/*<header className="flex flex-col items-center justify-center w-full">
       <h1>Welcome User!</h1>
     <p>userid: {user.id}</p>

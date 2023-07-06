@@ -5,19 +5,21 @@ import { NavLink, useLocation, useOutletContext } from '@remix-run/react';
 import DashboardHeader from '~/components/dashboard/DashboardHeader';
 import DashboardSidebar from '~/components/dashboard/DashboardSidebar';
 import Logo from '~/components/common/assets/spojiti-logo.svg';
-import type { User } from '~/models/user.server';
+import type { FormattedUser } from '~/context/user.context';
+// import type { User } from '~/models/user.server';
 // import useLocalStorage from '~/hooks/useLocalStorage';
 
-interface OutletContextProps {
+/* interface OutletContextProps {
   user: User;
-};
+}; */
 
 interface DashboardLayoutProps {
   children: ReactNode;
+  user: FormattedUser;
 }
 
-const DashboardLayout = ({ children }: DashboardLayoutProps) => {
-  const { user } = useOutletContext<OutletContextProps>();
+const DashboardLayout = ({ children, user }: DashboardLayoutProps) => {
+  // const { user } = useOutletContext<OutletContextProps>();
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   // const [sidebarExpanded, setSidebarExpanded] = useLocalStorage('sidebar-expanded', false);

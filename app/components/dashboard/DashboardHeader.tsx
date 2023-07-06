@@ -6,12 +6,13 @@ import DropdownMessage from '~/components/dashboard/DropdownMessage';
 import DropdownNotification from '~/components/dashboard/DropdownNotification';
 import DropdownUser from '~/components/dashboard/DropdownUser';
 import useColorMode from '~/hooks/useColorMode';
-import type { User } from '~/models/user.server';
+// import type { User } from '~/models/user.server';
+import type { FormattedUser } from '~/context/user.context';
 
 interface HeaderProps {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
-  user: User;
+  user: FormattedUser;
 }
 const Header = (props: HeaderProps) => {
   const [colorMode, setColorMode] = useColorMode();
