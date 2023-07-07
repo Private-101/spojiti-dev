@@ -12,17 +12,26 @@ import {
 enum Theme {
   DARK = "dark",
   LIGHT = "light",
-}
+};
+
 const themes: Array<Theme> = Object.values(Theme);
 
 type ThemeContextType = [Theme | null, Dispatch<SetStateAction<Theme | null>>];
+/* type ThemeStateContextTuple = [
+  // uses [theme, toggle] from useToggle hook, may change at some point.
+  // TODO other context values can be added here...
+  /** theme / Theme, 
+  /** toggle / (value?: React.SetStateAction<Theme> | undefined) => void
+]; */
+// type CombinedThemeContext = ThemeContextType & ThemeStateContextTuple;
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const prefersDarkMQ = "(prefers-color-scheme: dark)";
+
 const getPreferredTheme = () =>
   window.matchMedia(prefersDarkMQ).matches ? Theme.DARK : Theme.LIGHT;
-
+  
 function ThemeProvider({
   children,
   specifiedTheme,
@@ -161,7 +170,21 @@ const themeStylesCode = `
 `;
 
 function ThemeHead({ ssrTheme }: { ssrTheme: boolean }) {
-  const [theme] = useTheme();
+const [theme] = useTheme();
+let content: string = '';
+
+switch (theme) {
+  case "light":
+    content = "light dark";
+    break;
+  case "dark":
+    content = "dark light";
+    break;
+  default: // "custom" theme or any other theme
+    // Just include the themes supported by the browser
+    content = "light dark";
+    break;
+}
 
   return (
     <>
@@ -170,9 +193,9 @@ function ThemeHead({ ssrTheme }: { ssrTheme: boolean }) {
         this is correct before hydration.
       */}
       <meta
-        name="color-scheme"
-        content={theme === "light" ? "light dark" : "dark light"}
-      />
+    name="color-scheme"
+    content={content}
+  />
       {/*
         If we know what the theme is from the server then we don't need
         to do fancy tricks prior to hydration to make things match.
