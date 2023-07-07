@@ -102,6 +102,9 @@ function App() {
      
  */
   
+     const data = useLoaderData<RootLoaderData>();
+     // const [theme, toggle] = useToggle(['light', 'dark']);
+
      const prefersDarkMQ = "(prefers-color-scheme: dark)";
 
      const getPreferredTheme = () =>
@@ -150,10 +153,7 @@ function App() {
         "meta[name=color-scheme] Tag was not proided",
       );
     }
-  });
-
-  const data = useLoaderData<RootLoaderData>();
-  // const [theme, toggle] = useToggle(['light', 'dark']);
+  }, []);
 
   return (
     <html lang="en" className={data.theme}>
