@@ -1,5 +1,6 @@
+import React, { useLayoutEffect } from 'react';
 import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinksFunction, LoaderArgs } from "@remix-run/node";
+import type { LinksFunction, LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
   Links,
@@ -8,7 +9,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  isRouteErrorResponse, useRouteError
+  isRouteErrorResponse, useRouteError, useLoaderData
 } from "@remix-run/react";
 import RootContext, {type RootContextType} from "./context/root.context";
 import { useContext, useEffect, useState } from 'react';
@@ -18,10 +19,52 @@ import useLocalStorage from '~/hooks/useLocalStorage';
 import useColorMode from "./hooks/useColorMode";
 import { useToggle } from "./hooks/useToggle";
 
+import {
+  ThemeBody,
+  ThemeHead,
+  ThemeProvider,
+  useTheme,
+  type Theme
+} from "~/context/theme.context";
+import { getThemeSession } from "~/services/theme.server";
+
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
+
+export interface RootLoaderData {
+  [key: string]: Theme | null
+};
+
+export const loader = async ({ request }: LoaderArgs) => {
+const themeSession = await getThemeSession(request);
+
+return json<RootLoaderData>({
+  theme: themeSession.getTheme(),
+});
+};
+
+export const meta: V2_MetaFunction = () => {
+  return [
+    { title: "Spojiti | Remix" },
+    { viewport: "width=device-width,initial-scale=1" },
+    {charset: "utf-8"},
+    {
+      property: "og:title",
+      content: "Spojiti | Remix",
+    },
+    {
+      name: "description",
+      content: "Spojiti: Made with Remix",
+    },
+  ];
+};
+
+
+
+
+
 /*
 export const loader = async ({ request }: LoaderArgs) => {
   return json({ user: await getUser(request) });
@@ -29,7 +72,7 @@ export const loader = async ({ request }: LoaderArgs) => {
 */
 
 
-export default function App() {
+function App() {
   // const [theme, setTheme] = useLocalStorage('THEME', 'light');
   // const [hydrated, setHydrated] = useState(false);
  /*
@@ -69,7 +112,7 @@ export default function App() {
 
     
 */
-
+const data = useLoaderData<RootLoaderData>();
 const [theme, toggle] = useToggle(['light', 'dark']);
 
   return (
@@ -80,11 +123,13 @@ const [theme, toggle] = useToggle(['light', 'dark']);
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
+        <ThemeHead ssrTheme={Boolean(data.theme)} />
       </head>
       <body>
         <RootContext.Provider value={[theme, toggle]}>
         <Outlet />
         </RootContext.Provider>
+        <ThemeBody ssrTheme={Boolean(data.theme)} />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
@@ -92,6 +137,16 @@ const [theme, toggle] = useToggle(['light', 'dark']);
     </html>
   );
 };
+
+export default function AppWithProviders() {
+  const data = useLoaderData<RootLoaderData>();
+
+  return (
+    <ThemeProvider specifiedTheme={data.theme}>
+      <App />
+    </ThemeProvider>
+  );
+}
 
 export function ErrorBoundary() {
   const error = useRouteError();

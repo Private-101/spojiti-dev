@@ -41,7 +41,13 @@ export function useMatchesData(
     () => matchingRoutes.find((route) => route.id === id),
     [matchingRoutes, id]
   );
-  return route?.data;
+  
+  if (!route) return undefined;
+  return route.data;
+};
+
+export function useRootLoaderData<TLoaderData extends Record<string, unknown>>() {
+  return useMatchesData('root') as TLoaderData;
 }
 
 function isUser(user: any): user is User {
@@ -136,4 +142,44 @@ export function unslugify(str: string): string {
 
 export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
+};
+
+export function isValidTheme(theme: string): boolean {
+  return theme === 'light' || theme === 'dark';
 }
+
+export function isValidHexColor(hexValue: string): boolean {
+  // const hexRegex = /^#([A-Fa-f0-9]{3,4}){1,2}$/;
+  return /^#([A-Fa-f0-9]{3,4}){1,2}$/.test(hexValue);
+};
+/*
+CSS HEX Color Validation
+
+A CSS Hex color value starts with a hash `#` and is followed by either 3, 4, 6, or 8 characters (letters a-f and numbers 0-9). 
+The 3 or 4 characters hex color value is shorthand, with the 4th character representing the alpha value for transparency.
+
+Here's a JavaScript function that uses a regular expression to validate CSS hex color values:
+
+```javascript
+function isValidHexColor(hexValue) {
+    return /^#([A-Fa-f0-9]{3,4}){1,2}$/.test(hexValue);
+}
+```
+
+This function returns true if the input is a valid hex color, and false otherwise. The regular expression `^#([A-Fa-f0-9]{3,4}){1,2}$` ensures that:
+
+- The string starts (`^`) with a `#`.
+- It's followed by 3 or 4, or 6 or 8 (because `{1,2}` allows the 3 or 4 characters to be repeated once) hexadecimal characters (`[A-Fa-f0-9]`).
+- And the string ends (`$`) after these characters. 
+
+Let's test this function:
+
+```javascript
+console.log(isValidHexColor("#FFF")); // True
+console.log(isValidHexColor("#FFFFFF")); // True
+console.log(isValidHexColor("#FFFF")); // True
+console.log(isValidHexColor("#FFFFFFF")); // True
+console.log(isValidHexColor("#FFG")); // False
+console.log(isValidHexColor("#hello")); // False
+```
+*/
