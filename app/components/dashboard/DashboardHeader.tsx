@@ -7,12 +7,14 @@ import DropdownNotification from '~/components/dashboard/DropdownNotification';
 import DropdownUser from '~/components/dashboard/DropdownUser';
 import useColorMode from '~/hooks/useColorMode';
 // import type { User } from '~/models/user.server';
-import type { FormattedUser } from '~/context/user.context';
+// import type { FormattedUser } from '~/context/user.context';
+// import { useUserContext } from '~/context/user.context';
+// const { user } = useUserContext();
 
 interface HeaderProps {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
-  user: FormattedUser;
+  // user: FormattedUser;
 }
 const Header = (props: HeaderProps) => {
   const [colorMode, setColorMode] = useColorMode();
@@ -99,7 +101,7 @@ const Header = (props: HeaderProps) => {
               <input
                 type="text"
                 placeholder="Type to search..."
-                className="w-full bg-transparent pr-4 pl-9 focus:outline-none"
+                className="w-full bg-transparent pr-4 pl-9 focus:outline-none focus:rounded-md border-none"
               />
             </div>
           </form>
@@ -121,7 +123,7 @@ const Header = (props: HeaderProps) => {
           </ul>
 
           {/* <!-- User Area --> */}
-          <DropdownUser user={props.user} />
+          <DropdownUser  />
           {/* <!-- User Area --> */}
         </div>
       </div>

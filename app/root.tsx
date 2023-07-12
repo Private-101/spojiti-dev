@@ -9,7 +9,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  isRouteErrorResponse, useRouteError, useLoaderData
+  isRouteErrorResponse, useRouteError, useLoaderData, useNavigate, useSubmit
 } from "@remix-run/react";
 import RootContext, { type RootContextType } from "./context/root.context";
 import { useContext, useEffect, useState } from 'react';
@@ -27,7 +27,7 @@ import {
   Theme
 } from "~/context/theme.context";
 import { getThemeSession } from "~/services/theme.server";
-
+import { isClient } from './utils';
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -56,12 +56,24 @@ export interface RootLoaderData {
 export const loader = async ({ request }: LoaderArgs) => {
   const themeSession = await getThemeSession(request);
 
+
   return json<RootLoaderData>({
     theme: themeSession.getTheme(),
   });
 };
 
 function App() {
+  const navigate = useNavigate();
+  const submit = useSubmit();
+
+  if (isClient()) {
+    // window.BeforeUnloadEvent = () => navigate('/logout');
+    window.addEventListener("beforeunload", (event: BeforeUnloadEvent) => {
+      // submit('/logout')
+      console.log('beforeunload triggered, logging out');
+      navigate('/logout');
+    });
+  }
   // const [theme, setTheme] = useLocalStorage('THEME', 'light');
   // const [hydrated, setHydrated] = useState(false);
   /*
@@ -110,7 +122,7 @@ function App() {
      const getPreferredTheme = () =>
        window.matchMedia(prefersDarkMQ).matches ? Theme.DARK : Theme.LIGHT;
 
-     useLayoutEffect(() => {
+     /* useLayoutEffect(() => {
     console.log('inside root useLayoutEffect hook');
 
     const theme = getPreferredTheme();
@@ -132,7 +144,7 @@ function App() {
 
     const meta = document.querySelector("meta[name=color-scheme]");
     
-    /* if (meta) {
+     if (meta) {
       const attribute = meta.getAttribute('content')
       console.log(attribute ?? 'null'); // light dark
       meta.setAttribute('content', 'dark light');
@@ -140,7 +152,7 @@ function App() {
       console.log(nextAttribute ?? 'null'); // dark light
     } else {
       console.log("typeof meta === null!");
-    } */
+    } 
 
     if (meta) {
       if (theme === 'dark') {
@@ -153,7 +165,7 @@ function App() {
         "meta[name=color-scheme] Tag was not proided",
       );
     }
-  }, []);
+  }, []); */
 
   return (
     <html lang="en" className={data.theme}>

@@ -1,9 +1,9 @@
 import { requireUserId } from "~/services/session.server";
 
-import { useLoaderData, useFetcher, useSubmit, useFormAction, useOutletContext, Outlet, Form, Link, NavLink } from "@remix-run/react";
+import { useLoaderData, useNavigate, useFetcher, useSubmit, useFormAction, useOutletContext, Outlet, Form, Link, NavLink, useLocation } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
-import React from "react";
+import React, { useEffect } from "react";
 import { type RootContextType, useRootContext } from "~/context/root.context";
 // import { NavLink } from "@remix-run/react";
 // placeholder elements
@@ -34,7 +34,9 @@ import AppFooter from "~/components/legacy/tailwindui/AppFooter";
 
 import DarkModeToggle from "~/components/common/DarkModeToggle";
 import { useOptionalUser, safeRedirect, useUser } from '~/utils';
+import useLocalStorage from "~/hooks/useLocalStorage";
 import { getUser } from "~/services/session.server";
+
 import type { User } from '~/models/user.server';
 import UserContext from "~/context/user.context";
 import {
@@ -58,28 +60,39 @@ interface LoaderData {
   
   // type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
   
-  export default function AuthRoute() {
+  export default function AppLayoutRoute() {
+    const location = useLocation();
+    const navigate = useNavigate();
     const { user } = useLoaderData<LoaderData>();
+    const [appUserRole, setAppUserRole] = useLocalStorage('user-role', 'guest');
+    
+    useEffect(() => {
+      if (user && appUserRole !== user.role) {
+        setAppUserRole(user.role);
+      }; 
+
+      if (location.pathname.includes("/app") && !location.pathname.includes(user.role)) {
+        return navigate(`/app/${user.role}`);
+      };
+    })
+    
+
+  
+  
+  
   
     // const submit = useSubmit();
     // const action = useFormAction();
   
     // const fetcher = useFetcher();
   
-    const [theme, toggle]: RootContextType = useRootContext();
+    // const [theme, toggle]: RootContextType = useRootContext();
   
     return (
       <>
       <UserContext.Provider value={{user: user}}>
-      <DashboardLayout user={user}>
-      {/*<header className="flex flex-col items-center justify-center w-full">
-      <h1>Welcome User!</h1>
-    <p>userid: {user.id}</p>
-    <Link to='/app/dashboard' className="font-semibold text-indigo-600 hover:text-indigo-500">
-        Go To Dashboard
-    </Link>
-    </header>*/}
-      <Outlet context={user} />
+      <DashboardLayout>
+      <Outlet context={[appUserRole, setAppUserRole]} />
     </DashboardLayout>
     </UserContext.Provider>
       </>

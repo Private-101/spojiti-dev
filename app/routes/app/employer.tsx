@@ -76,7 +76,7 @@ export default function UserRoute() {
   return (
     <>
     {/* <!-- ===== Page Wrapper Start ===== --> */}
-    <p>Admin Dashboard</p>
+    <p>Employer Dashboard</p>
       {/* <!-- ===== Page Wrapper End ===== --> */}
 
     </>

@@ -15,13 +15,13 @@ import type { FormattedUser } from '~/context/user.context';
 
 interface DashboardLayoutProps {
   children: ReactNode;
-  user: FormattedUser;
+  // user: FormattedUser;
 }
 
-const DashboardLayout = ({ children, user }: DashboardLayoutProps) => {
+const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   // const { user } = useOutletContext<OutletContextProps>();
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   // const [sidebarExpanded, setSidebarExpanded] = useLocalStorage('sidebar-expanded', false);
   const location = useLocation();
   const { pathname } = location;
@@ -83,7 +83,7 @@ const DashboardLayout = ({ children, user }: DashboardLayoutProps) => {
         {/* <!-- ===== Content Area Start ===== --> */}
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           {/* <!-- ===== Header Start ===== --> */}
-          <DashboardHeader user={user} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          <DashboardHeader sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           {/* <!-- ===== Header End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}

@@ -183,3 +183,8 @@ console.log(isValidHexColor("#FFG")); // False
 console.log(isValidHexColor("#hello")); // False
 ```
 */
+
+type BooleanFunction = () => boolean;
+export const isClient: BooleanFunction = () => {
+  return typeof window !== 'undefined' /*&& Boolean('navigator' in window)*/;
+};

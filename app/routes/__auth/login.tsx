@@ -76,7 +76,7 @@ export const loader = async ({ request }: LoaderArgs) => {
     });
   };
 
-export default function TempLoginRoute() {
+export default function LoginRoute() {
     const [searchParams] = useSearchParams();
   // const redirectTo = searchParams.get("redirectTo") || "/notes";
   const actionData = useActionData<typeof action>();

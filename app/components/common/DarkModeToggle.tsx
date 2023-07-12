@@ -1,14 +1,17 @@
 import useColorMode from '~/hooks/useColorMode';
 import { useEffect } from 'react';
 import { type RootContextType, useRootContext } from "~/context/root.context";
-
+import { useRootLoaderData } from '~/utils';
+import { useTheme, Theme } from '~/context/theme.context';
 interface ToggleProps {
   theme: string;
   trigger: (value?: React.SetStateAction<string> | undefined) => void
 };
 
-export default function DarkModeToggle() {
-  const [theme, toggle]: RootContextType = useRootContext();
+export default function DarkModeToggle() { 
+  // const [theme, toggle]: RootContextType = useRootContext();
+  // const data = useRootLoaderData();
+  const [theme, setTheme] = useTheme();
   // const [colorMode, setColorMode] = useColorMode();
   // const onChangeHandler = () => {
     // const toggleEvent = new CustomEvent('toggle-theme');
@@ -29,7 +32,7 @@ export default function DarkModeToggle() {
               // setColorMode(colorMode === 'light' ? 'dark' : 'light');
             // };
             // onChangeHandler();
-            toggle()
+            setTheme(prev => prev === Theme.DARK ? Theme.LIGHT : Theme.DARK);
           }}
           className="absolute top-0 z-50 m-0 h-full w-full cursor-pointer opacity-0"
         />

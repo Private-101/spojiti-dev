@@ -2,15 +2,17 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import UserOne from '~/components/common/assets/images/user/user-01.png';
-// import type { User } from '~/models/user.server';
+// import type { User } from '~/models/user?.server';
 import type { FormattedUser } from '~/context/user.context';
+import { useUserContext } from '~/context/user.context';
+
 interface UserProps {
-  user: FormattedUser
+  // user: FormattedUser
 };
 
 const DropdownUser = (props: UserProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const { user } = useUserContext();
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
@@ -50,13 +52,13 @@ const DropdownUser = (props: UserProps) => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {props.user.firstName + " " + props.user.lastName}
+            {user?.firstName + " " + user?.lastName}
           </span>
-          <span className="block text-xs">{props.user.role}</span>
+          <span className="block text-xs">{user?.role}</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
-          <img src={props.user.avatarUrl ?? UserOne} alt="User" />
+          <img src={user?.avatarUrl ?? UserOne} alt="User" />
         </span>
 
         <svg
