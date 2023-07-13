@@ -70,8 +70,8 @@ interface CategoriesLoaderData {
 export default function BlogRoute() {
     const [allBlogPosts, setAllBlogPosts] = useState<BlogPostProps[]>([]);
     const [allCategories, setAllCategories] = useState<string[]>([]);
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const [postsPerPage, setPostsPerPage] = useState<number>(6);
+    // const [currentPage, // setCurrentPage] = useState<number>(1);
+    // const [postsPerPage, setPostsPerPage] = useState<number>(6);
 
     // const { formattedCategories } = useLoaderData<CategoriesLoaderData>();
     const categoryFetcher = useFetcher<CategoriesLoaderData>();
@@ -82,31 +82,63 @@ export default function BlogRoute() {
     }, [categoryFetcher]);
 
     useEffect(() => {
-        const categories = categoryFetcher.data ? categoryFetcher.data.formattedCategories.map((cat) => unslugify(cat.title)) : ['loading...']; // Array.from({ length: 25 }, (_, i) => `Category ${i + 1}`);
-        const blogPosts = Array.from({ length: 20 }, (_, i) => ({
-            title: `Blog Post ${i + 1}`,
-            description: `Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`.repeat(5),
-            date: `2020-01-${String(i + 1).padStart(2, '0')}`,
-            image: `https://loremflickr.com/320/240?random=${i + 1}`, // await blogPostImages[i]., // 'https://loremflickr.com/640/360', // 'http://via.placeholder.com/640x360',
-            readingTime: Math.ceil(Math.random() * 10),
-            categories: categories.slice(0, Math.floor(Math.random() * 3 + 1))
-        }));
+        if (categoryFetcher.state === "idle" && categoryFetcher.data != null && allCategories.length < 1) {
+            const categories = categoryFetcher.data.formattedCategories.map((cat) => unslugify(cat.title));
+            setAllCategories(categories);
+        };
+        
+    }, [categoryFetcher.data, allCategories, categoryFetcher.state]);
 
-        setAllBlogPosts(blogPosts);
-        setAllCategories(categories);
-    }, [categoryFetcher.data]);
+    useEffect(() => {
+        const rand = Math.random();
 
+        if (allCategories.length > 1 && allBlogPosts.length < 1) {
+            const blogPosts = Array.from({ length: 20 }, (_, i) => ({
+                title: `Blog Post ${i + 1}`,
+                description: `Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`.repeat(5),
+                date: `2020-01-${String(i + 1).padStart(2, '0')}`,
+                image: `https://loremflickr.com/320/240?random=${i + 1}`, // await blogPostImages[i]., // 'https://loremflickr.com/640/360', // 'http://via.placeholder.com/640x360',
+                readingTime: Math.ceil(Math.random() * 10),
+                categories: allCategories.reduce((previous, current, index) => {
+                    
+                }, []) // allCategories.slice(0, Math.floor(Math.random() * 3 + 1))
+            }));
+            setAllBlogPosts(blogPosts);
+        }
+    }, [allBlogPosts.length, allCategories])
     useLayoutEffect(() => {
         if (window && window.document) {
+            let currentPage = 1;
+            const postsPerPage = 6;
+
             const blogPostList = window.document.getElementById('blogPostList') as HTMLElement;
             const searchbar = window.document.getElementById('searchbar') as HTMLInputElement;
             const modal = window.document.getElementById('modal') as HTMLElement;
+            const innerModal = window.document.getElementById('innerModal') as HTMLDivElement;
             const closeModal = window.document.getElementById('closeModal') as HTMLElement;
             const prevPage = window.document.getElementById('prevPage') as HTMLButtonElement;
             const nextPage = window.document.getElementById('nextPage') as HTMLButtonElement;
             const categoryFilter = window.document.getElementById('categoryFilter') as HTMLSelectElement;
             const modalCategories = window.document.getElementById('modalCategories') as HTMLElement;
     
+            // TODO close modal on click outside
+            /* modal.addEventListener('click', (event) => {
+                if (innerModal.contains(event.target))
+            }) */
+
+            // if (!modal.classList.contains('hidden')) {
+                modal.addEventListener("click", (event) => {
+                    const target = event.target as HTMLDivElement;
+                      // If user clicks outside the modal window, then close modal
+                      if (target.contains(innerModal)) {
+                        modal.classList.add('hidden');
+                      };
+                    },
+                    false
+                  )
+            // }
+
+
             closeModal.addEventListener('click', () => {
                 modal.classList.add('hidden');
             });
@@ -143,25 +175,24 @@ export default function BlogRoute() {
                 // allBlogPosts.unshift(post);
                 setAllBlogPosts(prev => [post, ...prev]);
                 // if (categoryFetcher.state === "idle" && categoryFetcher.data !== null || undefined) 
-                if (blogPostList != null) displayBlogPosts(currentPage);
+                // if (blogPostList != null) 
+                displayBlogPosts(currentPage);
                 createPostModal.classList.add('hidden');
             });
     
             const createBlogPostCard = (post: BlogPostProps) => { 
                 const card = window.document.createElement('div');
-                card.classList.add('bg-white', 'text-black', 'rounded-md', 'shadow-md', 'col-span-1', 'border', 'border-sp-primary', 'p-2');
+                card.classList.add('bg-gradient-to-tr', 'from-cyan-200/80', 'to-white', 'text-black', 'dark:text-white', 'font-semibold', 'rounded-md', 'shadow-md', 'col-span-1','border-2', 'border-sp-primary', 'p-2');
                 
                 // if (card) {
                     card.innerHTML = `
-                    <div className="font-semibold text-lg items-center justify-center w-full leading-6">
-                    <img className="rounded-md" src="${post.image}" alt="${post.title}">
-                    <h4 className="my-12 text-center text-white font-bold">${post.title}</h4>
+                    <img className="object-cover rounded-md" src="${post.image}" alt="${post.title}">
+                    <h4 className="my-12 text-center">${post.title}</h4>
                     </img>
                     <p className="truncate text-md">${post.description.substring(0, 40) + "..."}</p>
                     <p className="my-8 text-gray-700">${post.date} - ${post.readingTime} min read</p>
                     <div className="flex flex-wrap">
                         ${post.categories.map(cat => `<span class="bg-sp-primary text-sm text-white rounded-md px-2 py-1 mr-1 mb-1">${cat}</span>`).join('')}
-                    </div>
                     </div>
                 `;
                 // }
@@ -181,7 +212,7 @@ export default function BlogRoute() {
                     modalCategories.innerHTML = '';
                     post.categories.forEach(cat => {
                         const span = window.document.createElement('span');
-                        span.classList.add('bg-sp-primary', 'text-sm', 'font-semibold', 'rounded-md', 'px-2', 'py-1', 'mr-1', 'mb-1');
+                        span.classList.add('bg-sp-primary', 'text-sm', 'text-white', 'font-semibold', 'rounded-md', 'px-2', 'py-1', 'mr-1', 'mb-1');
                         span.textContent = cat;
                         modalCategories.appendChild(span);
                     });
@@ -193,7 +224,8 @@ export default function BlogRoute() {
     
             const displayBlogPosts = (page: number) => {
                 if (allBlogPosts.length > 1) {
-                    if (blogPostList != null) blogPostList.innerHTML = '';
+                    // if (blogPostList != null) 
+                    blogPostList.innerHTML = '';
                 const searchText = searchbar.value.toLowerCase();
                 const selectedCategory = categoryFilter.value;
     
@@ -221,24 +253,32 @@ export default function BlogRoute() {
             };
     
             searchbar.addEventListener('input', () => {
-                setCurrentPage(1);
-                if (blogPostList != null) displayBlogPosts(1);
+                // setCurrentPage(1);
+                // if (blogPostList != null)
+                currentPage = 1; 
+                displayBlogPosts(currentPage);
             });
     
             categoryFilter.addEventListener('change', () => {
-                setCurrentPage(1);
-                if (blogPostList != null) displayBlogPosts(1);
+                // setCurrentPage(1);
+                // if (blogPostList != null) 
+                currentPage = 1; 
+                displayBlogPosts(currentPage);
             });
     
             prevPage.addEventListener('click', () => {
-                setCurrentPage(prev => prev - 1);
-                if (blogPostList != null) displayBlogPosts(currentPage - 1);
+                // setCurrentPage(prev => prev - 1);
+                // if (blogPostList != null) 
+                currentPage--; 
+                displayBlogPosts(currentPage);
                 window.scrollTo(0, 0);
             });
     
             nextPage.addEventListener('click', () => {
-                setCurrentPage(prev => prev + 1);
-                if (blogPostList != null) displayBlogPosts(currentPage + 1);
+                // setCurrentPage(prev => prev + 1);
+                // if (blogPostList != null) 
+                currentPage++; 
+                displayBlogPosts(currentPage);
                 window.scrollTo(0, 0);
             });
     
@@ -260,7 +300,7 @@ export default function BlogRoute() {
     
             if (blogPostList != null) displayBlogPosts(currentPage);
             };
-    }, [allBlogPosts, allCategories, categoryFetcher.data, categoryFetcher.state, currentPage, postsPerPage])
+    }, [allBlogPosts, allCategories, categoryFetcher.data, categoryFetcher.state])
     
     return (
         <>
@@ -272,7 +312,7 @@ export default function BlogRoute() {
     </nav>
     <div className="container mx-auto p-8">
 
-    <div className="grid grid-cols-4 grid-rows-2 gap-2 text-gray-800 dark:text-gray-200 ">
+    <div className="grid grid-cols-4 grid-rows-2 gap-2 text-gray-800 dark:text-gray-200">
 
     <div className="col-span-1">
     <p className="font-bold text-black text-5xl"><span className="text-sp-primary mr-1">Spojiti</span> Blog</p>
@@ -318,12 +358,12 @@ export default function BlogRoute() {
     </div>
 
     {/*<!-- Modal for full blog post -->*/}
-    <div id="modal" className="fixed inset-0 hidden items-center justify-center min-h-screen p-4 bg-black bg-opacity-60">
-        <div className="bg-white p-8 w-full max-w-3xl mx-auto rounded-md">
+    <div id="modal" className="fixed inset-0 hidden items-center justify-center min-h-screen overflow-scroll p-4 bg-black bg-opacity-60">
+        <div id="innerModal" className="bg-white dark:bg-slate-500 p-8 w-full max-w-3xl mx-auto rounded-md">
             <button id="closeModal" className="text-right w-full">
-                <span className="text-xl font-bold">&times;</span>
+                <span className="text-5xl font-bold">&times;</span>
             </button>
-            <img id="modalImage" className="w-full h-48 object-cover mb-4 rounded-md" src="" alt="" />
+            <img id="modalImage" className="w-full h-[200px] object-cover mb-4 rounded-md" src="" alt="" />
             <h2 id="modalTitle" className="text-xl font-bold mb-3"></h2>
             <p className="mb-2"><span id="modalDate" className="text-gray-700"></span> - <span id="modalReadingTime" className="text-gray-700"></span> min read</p>
             <hr className="mb-4" />
