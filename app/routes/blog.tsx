@@ -1,9 +1,9 @@
 import type { V2_MetaFunction, LinksFunction, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData, useFetcher } from "@remix-run/react";
-import { useLayoutEffect, useEffect } from "react";
+import { useLayoutEffect, useEffect, useState } from "react";
 
-import { classNames } from "~/utils";
+import { classNames, unslugify } from "~/utils";
 
 export const meta: V2_MetaFunction = () => {
     return [
@@ -68,191 +68,200 @@ interface CategoriesLoaderData {
 };
 
 export default function BlogRoute() {
+    const [allBlogPosts, setAllBlogPosts] = useState<BlogPostProps[]>([]);
+    const [allCategories, setAllCategories] = useState<string[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [postsPerPage, setPostsPerPage] = useState<number>(6);
+
     // const { formattedCategories } = useLoaderData<CategoriesLoaderData>();
     const categoryFetcher = useFetcher<CategoriesLoaderData>();
-    // useLayoutEffect(() => {
-        useEffect(() => {
-            if (window && window.window.document) {
-                
+
+    useEffect(() => {
+        // if (!categoryFetcher.data || categoryFetcher.data.formattedCategories.length < 1) categoryFetcher.load('/api/categories');
+        if (categoryFetcher.state === "idle" && categoryFetcher.data == null) categoryFetcher.load('/api/categories');
+    }, [categoryFetcher]);
+
+    useEffect(() => {
+        const categories = categoryFetcher.data ? categoryFetcher.data.formattedCategories.map((cat) => unslugify(cat.title)) : ['loading...']; // Array.from({ length: 25 }, (_, i) => `Category ${i + 1}`);
+        const blogPosts = Array.from({ length: 20 }, (_, i) => ({
+            title: `Blog Post ${i + 1}`,
+            description: `Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`.repeat(5),
+            date: `2020-01-${String(i + 1).padStart(2, '0')}`,
+            image: `https://loremflickr.com/320/240?random=${i + 1}`, // await blogPostImages[i]., // 'https://loremflickr.com/640/360', // 'http://via.placeholder.com/640x360',
+            readingTime: Math.ceil(Math.random() * 10),
+            categories: categories.slice(0, Math.floor(Math.random() * 3 + 1))
+        }));
+
+        setAllBlogPosts(blogPosts);
+        setAllCategories(categories);
+    }, [categoryFetcher.data]);
+
+    useLayoutEffect(() => {
+        if (window && window.document) {
+            const blogPostList = window.document.getElementById('blogPostList') as HTMLElement;
+            const searchbar = window.document.getElementById('searchbar') as HTMLInputElement;
+            const modal = window.document.getElementById('modal') as HTMLElement;
+            const closeModal = window.document.getElementById('closeModal') as HTMLElement;
+            const prevPage = window.document.getElementById('prevPage') as HTMLButtonElement;
+            const nextPage = window.document.getElementById('nextPage') as HTMLButtonElement;
+            const categoryFilter = window.document.getElementById('categoryFilter') as HTMLSelectElement;
+            const modalCategories = window.document.getElementById('modalCategories') as HTMLElement;
     
-                // if (!categoryFetcher.data || categoryFetcher.data.formattedCategories.length < 1) categoryFetcher.load('/api/categories');
-                if (categoryFetcher.state === "idle" && categoryFetcher.data == null) categoryFetcher.load('/api/categories');
-
-                const blogPostList = window.document.getElementById('blogPostList') as HTMLElement;
-                const searchbar = window.document.getElementById('searchbar') as HTMLInputElement;
-                const modal = window.document.getElementById('modal') as HTMLElement;
-                const closeModal = window.document.getElementById('closeModal') as HTMLElement;
-                const prevPage = window.document.getElementById('prevPage') as HTMLButtonElement;
-                const nextPage = window.document.getElementById('nextPage') as HTMLButtonElement;
-                const categoryFilter = window.document.getElementById('categoryFilter') as HTMLSelectElement;
-                const modalCategories = window.document.getElementById('modalCategories') as HTMLElement;
-        
-                let currentPage = 1;
-                const postsPerPage = 6;
-        
-                const categories = categoryFetcher.data ? categoryFetcher.data.formattedCategories.map((cat) => cat.title) : ['loading...']; // Array.from({ length: 25 }, (_, i) => `Category ${i + 1}`);
-                // const images = [];
-                // const getImage = async () => (await fetch('https://loremflickr.com/640/360')).blob()
-                // const blogPostImages = Array.from({ length: 20 }).map((_, i) => await getImage());
-                const blogPosts = Array.from({ length: 20 }, (_, i) => ({
-                    title: `Blog Post ${i + 1}`,
-                    description: `Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`.repeat(5),
-                    date: `2020-01-${String(i + 1).padStart(2, '0')}`,
-                    image: `https://loremflickr.com/320/240?random=${i + 1}`, // await blogPostImages[i]., // 'https://loremflickr.com/640/360', // 'http://via.placeholder.com/640x360',
-                    readingTime: Math.ceil(Math.random() * 10),
-                    categories: categories.slice(0, Math.floor(Math.random() * 3 + 1))
-                }));
-        
-                closeModal.addEventListener('click', () => {
-                    modal.classList.add('hidden');
-                });
-        
-                const postCreator = window.document.getElementById('createPost') as HTMLElement;
-                const createPostModal = window.document.getElementById('createPostModal') as HTMLElement;
-                const closeCreatePostModal = window.document.getElementById('closeCreatePostModal') as HTMLElement;
-        
-                postCreator.addEventListener('click', () => {
-                    createPostModal.classList.remove('hidden');
-                });
-                closeCreatePostModal.addEventListener('click', () => {
-                    createPostModal.classList.add('hidden');
-                });
-        
-                const createPostForm = window.document.getElementById('createPostForm') as HTMLElement;
-                const postTitle = window.document.getElementById('postTitle') as HTMLInputElement;
-                const postDescription = window.document.getElementById('postDescription') as HTMLTextAreaElement;
-                const postImage = window.document.getElementById('postImage') as HTMLInputElement;
-                const postCategories = window.document.getElementById('postCategories') as HTMLSelectElement;
+            closeModal.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+    
+            const postCreator = window.document.getElementById('createPost') as HTMLElement;
+            const createPostModal = window.document.getElementById('createPostModal') as HTMLElement;
+            const closeCreatePostModal = window.document.getElementById('closeCreatePostModal') as HTMLElement;
+    
+            postCreator.addEventListener('click', () => {
+                createPostModal.classList.remove('hidden');
+            });
+            closeCreatePostModal.addEventListener('click', () => {
+                createPostModal.classList.add('hidden');
+            });
+    
+            const createPostForm = window.document.getElementById('createPostForm') as HTMLElement;
+            const postTitle = window.document.getElementById('postTitle') as HTMLInputElement;
+            const postDescription = window.document.getElementById('postDescription') as HTMLTextAreaElement;
+            const postImage = window.document.getElementById('postImage') as HTMLInputElement;
+            const postCategories = window.document.getElementById('postCategories') as HTMLSelectElement;
 
 
+            
+            createPostForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const ptitle = postTitle.value;
+                const pdescription = postDescription.value;
+                const pimage = postImage.value || 'https://loremflickr.com/640/360'; // 'http://via.placeholder.com/640x360';
+                const pdate = new Date().toISOString().split('T')[0];
+                const preadingTime = Math.ceil(pdescription.split(' ').length / 200);
+                const ppostCategories = Array.from(postCategories.selectedOptions).map(option => unslugify(option.value));
+    
+                const post = { title: ptitle, description: pdescription, date: pdate, image: pimage, readingTime: preadingTime, categories: ppostCategories };
+                // allBlogPosts.unshift(post);
+                setAllBlogPosts(prev => [post, ...prev]);
+                // if (categoryFetcher.state === "idle" && categoryFetcher.data !== null || undefined) 
+                if (blogPostList != null) displayBlogPosts(currentPage);
+                createPostModal.classList.add('hidden');
+            });
+    
+            const createBlogPostCard = (post: BlogPostProps) => { 
+                const card = window.document.createElement('div');
+                card.classList.add('bg-white', 'text-black', 'rounded-md', 'shadow-md', 'col-span-1', 'border', 'border-sp-primary', 'p-2');
                 
-                createPostForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const ptitle = postTitle.value;
-                    const pdescription = postDescription.value;
-                    const pimage = postImage.value || 'https://loremflickr.com/640/360'; // 'http://via.placeholder.com/640x360';
-                    const pdate = new Date().toISOString().split('T')[0];
-                    const preadingTime = Math.ceil(pdescription.split(' ').length / 200);
-                    const ppostCategories = Array.from(postCategories.selectedOptions).map(option => option.value);
-        
-                    const post = { title: ptitle, description: pdescription, date: pdate, image: pimage, readingTime: preadingTime, categories: ppostCategories };
-                    blogPosts.unshift(post);
-                    if (categoryFetcher.state === "idle" && categoryFetcher.data !== null || undefined) displayBlogPosts(currentPage);
-                    createPostModal.classList.add('hidden');
-                });
-        
-                const createBlogPostCard = (post: BlogPostProps) => { 
-                    const card = window.document.createElement('div');
-                    card.classList.add('bg-white', 'rounded-md', 'shadow-md', 'p-4', 'col-span-1');
-        
+                // if (card) {
                     card.innerHTML = `
-                        <img className="object-cover mb-4 rounded-md" src="${post.image}" alt="${post.title}" />
-                        <h4 className="text-lg font-bold">${post.title}</h4>
-                        <p className="truncate leading-snug mt-2 text-sm">${post.description.substring(0, 40) + "..."}</p>
-                        <p className="mt-4 text-gray-700">${post.date} - ${post.readingTime} min read</p>
-                        <div className="mt-2 flex flex-wrap">
-                            ${post.categories.map(cat => `<span class="bg-sp-primary text-sm font-semibold text-white rounded-md px-2 py-1 mr-1 mb-1">${cat}</span>`).join('')}
-                        </div>
-                    `;
-        
-                    const modalTitle = window.document.getElementById('modalTitle') as HTMLElement;
-                    const modalDate = window.document.getElementById('modalDate') as HTMLElement;
-                    const modalReadingTime = window.document.getElementById('modalReadingTime') as HTMLElement;
-                    const modalContent = window.document.getElementById('modalContent') as HTMLElement;
-                    const modalImage = window.document.getElementById('modalImage') as HTMLInputElement;
-                    
-                    card.addEventListener('click', () => {
-                        modalTitle.textContent = post.title;
-                        modalDate.textContent = post.date;
-                        modalReadingTime.textContent = post.readingTime.toString();
-                        modalContent.textContent = post.description;
-                        modalImage.src = post.image;
-                        modalCategories.innerHTML = '';
-                        post.categories.forEach(cat => {
-                            const span = window.document.createElement('span');
-                            span.classList.add('bg-gray-200', 'text-sm', 'rounded-md', 'px-2', 'py-1', 'mr-1', 'mb-1');
-                            span.textContent = cat;
-                            modalCategories.appendChild(span);
-                        });
-                        modal.classList.remove('hidden');
-                    });
-        
-                    return card;
-                };
-        
-                const displayBlogPosts = (page: number) => {
-                    if (categoryFetcher.state === "idle" && categoryFetcher.data !== null || undefined) {
-                        // blogPostList.innerHTML = categoryFetcher.data && '';
-                    const searchText = searchbar.value.toLowerCase();
-                    const selectedCategory = categoryFilter.value;
-        
-                    const filteredPosts = blogPosts.filter(post => {
-                        const searchMatch = post.title.toLowerCase().includes(searchText) || post.categories.some(cat => cat.toLowerCase().includes(searchText));
-                        const categoryMatch = !selectedCategory || post.categories.includes(selectedCategory);
-                        return searchMatch && categoryMatch;
-                    });
-                    const startIndex = (page - 1) * postsPerPage;
-                    const endIndex = startIndex + postsPerPage;
-                    const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
-        
-                    paginatedPosts.forEach(post => {
-                        const card = createBlogPostCard(post);
-                        blogPostList.appendChild(card);
-                    });
-        
-                    prevPage.disabled = currentPage === 1 || categoryFetcher.state === 'loading';
-                    nextPage.disabled = endIndex >= filteredPosts.length  || categoryFetcher.state === 'loading';
-                    }
-                    
-                };
-        
-                searchbar.addEventListener('input', () => {
-                    currentPage = 1;
-                    displayBlogPosts(currentPage);
-                });
-        
-                categoryFilter.addEventListener('change', () => {
-                    currentPage = 1;
-                    displayBlogPosts(currentPage);
-                });
-        
-                prevPage.addEventListener('click', () => {
-                    currentPage--;
-                    displayBlogPosts(currentPage);
-                    if (window) {
-                        window.scrollTo(0, 0);
-                    }
-                });
-        
-                nextPage.addEventListener('click', () => {
-                    currentPage++;
-                    displayBlogPosts(currentPage);
-                    if (window) {
-                        window.scrollTo(0, 0);
-                    }
-                });
-        
+                    <div className="font-semibold text-lg items-center justify-center w-full leading-6">
+                    <img className="rounded-md" src="${post.image}" alt="${post.title}">
+                    <h4 className="my-12 text-center text-white font-bold">${post.title}</h4>
+                    </img>
+                    <p className="truncate text-md">${post.description.substring(0, 40) + "..."}</p>
+                    <p className="my-8 text-gray-700">${post.date} - ${post.readingTime} min read</p>
+                    <div className="flex flex-wrap">
+                        ${post.categories.map(cat => `<span class="bg-sp-primary text-sm text-white rounded-md px-2 py-1 mr-1 mb-1">${cat}</span>`).join('')}
+                    </div>
+                    </div>
+                `;
+                // }
+    
+                const modalTitle = window.document.getElementById('modalTitle') as HTMLElement;
+                const modalDate = window.document.getElementById('modalDate') as HTMLElement;
+                const modalReadingTime = window.document.getElementById('modalReadingTime') as HTMLElement;
+                const modalContent = window.document.getElementById('modalContent') as HTMLElement;
+                const modalImage = window.document.getElementById('modalImage') as HTMLInputElement;
                 
-        
-                categories.forEach(cat => {
-                    // const option = window.document.createElement('option');
-                    // option.textContent = cat;
-                    // option.value = cat;
-                    // categoryFilter.appendChild(option);
-        
-                    const createOption = window.document.createElement('option');
-                    createOption.textContent = cat;
-                    createOption.value = cat;
-                    postCategories.appendChild(createOption);
-
-                    categoryFilter.appendChild(createOption);
+                card.addEventListener('click', () => {
+                    modalTitle.textContent = post.title;
+                    modalDate.textContent = post.date;
+                    modalReadingTime.textContent = post.readingTime.toString();
+                    modalContent.textContent = post.description;
+                    modalImage.src = post.image;
+                    modalCategories.innerHTML = '';
+                    post.categories.forEach(cat => {
+                        const span = window.document.createElement('span');
+                        span.classList.add('bg-sp-primary', 'text-sm', 'font-semibold', 'rounded-md', 'px-2', 'py-1', 'mr-1', 'mb-1');
+                        span.textContent = cat;
+                        modalCategories.appendChild(span);
+                    });
+                    modal.classList.remove('hidden');
                 });
-        
-                displayBlogPosts(currentPage);
-                };
-        })
-        
+    
+                return card;
+            };
+    
+            const displayBlogPosts = (page: number) => {
+                if (allBlogPosts.length > 1) {
+                    if (blogPostList != null) blogPostList.innerHTML = '';
+                const searchText = searchbar.value.toLowerCase();
+                const selectedCategory = categoryFilter.value;
+    
+                const filteredPosts = allBlogPosts.filter(post => {
+                    const searchMatch = post.title.toLowerCase().includes(searchText) || post.categories.some(cat => cat.toLowerCase().includes(searchText));
+                    const categoryMatch = !selectedCategory || post.categories.includes(selectedCategory);
+                    return searchMatch && categoryMatch;
+                });
 
+                const startIndex = (page - 1) * postsPerPage;
+                const endIndex = startIndex + postsPerPage;
+                const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
+    
+                paginatedPosts.forEach(post => {
+                    const card = createBlogPostCard(post);
+                    blogPostList.appendChild(card);
+                });
+    
+                prevPage.disabled = currentPage === 1 || categoryFetcher.state === 'loading';
+                nextPage.disabled = endIndex >= filteredPosts.length  || categoryFetcher.state === 'loading';
+                } else {
+                    blogPostList.innerHTML = 'No Blog Posts Available';
+                }
+                
+            };
+    
+            searchbar.addEventListener('input', () => {
+                setCurrentPage(1);
+                if (blogPostList != null) displayBlogPosts(1);
+            });
+    
+            categoryFilter.addEventListener('change', () => {
+                setCurrentPage(1);
+                if (blogPostList != null) displayBlogPosts(1);
+            });
+    
+            prevPage.addEventListener('click', () => {
+                setCurrentPage(prev => prev - 1);
+                if (blogPostList != null) displayBlogPosts(currentPage - 1);
+                window.scrollTo(0, 0);
+            });
+    
+            nextPage.addEventListener('click', () => {
+                setCurrentPage(prev => prev + 1);
+                if (blogPostList != null) displayBlogPosts(currentPage + 1);
+                window.scrollTo(0, 0);
+            });
+    
+            
+    
+            allCategories.forEach(cat => {
+                // const option = window.document.createElement('option');
+                // option.textContent = cat;
+                // option.value = cat;
+                // categoryFilter.appendChild(option);
+    
+                const createOption = window.document.createElement('option');
+                createOption.textContent = cat;
+                createOption.value = cat;
+                postCategories.appendChild(createOption);
+
+                categoryFilter.appendChild(createOption);
+            });
+    
+            if (blogPostList != null) displayBlogPosts(currentPage);
+            };
+    }, [allBlogPosts, allCategories, categoryFetcher.data, categoryFetcher.state, currentPage, postsPerPage])
+    
     return (
         <>
 <div className="bg-gray-100">
@@ -298,7 +307,7 @@ export default function BlogRoute() {
 
         
 
-        <div className="mt-8">
+        <div className="flex flex-row items-center justify-between mt-8 p-4">
             <button id="prevPage" className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg  disabled:opacity-75">
               Prev
             </button>
