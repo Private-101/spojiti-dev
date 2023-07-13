@@ -99,9 +99,9 @@ export default function BlogRoute() {
                 date: `2020-01-${String(i + 1).padStart(2, '0')}`,
                 image: `https://loremflickr.com/320/240?random=${i + 1}`, // await blogPostImages[i]., // 'https://loremflickr.com/640/360', // 'http://via.placeholder.com/640x360',
                 readingTime: Math.ceil(Math.random() * 10),
-                categories: allCategories.reduce((previous, current, index) => {
-                    
-                }, []) // allCategories.slice(0, Math.floor(Math.random() * 3 + 1))
+                categories: allCategories // allCategories.reduce((previous, current, index) => {
+
+               // }, []) // allCategories.slice(0, Math.floor(Math.random() * 3 + 1))
             }));
             setAllBlogPosts(blogPosts);
         }
