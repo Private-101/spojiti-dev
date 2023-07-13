@@ -68,7 +68,7 @@ export function DashboardMenu({
 	id: string;
 	menu: string;
 }) {
-	const [searchParams] = useSearchParams();
+	const [searchParams] = useSearchParams([['open', id]]);
 	const matches = useMatches();
 
 	const menuOpen = searchParams.get("open") == menu;

@@ -7,7 +7,7 @@ import {
 	PanelMain,
 } from "~/components/dashboard/panel";
 
-// import iconsHref from "~/icons.svg";
+import iconsHref from "~/components/sprites.svg";
 
 export default function List() {
 	const location = useLocation();
@@ -24,9 +24,8 @@ export default function List() {
 						
 							
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height={20} width={20}>
-                                {/*<use href={iconsHref + "#menu"} />*/}
-  <path strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-</svg>
+							<use href={iconsHref + "#menu"} />
+  </svg>
 						
 					</Link>
 					List

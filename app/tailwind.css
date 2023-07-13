@@ -9,20 +9,23 @@
   body {
     @apply font-sans font-normal text-base text-body dark:text-whiten bg-sp-body-bg dark:bg-body relative z-1 h-full 
   }
-}
-/*
-@layer components {
-}
+};
 
 @layer utilities {
-  / Chrome, Safari and Opera /
+  .truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+  /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
 
   .no-scrollbar {
-    -ms-overflow-style: none; / IE and Edge /
-    scrollbar-width: none; / Firefox /
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 
   .chat-height {
@@ -31,6 +34,14 @@
   .inbox-height {
     @apply h-[calc(100vh_-_8.125rem)] lg:h-[calc(100vh_-_5.625rem)];
   }
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+/*
+@layer components {
 }
 
 / third-party libraries CSS /
@@ -161,7 +172,5 @@ span.flatpickr-weekday,
   background-image: url(./components/common/assets/images/icon/icon-arrow-down.svg);
 }
 
-[x-cloak] {
-  display: none !important;
-}
+
 */
