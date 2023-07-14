@@ -59,3 +59,36 @@ describe('/hooks/useToggle', () => {
     expect(view.result.current[0]).toBe(true);
   });
 });
+
+/*
+In the first test, we are testing the default behavior of useToggle where it toggles between false and true. In the second test, we are testing the behavior of useToggle when specifying custom options, in this case, [1, 2].
+*/
+test('useToggle should toggle between two options', () => {
+  const [option, toggle] = useToggle();
+
+  // Initial option should be false
+  expect(option).toBe(false);
+
+  // Toggle the option
+  toggle();
+  expect(option).toBe(true);
+
+  // Toggle the option again
+  toggle();
+  expect(option).toBe(false);
+});
+
+test('useToggle should toggle between specified options', () => {
+  const [option, toggle] = useToggle([1, 2]);
+
+  // Initial option should be 1
+  expect(option).toBe(1);
+
+  // Toggle the option
+  toggle();
+  expect(option).toBe(2);
+
+  // Toggle the option again
+  toggle();
+  expect(option).toBe(1);
+});

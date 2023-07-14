@@ -1,5 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 
+/* 
+The code block is initializing and managing a connection 
+to a database using Prisma. 
+*/
+
 let prisma: PrismaClient;
 
 declare global {

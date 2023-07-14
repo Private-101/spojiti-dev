@@ -1,4 +1,12 @@
 {
+	"int": {
+		"prefix": "int",
+		"description": "int",
+		"scope": "typescriptreact",
+		"body": [
+			"interface IProps {}"
+		]
+	},
 	"impm": {
 		"prefix": "impm",
 		"description": "impm",

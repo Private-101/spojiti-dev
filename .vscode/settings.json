@@ -1,3 +1,24 @@
 {
-    "svg.preview.background": "custom"
+    "svg.preview.background": "custom",
+    "editor.quickSuggestions": {
+        "other": "on",
+        "comments": "on",
+        "strings": "off"
+    },
+    "editor.suggest.showFunctions": true,
+    "editor.suggest.localityBonus": true,
+    "editor.inlineSuggest.suppressSuggestions": false,
+    "editor.formatOnSave": true,
+    "editor.snippetSuggestions": "top",
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.autoClosingBrackets": "beforeWhitespace",
+    "editor.autoClosingQuotes": "beforeWhitespace",
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+    "editor.codeLens": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "docwriter.progress.trackFunctions": true,
+    "docwriter.progress.trackClasses": true,
+    "docwriter.progress.trackTypes": true
 }

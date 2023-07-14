@@ -1,7 +1,8 @@
 import type { V2_MetaFunction, LinksFunction, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData, useFetcher } from "@remix-run/react";
-import { useLayoutEffect, useEffect, useState } from "react";
+import { useLoaderData, useFetcher, Outlet } from "@remix-run/react";
+import React, { useLayoutEffect, useEffect, useState } from "react";
+import { sampleSize } from 'lodash';
 
 import { classNames, unslugify } from "~/utils";
 
@@ -65,6 +66,7 @@ interface CategoriesLoaderData {
     image: string; 
     readingTime: number; 
     categories: string[];
+    // onClick?: () => void;
 };
 
 export default function BlogRoute() {
@@ -90,19 +92,23 @@ export default function BlogRoute() {
     }, [categoryFetcher.data, allCategories, categoryFetcher.state]);
 
     useEffect(() => {
-        const rand = Math.random();
-
         if (allCategories.length > 1 && allBlogPosts.length < 1) {
-            const blogPosts = Array.from({ length: 20 }, (_, i) => ({
-                title: `Blog Post ${i + 1}`,
-                description: `Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`.repeat(5),
-                date: `2020-01-${String(i + 1).padStart(2, '0')}`,
-                image: `https://loremflickr.com/320/240?random=${i + 1}`, // await blogPostImages[i]., // 'https://loremflickr.com/640/360', // 'http://via.placeholder.com/640x360',
-                readingTime: Math.ceil(Math.random() * 10),
-                categories: allCategories // allCategories.reduce((previous, current, index) => {
-
-               // }, []) // allCategories.slice(0, Math.floor(Math.random() * 3 + 1))
-            }));
+            const blogPosts = Array.from({ length: 20 }, (_, i) => {
+                const desc = `Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`.repeat(5);
+                const cats = sampleSize(allCategories, sampleSize([1, 2, 3], 1)[0]); // sampleSize(allCategories, Math.round(Math.random() * 10)); // allCategories.filter((cat, i) => Math.round(Math.random() * 10) > 6);
+                // const temp = sampleSize(allCategories, 3); // cats.length < 1 ?  : randomCats;
+                // title: `${Math.round(Math.random() * 10)} Awesome Jobs for ${allCategories.filter((cat, i) => cats.length > 1 ? cats.includes(cat) : true ).join(', ')}`,
+                return ({
+                    title: `${Math.round(Math.random() * 10)} Awesome Jobs for ${cats.join(', ')}`,
+                    description: desc,
+                    date: `2020-01-${String(i + 1).padStart(2, '0')}`,
+                    image: `https://loremflickr.com/320/240?random=${i}-${Math.round(Math.random() * 10)}`, // await blogPostImages[i]., // 'https://loremflickr.com/640/360', // 'http://via.placeholder.com/640x360',
+                    readingTime: Math.ceil(desc.length / 200),
+                    categories: cats // cats.length > 3 ? cats.slice(0, Math.round(Math.random() * cats.length)) // allCategories.filter((cat, i) => Math.round(Math.random() * 10) > 6) // allCategories.reduce((previous, current, index) => {
+    
+                   // }, []) // allCategories.slice(0, Math.floor(Math.random() * 3 + 1))
+                })
+            });
             setAllBlogPosts(blogPosts);
         }
     }, [allBlogPosts.length, allCategories])
@@ -182,15 +188,15 @@ export default function BlogRoute() {
     
             const createBlogPostCard = (post: BlogPostProps) => { 
                 const card = window.document.createElement('div');
-                card.classList.add('bg-gradient-to-tr', 'from-cyan-200/80', 'to-white', 'text-black', 'dark:text-white', 'font-semibold', 'rounded-md', 'shadow-md', 'col-span-1','border-2', 'border-sp-primary', 'p-2');
+                card.classList.add('bg-gradient-to-tr', 'from-cyan-200/80', 'to-white','rounded-md', 'shadow-md', 'col-span-1','border-2', 'border-sp-primary', 'p-2');
                 
                 // if (card) {
                     card.innerHTML = `
                     <img className="object-cover rounded-md" src="${post.image}" alt="${post.title}">
-                    <h4 className="my-12 text-center">${post.title}</h4>
+                    <h4 className="my-12 text-base text-center">${post.title}</h4>
                     </img>
-                    <p className="truncate text-md">${post.description.substring(0, 40) + "..."}</p>
-                    <p className="my-8 text-gray-700">${post.date} - ${post.readingTime} min read</p>
+                    <p className="truncate text-sm font-light">${post.description.substring(0, 40) + "..."}</p>
+                    <p className="my-8 text-gray-700 text-sm font-light">${post.date} - ${post.readingTime} min read</p>
                     <div className="flex flex-wrap">
                         ${post.categories.map(cat => `<span class="bg-sp-primary text-sm text-white rounded-md px-2 py-1 mr-1 mb-1">${cat}</span>`).join('')}
                     </div>
@@ -240,7 +246,9 @@ export default function BlogRoute() {
                 const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
     
                 paginatedPosts.forEach(post => {
+                    // const card = createBlogPostCard_v2(post);
                     const card = createBlogPostCard(post);
+                    // const container = React.createElement('div', null, card);
                     blogPostList.appendChild(card);
                 });
     
@@ -407,3 +415,160 @@ export default function BlogRoute() {
         </>
     );
 }
+
+
+// function CardV2(post: BlogPostProps) {
+    /*
+    const createBlogPostCard_v2 = (post: BlogPostProps) => { 
+                const card_v2 = React.createElement(CardV2, post);
+    
+                const modalTitle = window.document.getElementById('modalTitle') as HTMLElement;
+                const modalDate = window.document.getElementById('modalDate') as HTMLElement;
+                const modalReadingTime = window.document.getElementById('modalReadingTime') as HTMLElement;
+                const modalContent = window.document.getElementById('modalContent') as HTMLElement;
+                const modalImage = window.document.getElementById('modalImage') as HTMLInputElement;
+                
+                card_v2.props.onClick = () => {
+                    modalTitle.textContent = post.title;
+                    modalDate.textContent = post.date;
+                    modalReadingTime.textContent = post.readingTime.toString();
+                    modalContent.textContent = post.description;
+                    modalImage.src = post.image;
+                    modalCategories.innerHTML = '';
+                    post.categories.forEach(cat => {
+                        const span = window.document.createElement('span');
+                        span.classList.add('bg-sp-primary', 'text-sm', 'text-white', 'font-semibold', 'rounded-md', 'px-2', 'py-1', 'mr-1', 'mb-1');
+                        span.textContent = cat;
+                        modalCategories.appendChild(span);
+                    });
+                    modal.classList.remove('hidden');
+                };
+    
+                return card_v2;
+            };
+    
+    return (
+        <>
+        <div className="bg-gradient-to-tr from-cyan-200/80 to-white rounded-md shadow-md col-span-1 border-2 border-sp-primary p-2"  onClick={(event) => onClick ? onClick(event) : () => {}}>
+                    <img className="object-cover rounded-md" src={post.image} alt={post.title}>
+                    <h4 className="my-12 text-base text-center">${post.title}</h4>
+                    </img>
+                    <p className="truncate text-sm font-light">${post.description.substring(0, 40) + "..."}</p>
+                    <p className="my-8 text-gray-700 text-sm font-light">${post.date} - ${post.readingTime} min read</p>
+                    <div className="flex flex-wrap">
+                        ${post.categories.map(cat => `<span class="bg-sp-primary text-sm text-white rounded-md px-2 py-1 mr-1 mb-1">${cat}</span>`).join('')}
+                    </div>
+                    </div>
+        </>
+    );
+} */
+/*
+interface PaginatedPostsProps { 
+    filteredPosts: BlogPostProps[]; 
+    startIndex: number;
+    endIndex: number;
+    onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
+};
+const PaginatedPosts: React.FC<PaginatedPostsProps> = ({ filteredPosts, startIndex, endIndex, onClick }) => {
+
+    const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
+
+        const modal = window.document.getElementById('modal') as HTMLElement;
+        const modalTitle = window.document.getElementById('modalTitle') as HTMLElement;
+        const modalDate = window.document.getElementById('modalDate') as HTMLElement;
+        const modalReadingTime = window.document.getElementById('modalReadingTime') as HTMLElement;
+        const modalContent = window.document.getElementById('modalContent') as HTMLElement;
+        const modalImage = window.document.getElementById('modalImage') as HTMLInputElement;
+        const modalCategories = window.document.getElementById('modalCategories') as HTMLElement;
+        
+        const CardonClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            onClick?.(event);
+            paginatedPosts.forEach(post => {
+            modalTitle.textContent = post.title;
+            modalDate.textContent = post.date;
+            modalReadingTime.textContent = post.readingTime.toString();
+            modalContent.textContent = post.description;
+            modalImage.src = post.image;
+            modalCategories.innerHTML = '';
+            post.categories.forEach(cat => {
+                const span = window.document.createElement('span');
+                span.classList.add('bg-sp-primary', 'text-sm', 'text-white', 'font-semibold', 'rounded-md', 'px-2', 'py-1', 'mr-1', 'mb-1');
+                span.textContent = cat;
+                modalCategories.appendChild(span);
+            });
+
+            modal.classList.remove('hidden');
+            });
+            
+        };
+    
+    
+
+    return (
+        <div>
+            {paginatedPosts.map(post => {
+                // return createBlogPostCard_v2(post);
+                return (
+                    <>
+                    <div onClick={(event) => CardonClick(event)}>
+                    <CardV2 {...post} />
+                    </div>
+                    </>
+                )
+            })}
+        </div>
+    );
+};
+
+interface IModalProps {
+    post: BlogPostProps | null;
+}
+
+// A component to display the modal
+const Modal: React.FC<IModalProps> = ({post}) => {
+    if (!post) {
+        return null;
+    };
+
+    return (
+        <>
+        <div className="modal">
+            <h1 id="modalTitle">{post.title}</h1>
+            <p id="modalDate">{post.date}</p>
+            <p id="modalReadingTime">{post.readingTime}</p>
+            <p id="modalContent">{post.description}</p>
+            <img id="modalImage" src={post.image} alt={post.title}/>
+            <div id="modalCategories">
+                {post.categories.map((cat) => (
+                    <span 
+                        className="bg-sp-primary text-sm text-white font-semibold rounded-md px-2 py-1 mr-1 mb-1"
+                        key={cat}
+                    >
+                        {cat}
+                    </span>
+                ))}
+            </div>
+        </div>
+        </>
+    );
+};
+
+interface IBlogPostCardProps {
+    post: BlogPostProps
+}
+
+// A component to create a blog post card
+const BlogPostCard: React.FC<IBlogPostCardProps> = ({ post }) => {
+    const [selectedPost, setSelectedPost] = useState<BlogPostProps | null>(null);
+
+    const handleClick = () => {
+        setSelectedPost(post);
+    };
+
+    return (
+        <>
+            <CardV2 onClick={handleClick} {...post} />
+            <Modal post={selectedPost} />
+        </>
+    );
+}; */
