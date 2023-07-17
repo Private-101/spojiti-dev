@@ -7,8 +7,11 @@
     },
     "editor.suggest.showFunctions": true,
     "editor.suggest.localityBonus": true,
-    "editor.inlineSuggest.suppressSuggestions": false,
+"editor.inlineSuggest.suppressSuggestions" : true,
+
     "editor.formatOnSave": true,
+"editor.formatOnSaveMode" : "modificationsIfAvailable",
+
     "editor.snippetSuggestions": "top",
     "editor.acceptSuggestionOnEnter": "off",
     "editor.autoClosingBrackets": "always",
@@ -17,8 +20,17 @@
         "source.organizeImports": true
     },
     "editor.codeLens": false,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.defaultFormatter" : "mblode.pretty-formatter",
+
     "docwriter.progress.trackFunctions": true,
     "docwriter.progress.trackClasses": true,
-    "docwriter.progress.trackTypes": true
+"docwriter.progress.trackTypes" : true,
+"[typescriptreact]" : {
+    "editor.defaultFormatter": "mblode.pretty-formatter"
+},
+"pretty-formatter.bracePadding" : true,
+"[typescript]" : {
+    "editor.defaultFormatter": "mblode.pretty-formatter"
+}
+
 }

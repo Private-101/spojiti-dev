@@ -7,6 +7,8 @@
 import { RemixBrowser } from "@remix-run/react";
 import { startTransition, StrictMode } from "react";
 import { hydrateRoot } from "react-dom/client";
+import useLocalDarkMode from "~/hooks/useLocalDarkMode";
+
 // import { registerFocusTrap } from "~/elements/focus-trap.client";
 
 // registerFocusTrap();
@@ -18,4 +20,14 @@ startTransition(() => {
       <RemixBrowser />
     </StrictMode>
   );
+
+  useLocalDarkMode();
+});
+
+
+window.addEventListener("beforeunload", (event: BeforeUnloadEvent) => {
+  // Returns the type of event, e.g. "click", "hashchange", or "submit".
+  const type = event.type;
+  console.log(`WINDOW EVENT: beforeunload\nType: ${type}`);
+  // navigate('/logout');
 });

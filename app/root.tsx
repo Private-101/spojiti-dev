@@ -49,7 +49,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export interface RootLoaderData {
+/* export interface RootLoaderData {
   theme: Theme
 };
 
@@ -60,20 +60,16 @@ export const loader = async ({ request }: LoaderArgs) => {
   return json<RootLoaderData>({
     theme: themeSession.getTheme(),
   });
-};
+}; */
 
-function App() {
+  function App() {
   const navigate = useNavigate();
   const submit = useSubmit();
 
   if (isClient()) {
-    // window.BeforeUnloadEvent = () => navigate('/logout');
-    window.addEventListener("beforeunload", (event: BeforeUnloadEvent) => {
-      // submit('/logout')
-      console.log('beforeunload triggered, logging out');
-      navigate('/logout');
-    });
-  }
+    // TODO: client only code here... 
+  };
+
   // const [theme, setTheme] = useLocalStorage('THEME', 'light');
   // const [hydrated, setHydrated] = useState(false);
   /*
@@ -114,13 +110,13 @@ function App() {
      
  */
   
-     const data = useLoaderData<RootLoaderData>();
+     // const data = useLoaderData<RootLoaderData>();
      // const [theme, toggle] = useToggle(['light', 'dark']);
 
-     const prefersDarkMQ = "(prefers-color-scheme: dark)";
+     // const prefersDarkMQ = "(prefers-color-scheme: dark)";
 
-     const getPreferredTheme = () =>
-       window.matchMedia(prefersDarkMQ).matches ? Theme.DARK : Theme.LIGHT;
+     // const getPreferredTheme = () =>
+       // window.matchMedia(prefersDarkMQ).matches ? Theme.DARK : Theme.LIGHT;
 
      /* useLayoutEffect(() => {
     console.log('inside root useLayoutEffect hook');
@@ -168,7 +164,8 @@ function App() {
   }, []); */
 
   return (
-    <html lang="en" className={data.theme}>
+    <html lang="en">
+      {/* <html lang="en" className={data.theme}> */}
       <head>
         <meta charSet="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
@@ -179,13 +176,13 @@ function App() {
         />
         <Meta />
         <Links />
-        <ThemeHead ssrTheme={Boolean(data.theme)} />
+        {/* <ThemeHead ssrTheme={Boolean(data.theme)} /> */}
       </head>
       <body className='p-0 m-0 z-0'>
         {/*<RootContext.Provider value={[theme, toggle]}>*/}
         <Outlet />
         {/*</RootContext.Provider>*/}
-        <ThemeBody ssrTheme={Boolean(data.theme)} />
+        {/* <ThemeBody ssrTheme={Boolean(data.theme)} /> */}
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
@@ -195,14 +192,15 @@ function App() {
 };
 
 export default function AppWithProviders() {
-  const data = useLoaderData<RootLoaderData>();
+  // const data = useLoaderData<RootLoaderData>();
 
   return (
-    <ThemeProvider specifiedTheme={data.theme}>
+    <ThemeProvider specifiedTheme={null}>
+      {/* <ThemeProvider specifiedTheme={data.theme}> */}
       <App />
     </ThemeProvider>
   );
-}
+} 
 
 export function ErrorBoundary() {
   const error = useRouteError();
