@@ -1,7 +1,7 @@
 import type { ActionArgs, LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useSearchParams, Outlet, useNavigate, useNavigation } from "@remix-run/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, Fragment } from "react";
 
 import { createUser, getUserByEmail } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/services/session.server";
@@ -140,10 +140,10 @@ export default function JoinRoute() {
             {/*<Transition
                 show={showSignupForm}
                 as={'div'}
-                enter="transition-opacity duration-75"
+                enter="transition-all duration-75"
                 enterFrom="opacity-0"
                 enterTo="opacity-100"
-                leave="transition-opacity duration-150"
+                leave="transition-all duration-150"
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
@@ -152,32 +152,32 @@ export default function JoinRoute() {
             <Transition
                 show={!showEmployerSignupForm && !showApplicantSignupForm}
                 as={'div'}
-                enter="transition-opacity duration-250"
+                enter="transition-all ease-in duration-200"
                 enterFrom="opacity-0"
                 enterTo="opacity-100"
-                leave="transition-opacity duration-250"
+                leave="transition-all ease-out duration-150"
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
                 <main className="flex flex-col mt-12 text-center items-center justify-center">
                     <div id='button-container' className="flex flex-row">
                         <div className="container p-32 mx-8 border-2 border-black">
-                            <div className="space-x-4">
-                                <label htmlFor="employer-btn" className="block text-lg font-medium text-gray-800 dark:text-gray-200">
-                                    Are You Looking to hire?
+                            <div className="container items-center justify-center text-center space-x-4">
+                                <label htmlFor="employer-btn" className="inline-block w-auto text-lg font-bold text-gray-800 dark:text-gray-200">
+                                    Looking to hire?
                                 </label>
-                                <button id="employer-btn" onClick={(e) => onEmployerClick(e)} className="bg-sp-primary hover:bg-sp-primary/80 text-whiten hover:text-white hover:font-semibold py-2 px-4 rounded-md m-2">
-                                    Employer's Click Here
+                                <button id="employer-btn" onClick={(e) => onEmployerClick(e)} className="bg-sp-primary hover:bg-sp-primary/80 text-whiten hover:text-white hover:shadow-md hover:scale-110 py-2 px-4 rounded-md m-2">
+                                    Employers Click Here
                                 </button>
                             </div>
                         </div>
                         <div className="container p-32 mx-8 border-2 border-black">
-                            <div className="space-x-4">
-                                <label htmlFor="employer-btn" className="block text-lg font-medium text-gray-800 dark:text-gray-200">
-                                    Are You Looking for a job?
+                            <div className="container items-center justify-center text-center space-x-4">
+                                <label htmlFor="employer-btn" className="inline-block w-auto text-lg font-bold text-gray-800 dark:text-gray-200">
+                                    Looking for a job?
                                 </label>
-                                <button id="applicant-btn" onClick={(e) => onApplicantClick(e)} className="bg-sp-primary hover:bg-sp-primary/80 text-whiten hover:text-white hover:font-semibold py-2 px-4 rounded-md m-2">
-                                    Applicant's Click Here
+                                <button id="applicant-btn" onClick={(e) => onApplicantClick(e)} className="bg-sp-primary hover:bg-sp-primary/80 text-whiten hover:text-white hover:shadow-md hover:scale-110 py-2 px-4 rounded-md m-2">
+                                    Applicants Click Here
                                 </button>
                             </div>
                         </div>
@@ -188,13 +188,81 @@ export default function JoinRoute() {
                 show={showEmployerSignupForm || showApplicantSignupForm}
                 as={'div'}>
 
-                <Transition
+                {/* The backdrop, rendered as a fixed sibling to the panel container */}
+                <div className="fixed inset-0 bg-black/60" aria-hidden="true" />
+
+                <SignUpModal show={showEmployerSignupForm} setShow={setShowEmployerSignupForm} />
+                <SignUpModal show={showApplicantSignupForm} setShow={setShowApplicantSignupForm} />
+
+            </Transition>
+        </>
+    );
+};
+
+interface IModalProps {
+    show: boolean;
+    setShow: (show: boolean) => void;
+};
+
+const SignUpModal = ({ show, setShow }: IModalProps) => {
+    return (
+        <Transition appear show={show} as={Fragment}>
+            <Dialog as="div" className="relative z-50" onClose={() => setShow(false)}>
+                <Transition.Child
+                    as={Fragment}
+                    enter='ease-out duration-300'
+                    enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+                    enterTo='opacity-100 translate-y-0 sm:scale-100'
+                    leave='ease-in duration-200'
+                    leaveFrom='opacity-100 translate-y-0 sm:scale-100'
+                    leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+                >
+                    <div className="fixed inset-0 bg-black bg-opacity-25" />
+                </Transition.Child>
+                <div className="fixed inset-0 overflow-y-auto">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center">
+                        <Transition.Child
+                            as={Fragment}
+                            enter='ease-out duration-300'
+                    enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+                    enterTo='opacity-100 translate-y-0 sm:scale-100'
+                    leave='ease-in duration-200'
+                    leaveFrom='opacity-100 translate-y-0 sm:scale-100'
+                    leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+                        >
+                            <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Title
+                                    as="h3"
+                                    className="text-lg font-medium leading-6 text-gray-900"
+                                >
+                                    Sign Up
+                                </Dialog.Title>
+                                <div className="mt-2">
+                                    <p className="text-sm text-gray-500">
+                                        We'll never share your email with anyone else.
+                                    </p>
+                                </div>
+                            </Dialog.Panel>
+                        </Transition.Child>
+                    </div>
+                </div>
+            </Dialog>
+        </Transition>
+    );
+};
+
+
+
+/*
+MODALS
+
+<Transition
                     show={showApplicantSignupForm}
                     as={'div'}
-                    enter="transition-opacity duration-500"
+                    enter="transition-all duration-500"
                     enterFrom="opacity-0"
                     enterTo="opacity-100"
-                    leave="transition-opacity duration-500"
+                    leave="transition-all duration-500"
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
@@ -202,12 +270,12 @@ export default function JoinRoute() {
                         onClose={() => setShowApplicantSignupForm(false)}
                         className="relative z-50"
                     >
-                        {/* The backdrop, rendered as a fixed sibling to the panel container */}
+                        {/* The backdrop, rendered as a fixed sibling to the panel container }
                         <div className="fixed inset-0 bg-black/40" aria-hidden="true" />
 
-                        {/* Full-screen container to center the panel */}
+                        {/* Full-screen container to center the panel }
                         <div id="applicant-sign-up-modal" className="fixed inset-0 flex items-center justify-center p-4">
-                            {/* The actual dialog panel  */}
+                            {/* The actual dialog panel  }
                             <Dialog.Panel className="bg-white w-full max-w-lg rounded-xl overflow-hidden p-4">
                                 <Dialog.Title>Applicant Sign Up</Dialog.Title>
                                 <form id="applicant-sign-up-form">
@@ -232,10 +300,10 @@ export default function JoinRoute() {
                 <Transition
                     show={showEmployerSignupForm}
                     as={'div'}
-                    enter="transition-opacity duration-500"
+                    enter="transition-all duration-500"
                     enterFrom="opacity-0"
                     enterTo="opacity-100"
-                    leave="transition-opacity duration-500"
+                    leave="transition-all duration-500"
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
@@ -243,12 +311,11 @@ export default function JoinRoute() {
                         onClose={() => setShowEmployerSignupForm(false)}
                         className="relative z-50"
                     >
-                        {/* The backdrop, rendered as a fixed sibling to the panel container */}
-                        <div className="fixed inset-0 bg-black/40" aria-hidden="true" />
+                        
 
-                        {/* Full-screen container to center the panel */}
+                        {/* Full-screen container to center the panel }
                         <div id="employer-sign-up-modal" className="fixed inset-0 flex items-center justify-center p-4">
-                            {/* The actual dialog panel  */}
+                            {/* The actual dialog panel  }
                             <Dialog.Panel className="bg-white w-full max-w-lg rounded-xl overflow-hidden p-4">
                                 <Dialog.Title>Employer Sign Up</Dialog.Title>
                                 <form id="employer-sign-up-form">
@@ -270,10 +337,17 @@ export default function JoinRoute() {
                     </Dialog>
                 </Transition>
 
-            </Transition>
-        </>
-    );
-}
+*/
+
+
+
+
+
+
+
+
+
+
 
 /*
 Applicant Modal

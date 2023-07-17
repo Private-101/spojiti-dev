@@ -31,6 +31,6 @@
 "pretty-formatter.bracePadding" : true,
 "[typescript]" : {
     "editor.defaultFormatter": "mblode.pretty-formatter"
-}
+},
 
 }
