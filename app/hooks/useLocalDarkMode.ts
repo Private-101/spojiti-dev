@@ -1,6 +1,6 @@
 import React from "react";
 import useLocalStorage from "./useLocalStorage";
-
+import { isClient } from "~/utils";
 export default function useLocalDarkMode() {
     console.log('useLocalDarkMode triggered');
     let [isDarkMode, setIsDarkMode] = useLocalStorage('dark-mode', false);

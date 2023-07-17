@@ -18,7 +18,7 @@ import stylesheet from "~/tailwind.css";
 import useLocalStorage from '~/hooks/useLocalStorage';
 import useColorMode from "./hooks/useColorMode";
 import { useToggle } from "./hooks/useToggle";
-
+import useLocalDarkMode from "~/hooks/useLocalDarkMode";
 import {
   ThemeBody,
   ThemeHead,
@@ -49,7 +49,7 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-/* export interface RootLoaderData {
+export interface RootLoaderData {
   theme: Theme
 };
 
@@ -60,9 +60,10 @@ export const loader = async ({ request }: LoaderArgs) => {
   return json<RootLoaderData>({
     theme: themeSession.getTheme(),
   });
-}; */
+};
 
-  function App() {
+function App() {
+  const data = useLoaderData<RootLoaderData>();
   const navigate = useNavigate();
   const submit = useSubmit();
 
@@ -109,63 +110,74 @@ export const loader = async ({ request }: LoaderArgs) => {
  
      
  */
+
   
-     // const data = useLoaderData<RootLoaderData>();
-     // const [theme, toggle] = useToggle(['light', 'dark']);
+  // const [theme, toggle] = useToggle(['light', 'dark']);
+  
+  /*
+  let [isDarkMode, setIsDarkMode] = useLocalStorage('dark-mode', false);
 
-     // const prefersDarkMQ = "(prefers-color-scheme: dark)";
+  useEffect(() => {
+    // const prefersDarkMQ = "(prefers-color-scheme: dark)";
+    let darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const getPreferredTheme = () => darkModeMediaQuery.matches ? Theme.DARK : Theme.LIGHT;
 
-     // const getPreferredTheme = () =>
-       // window.matchMedia(prefersDarkMQ).matches ? Theme.DARK : Theme.LIGHT;
+    if (getPreferredTheme() === Theme.DARK) {
+      document.documentElement.classList.add('dark');
+      setIsDarkMode(true);
+  } else {
+      document.documentElement.classList.remove('dark');
+      setIsDarkMode(false);
+  }
+  }, []);
+*/
+  /* useLayoutEffect(() => {
+ console.log('inside root useLayoutEffect hook');
 
-     /* useLayoutEffect(() => {
-    console.log('inside root useLayoutEffect hook');
+ const theme = getPreferredTheme();
+ console.log(`Preferred Theme: ${theme}`);
 
-    const theme = getPreferredTheme();
-    console.log(`Preferred Theme: ${theme}`);
+ const cl = document.documentElement.classList;
 
-    const cl = document.documentElement.classList;
+ const themeAlreadyApplied = cl.contains('light') || cl.contains('dark');
+ console.log(`Theme Already Applied: ${themeAlreadyApplied}`);
 
-    const themeAlreadyApplied = cl.contains('light') || cl.contains('dark');
-    console.log(`Theme Already Applied: ${themeAlreadyApplied}`);
+ if (themeAlreadyApplied) {
+   // this script shouldn't exist if the theme is already applied!
+   // console.warn(
+     // "Hi there, could you let me know you're seeing this message? Thanks!",
+   // );
+ } else {
+   cl.add(theme);
+ };
 
-    if (themeAlreadyApplied) {
-      // this script shouldn't exist if the theme is already applied!
-      // console.warn(
-        // "Hi there, could you let me know you're seeing this message? Thanks!",
-      // );
-    } else {
-      cl.add(theme);
-    };
+ const meta = document.querySelector("meta[name=color-scheme]");
+ 
+  if (meta) {
+   const attribute = meta.getAttribute('content')
+   console.log(attribute ?? 'null'); // light dark
+   meta.setAttribute('content', 'dark light');
+   const nextAttribute = meta.getAttribute('content')
+   console.log(nextAttribute ?? 'null'); // dark light
+ } else {
+   console.log("typeof meta === null!");
+ } 
 
-    const meta = document.querySelector("meta[name=color-scheme]");
-    
-     if (meta) {
-      const attribute = meta.getAttribute('content')
-      console.log(attribute ?? 'null'); // light dark
-      meta.setAttribute('content', 'dark light');
-      const nextAttribute = meta.getAttribute('content')
-      console.log(nextAttribute ?? 'null'); // dark light
-    } else {
-      console.log("typeof meta === null!");
-    } 
-
-    if (meta) {
-      if (theme === 'dark') {
-        meta.setAttribute('content', 'dark light');
-      } else if (theme === 'light') {
-        meta.setAttribute('content', 'light dark');
-      }
-    } else {
-      console.warn(
-        "meta[name=color-scheme] Tag was not proided",
-      );
-    }
-  }, []); */
+ if (meta) {
+   if (theme === 'dark') {
+     meta.setAttribute('content', 'dark light');
+   } else if (theme === 'light') {
+     meta.setAttribute('content', 'light dark');
+   }
+ } else {
+   console.warn(
+     "meta[name=color-scheme] Tag was not proided",
+   );
+ }
+}, []); */
 
   return (
-    <html lang="en">
-      {/* <html lang="en" className={data.theme}> */}
+    <html lang="en" className={data.theme}>
       <head>
         <meta charSet="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
@@ -176,13 +188,13 @@ export const loader = async ({ request }: LoaderArgs) => {
         />
         <Meta />
         <Links />
-        {/* <ThemeHead ssrTheme={Boolean(data.theme)} /> */}
+        <ThemeHead ssrTheme={Boolean(data.theme)} />
       </head>
       <body className='p-0 m-0 z-0'>
         {/*<RootContext.Provider value={[theme, toggle]}>*/}
         <Outlet />
         {/*</RootContext.Provider>*/}
-        {/* <ThemeBody ssrTheme={Boolean(data.theme)} /> */}
+        <ThemeBody ssrTheme={Boolean(data.theme)} />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
@@ -192,15 +204,14 @@ export const loader = async ({ request }: LoaderArgs) => {
 };
 
 export default function AppWithProviders() {
-  // const data = useLoaderData<RootLoaderData>();
+  const data = useLoaderData<RootLoaderData>();
 
   return (
-    <ThemeProvider specifiedTheme={null}>
-      {/* <ThemeProvider specifiedTheme={data.theme}> */}
+    <ThemeProvider specifiedTheme={data.theme}>
       <App />
     </ThemeProvider>
   );
-} 
+}
 
 export function ErrorBoundary() {
   const error = useRouteError();

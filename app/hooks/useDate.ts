@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default useDate() {
-// Returns the event's timestamp as the number of milliseconds measured relative to the time origin.
-  const timestamp = new Date()
-  const fullDate = 
-
+export default function useDate() {
+// Returns the number of milliseconds elapsed since midnight, January 1, 1970 Universal Coordinated Time (UTC).
+  const timestamp = Date.now();
+  // Returns a date.
+  const fullDate = new Date(timestamp);
   // Gets the year, using local time. 
   const fullYear = fullDate.getFullYear();
   // Gets the day-of-the-month, using local time.
@@ -21,4 +21,17 @@ export default useDate() {
   const seconds = fullDate.getSeconds();
   // Gets the milliseconds of a Date, using local time. 
   const miliseconds = fullDate.getMilliseconds();
+
+  return {
+    timestamp,
+    fullDate,
+    fullYear,
+    dayOfMonth,
+    month,
+    day,
+    hours,
+    minutes,
+    seconds,
+    miliseconds
+  };
 }
