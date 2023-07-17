@@ -1,3 +1,7 @@
+html *, html ::before, html ::after {
+    box-sizing: inherit;
+}
+
 element.style {
     display: flex;
 }
@@ -7,10 +11,6 @@ element.style {
     max-block-size: 100%;
     inline-size: 100%;
     block-size: auto;
-}
-
-html *, html ::before, html ::after {
-    box-sizing: inherit;
 }
 
 /** [Attributes Style] */
@@ -244,11 +244,3 @@ html, body {
     --line-heights-normal: 1.5;
     --line-heights-loose: 1.75;
   }
-
-html *, html ::before, html ::after {
-    box-sizing: inherit;
-}
-
-html *, html ::before, html ::after {
-    box-sizing: inherit;
-}

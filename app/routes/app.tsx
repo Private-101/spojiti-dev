@@ -53,7 +53,7 @@ interface LoaderData {
       const user = await getUser(request);
       // const url = new URL(request.url);
   
-      if (!user) return redirect('/login');
+      if (!user) return redirect('/blog');
       // return safeRedirect(`/${user.id}/profile`); `/login?redirectTo=${url}`
       return json({ user });
     };
@@ -66,15 +66,16 @@ interface LoaderData {
     const { user } = useLoaderData<LoaderData>();
     const [appUserRole, setAppUserRole] = useLocalStorage('user-role', 'guest');
     
-    useEffect(() => {
+   /* useEffect(() => {
+      // setAppUserRole('guest');
       if (user && appUserRole !== user.role) {
         setAppUserRole(user.role);
+        if (!location.pathname.includes(user.role)) {
+          return navigate(`/app/${user.role}`);
+        };
       }; 
-
-      if (location.pathname.includes("/app") && !location.pathname.includes(user.role)) {
-        return navigate(`/app/${user.role}`);
-      };
-    })
+      return navigate(`/blog`);
+    }) */
     
 
   

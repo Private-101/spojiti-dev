@@ -87,7 +87,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           {/* <!-- ===== Header End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}
-          <main className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+          <main className="mx-auto max-w-screen-2xl">
               {children}
           </main>
           {/* <!-- ===== Main Content End ===== --> */}

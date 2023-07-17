@@ -3,13 +3,14 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    @apply h-full
-  }
+  /* html {
+    @apply 
+  } */
   body {
-    @apply font-sans font-normal text-base text-body dark:text-whiten bg-sp-body-bg dark:bg-body relative z-1 h-full 
+    @apply font-sans font-normal text-base text-body dark:text-whiten bg-sp-body-bg dark:bg-body relative z-1 h-full w-full 
   }
 };
+
 
 @layer utilities {
   .truncate {
@@ -18,14 +19,15 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-  /* Chrome, Safari and Opera */
+}
+  /* Chrome, Safari and Opera 
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
 
   .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge 
+    scrollbar-width: none; /* Firefox 
   }
 
   .chat-height {
@@ -40,7 +42,7 @@
   display: none !important;
 }
 
-/*
+
 @layer components {
 }
 

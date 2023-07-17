@@ -1,17 +1,3 @@
-section#theme-demo {
-    --background-colour: white;
-  
-    background-color: var(--background-colour);
-  }
-  
-  section#theme-demo.dark {
-    --background-colour: black;
-  }
-  
-  .dark-component {
-    color: white;
-  }
-  
-  .light-component {
-    color: black;
-  }
+html *, html ::before, html ::after {
+    box-sizing: inherit;
+}

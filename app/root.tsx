@@ -181,7 +181,7 @@ function App() {
         <Links />
         <ThemeHead ssrTheme={Boolean(data.theme)} />
       </head>
-      <body>
+      <body className='p-0 m-0 z-0'>
         {/*<RootContext.Provider value={[theme, toggle]}>*/}
         <Outlet />
         {/*</RootContext.Provider>*/}
