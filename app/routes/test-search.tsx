@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { redirect, json } from "@remix-run/node";
 import type { LoaderFunction, LoaderArgs } from "@remix-run/node";
 import {
@@ -13,17 +13,12 @@ interface ITestItem {
     label: string;
 }
 export async function loader({request,}: LoaderArgs) {
-    const itemsPromise = new Promise<ITestItem[]>(resolve => {
-        setTimeout(() => {
-            resolve([{ id: 1, label: "Item 1" }, { id: 2, label: "Item 2" }, { id: 3, label: "Item 3" }]);
-        }, Math.round(Math.random() * 10000))
-    });
+    let url = new URL(request.url);
+    if (url.pathname.match(/^\/tabs\/?$/)) {
+    return redirect("/tabs/jobs");
+  };
 
-	// await auth.requireUser(request);
-
-	return json<{items: ITestItem[]}>({
-		items: await itemsPromise,
-	});
+  return null;
 }
 
 export const unstable_shouldReload: ShouldReloadFunction = ({ submission }) =>
@@ -44,9 +39,28 @@ export const unstable_shouldReload: ShouldReloadFunction = ({ submission }) =>
     };
 
 export default function TestSearchPage() {
-	const { items } = useLoaderData<typeof loader>();
+	// const { items } = useLoaderData<typeof loader>();
     // const [currentTab, setCurrentTab] = useState<number>(0);
     const [hidden, setHidden] = useState<boolean>(true);
+
+    const closeDropdownMenu = useCallback((e: MouseEvent) => {
+        if (!hidden) {
+        const parentTarget = (e.target as HTMLElement).parentElement
+        if (!parentTarget || parentTarget.id !== "dropdownMenu") {
+          // click is outside of dropdown list
+          setHidden(true);
+        }
+      }}, [hidden]);
+
+      useEffect(() => {
+        // const dropdownMenu = document.getElementById("dropdownMenu");
+        if (!hidden) {
+            document.addEventListener("click", closeDropdownMenu);
+            return () => {
+                document.removeEventListener("click", closeDropdownMenu);
+            }
+        };
+      }, [closeDropdownMenu, hidden]);
 
 	return (
 		<>
@@ -71,6 +85,12 @@ export default function TestSearchPage() {
                 </ul>
             </div>
         </nav>
+        <div className="w3-container">
+        <h1>Tabs Layout Route</h1>
+        <p>
+          <Link to="/">Go back home</Link>
+        </p>
+      </div>
         <div className="container mx-auto px-4">
             <ul className="tabs flex border-b pb-1">
                 <li className="tab w-1/3 text-center"><Link to="jobs" className="w-full py-2 font-bold">Jobs</Link></li>
@@ -115,7 +135,7 @@ export default function TestSearchPage() {
         </div>
     </div>
     <script>
-        const briefcaseIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v2h2a2 2 0 012 2v8a2 2 0 01-2 2H2a2 2 0 01-2-2V8a2 2 0 012-2h2V4z"></path></svg>`;
+            const briefcaseIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v2h2a2 2 0 012 2v8a2 2 0 01-2 2H2a2 2 0 01-2-2V8a2 2 0 012-2h2V4z"></path></svg>`;
             const clockIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 110-12 6 6 0 010 12zM9 9a1 1 0 012 0V5a1 1 0 11-2 0v4zM7 12a1 1 0 110-2h4a1 1 0 110 2H7z"/></svg>`;
             const usdIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block fill-current stroke-black mr-1" viewBox="0 0 20 20"><path d="M10.5 0C6.313 0-.098 2.443 0 10.5c0 8.312 3.402 11.494 3.402 11.494 3.437 3.058 7.037-3.092 7.098-3.094.089-.003.289-.014.481-.02l.019-.005v-.777l-.018.008c.371-3.242.168-5.526-5.551-5.527-2.338 0-4.711.263-6.372-.735C1.291 9.731 2 7.057 2 7.057c1.17-5.529 4.898-6.611 8.5-7 0 .25 0 .5.038 1.485.724-1.26 1.963-2.541 3.233-1.851 1.761.963 3.011 3.967 1.729 8.327"/></svg>`;
             const bookmarkIcon = `<svg id="bookmark-icon-svg" class="h-8 w-8 inline-block mr-1 fill-current" width="36" height="36" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
