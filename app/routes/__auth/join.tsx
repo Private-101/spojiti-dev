@@ -11,31 +11,6 @@ import {
   useRouteError,
 } from "@remix-run/react";
 
-export function ErrorBoundary() {
-  const error = useRouteError();
-
-  if (isRouteErrorResponse(error)) {
-    return (
-      <div>
-        <h1>
-          {error.status} {error.statusText}
-        </h1>
-        <p>{error.data}</p>
-      </div>
-    );
-  } else if (error instanceof Error) {
-    return (
-      <div>
-        <h1>Error</h1>
-        <p>{error.message}</p>
-        <p>The stack trace is:</p>
-        <pre>{error.stack}</pre>
-      </div>
-    );
-  } else {
-    return <h1>Unknown Error</h1>;
-  }
-}
 export const loader = async ({ request }: LoaderArgs) => {
   const userId = await getUserId(request);
   if (userId) return redirect("/");
@@ -43,11 +18,13 @@ export const loader = async ({ request }: LoaderArgs) => {
 };
 
 export const action = async ({ request }: ActionArgs) => {
+  const searchParams = new URLSearchParams(request.url);
+  const role = searchParams.get("userRole")?.toString(); 
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
-  // const role = formData.get("role")?.toString() ?? 'guest';
-  const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
+  // formData.get("userRole")?.toString() ?? 'guest';
+  const redirectTo = safeRedirect(formData.get("redirectTo"), `/app?userRole=${role}`);
 
   if (!validateEmail(email)) {
     return json(
@@ -90,11 +67,11 @@ export const action = async ({ request }: ActionArgs) => {
     remember: false,
     request,
     userId: user.id,
-    userRole: 'guest'
+    // userRole: 'guest'
   });
 };
 
-export const meta: V2_MetaFunction = () => [{ title: "Sign Up" }];
+export const meta: V2_MetaFunction = () => [{ title: "Join Spojiti!" }];
 
 export default function Join() {
   const [searchParams] = useSearchParams();
@@ -225,4 +202,30 @@ export default function Join() {
       </div>
     </div>
   );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div>
+        <h1>
+          {error.status} {error.statusText}
+        </h1>
+        <p>{error.data}</p>
+      </div>
+    );
+  } else if (error instanceof Error) {
+    return (
+      <div>
+        <h1>Error</h1>
+        <p>{error.message}</p>
+        <p>The stack trace is:</p>
+        <pre>{error.stack}</pre>
+      </div>
+    );
+  } else {
+    return <h1>Unknown Error</h1>;
+  }
 }

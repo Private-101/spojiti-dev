@@ -11,96 +11,72 @@ import {
     useRouteError,
 } from "@remix-run/react";
 import { Dialog, Transition } from "@headlessui/react";
+import { RegistrationForm } from "~/components/common/RegistrationForm";
 
-export function ErrorBoundary() {
-    const error = useRouteError();
-
-    if (isRouteErrorResponse(error)) {
-        return (
-            <div>
-                <h1>
-                    {error.status} {error.statusText}
-                </h1>
-                <p>{error.data}</p>
-            </div>
-        );
-    } else if (error instanceof Error) {
-        return (
-            <div>
-                <h1>Error</h1>
-                <p>{error.message}</p>
-                <p>The stack trace is:</p>
-                <pre>{error.stack}</pre>
-            </div>
-        );
-    } else {
-        return <h1>Unknown Error</h1>;
-    }
-}
 export const loader = async ({ request }: LoaderArgs) => {
-    // const userId = await getUserId(request);
-    // if (userId) return redirect("/");
+    const userId = await getUserId(request);
+    if (userId) return redirect("/");
     return json({});
-};
-
-export const action = async ({ request }: ActionArgs) => {
+  };
+  
+  export const action = async ({ request }: ActionArgs) => {
     const formData = await request.formData();
     const email = formData.get("email");
     const password = formData.get("password");
-    // const role = formData.get("role")?.toString() ?? 'guest';
-    const redirectTo = safeRedirect(formData.get("redirectTo"), "/");
-
+    const role = formData.get("role")?.toString();
+    const redirectTo = safeRedirect(formData.get("redirectTo"), `/join?userRole=${role}`);
+  
     if (!validateEmail(email)) {
-        return json(
-            { errors: { email: "Email is invalid", password: null } },
-            { status: 400 }
-        );
+      return json(
+        { errors: { email: "Email is invalid", password: null } },
+        { status: 400 }
+      );
     }
-
+  
     if (typeof password !== "string" || password.length === 0) {
-        return json(
-            { errors: { email: null, password: "Password is required" } },
-            { status: 400 }
-        );
+      return json(
+        { errors: { email: null, password: "Password is required" } },
+        { status: 400 }
+      );
     }
-
+  
     if (password.length < 8) {
-        return json(
-            { errors: { email: null, password: "Password is too short" } },
-            { status: 400 }
-        );
+      return json(
+        { errors: { email: null, password: "Password is too short" } },
+        { status: 400 }
+      );
     }
-
+  
     const existingUser = await getUserByEmail(email);
     if (existingUser) {
-        return json(
-            {
-                errors: {
-                    email: "A user already exists with this email",
-                    password: null,
-                },
-            },
-            { status: 400 }
-        );
+      return json(
+        {
+          errors: {
+            email: "A user already exists with this email",
+            password: null,
+          },
+        },
+        { status: 400 }
+      );
     }
-
+  
     const user = await createUser(email, password, 'guest');
-
+  
     return createUserSession({
-        redirectTo,
-        remember: false,
-        request,
-        userId: user.id,
-        // userRole: 'guest'
+      redirectTo,
+      remember: false,
+      request,
+      userId: user.id,
+      // userRole: 'guest'
     });
-};
+  };
 
-export const meta: V2_MetaFunction = () => [{ title: "Sign Up" }];
+export const meta: V2_MetaFunction = () => [{ title: "Profile Registration" }];
 
 export default function JoinRoute() {
     const [showEmployerSignupForm, setShowEmployerSignupForm] = useState(false);
     const [showApplicantSignupForm, setShowApplicantSignupForm] = useState(false);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const transition = useNavigation();
 
     function onEmployerClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -119,7 +95,7 @@ export default function JoinRoute() {
         transition.state === "submitting" || transition.state === "loading";
 
     const [searchParams] = useSearchParams();
-    const redirectTo = searchParams.get("redirectTo") ?? undefined;
+    // const redirectTo = searchParams.get("redirectTo") ?? undefined;
     const actionData = useActionData<typeof action>();
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -159,24 +135,24 @@ export default function JoinRoute() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <main className="flex flex-col mt-12 text-center items-center justify-center">
-                    <div id='button-container' className="flex flex-row">
-                        <div className="container p-32 mx-8 border-2 border-black">
-                            <div className="container items-center justify-center text-center space-x-4">
-                                <label htmlFor="employer-btn" className="inline-block w-auto text-lg font-bold text-gray-800 dark:text-gray-200">
-                                    Looking to hire?
+                <main className="flex flex-col my-6 text-center items-center justify-center">
+                    <div id='button-container' className="flex flex-1 flex-col  lg:flex-auto lg:flex-row">
+                        <div className="container p-32 my-8 lg:mx-8 lg:my-2 border-2 border-black">
+                            <div className="container items-stretch lg:items-center justify-center text-center lg:space-x-4">
+                                <label htmlFor="employer-btn" className="block lg:inline-block w-full lg:w-auto text-lg font-bold text-gray-800 dark:text-gray-200">
+                                    Looking to Hire?
                                 </label>
                                 <button id="employer-btn" onClick={(e) => onEmployerClick(e)} className="bg-sp-primary hover:bg-sp-primary/80 text-whiten hover:text-white hover:shadow-md hover:scale-110 py-2 px-4 rounded-md m-2">
                                     Employers Click Here
                                 </button>
                             </div>
                         </div>
-                        <div className="container p-32 mx-8 border-2 border-black">
-                            <div className="container items-center justify-center text-center space-x-4">
-                                <label htmlFor="employer-btn" className="inline-block w-auto text-lg font-bold text-gray-800 dark:text-gray-200">
-                                    Looking for a job?
+                        <div className="container p-32 my-8 lg:mx-8 lg:my-2 border-2 border-black">
+                            <div className="container items-stretch lg:items-center justify-center text-center lg:space-x-4">
+                                <label htmlFor="employer-btn" className="block lg:inline-block w-full lg:w-auto text-lg font-bold text-gray-800 dark:text-gray-200">
+                                    Looking for a Job?
                                 </label>
-                                <button id="applicant-btn" onClick={(e) => onApplicantClick(e)} className="bg-sp-primary hover:bg-sp-primary/80 text-whiten hover:text-white hover:shadow-md hover:scale-110 py-2 px-4 rounded-md m-2">
+                                <button id="applicant-btn" onClick={(e) => onApplicantClick(e)} className="bg-sp-primary hover:bg-sp-primary/80 text-whiten hover:text-white hover:shadow-md hover:scale-110 px-2 py-4 lg:py-2 lg:px-4 rounded-md m-2">
                                     Applicants Click Here
                                 </button>
                             </div>
@@ -191,8 +167,8 @@ export default function JoinRoute() {
                 {/* The backdrop, rendered as a fixed sibling to the panel container */}
                 <div className="fixed inset-0 bg-black/60" aria-hidden="true" />
 
-                <SignUpModal show={showEmployerSignupForm} setShow={setShowEmployerSignupForm} />
-                <SignUpModal show={showApplicantSignupForm} setShow={setShowApplicantSignupForm} />
+                <SignUpModal role="employer" show={showEmployerSignupForm} setShow={setShowEmployerSignupForm} />
+                <SignUpModal role="applicant" show={showApplicantSignupForm} setShow={setShowApplicantSignupForm} />
 
             </Transition>
         </>
@@ -202,9 +178,10 @@ export default function JoinRoute() {
 interface IModalProps {
     show: boolean;
     setShow: (show: boolean) => void;
+    role: 'employer' | 'applicant';
 };
 
-const SignUpModal = ({ show, setShow }: IModalProps) => {
+const SignUpModal = ({ show, setShow, role }: IModalProps) => {
     return (
         <Transition appear show={show} as={Fragment}>
             <Dialog as="div" className="relative z-50" onClose={() => setShow(false)}>
@@ -224,23 +201,19 @@ const SignUpModal = ({ show, setShow }: IModalProps) => {
                         <Transition.Child
                             as={Fragment}
                             enter='ease-out duration-300'
-                    enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
-                    enterTo='opacity-100 translate-y-0 sm:scale-100'
-                    leave='ease-in duration-200'
-                    leaveFrom='opacity-100 translate-y-0 sm:scale-100'
-                    leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+                            enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
+                            enterTo='opacity-100 translate-y-0 sm:scale-100'
+                            leave='ease-in duration-200'
+                            leaveFrom='opacity-100 translate-y-0 sm:scale-100'
+                            leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
                         >
                             <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                 <Dialog.Title
                                     as="h3"
                                     className="text-lg font-medium leading-6 text-gray-900"
-                                >
-                                    Sign Up
-                                </Dialog.Title>
+                                >{role.at(0)?.toUpperCase() + role.slice(1)} Registration</Dialog.Title>
                                 <div className="mt-2">
-                                    <p className="text-sm text-gray-500">
-                                        We'll never share your email with anyone else.
-                                    </p>
+                                    <RegistrationForm userRole={role} />
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>
@@ -371,3 +344,29 @@ Applicant Modal
                         </div>
                     </div>
                     */
+
+export function ErrorBoundary() {
+    const error = useRouteError();
+
+    if (isRouteErrorResponse(error)) {
+        return (
+            <div>
+                <h1>
+                    {error.status} {error.statusText}
+                </h1>
+                <p>{error.data}</p>
+            </div>
+        );
+    } else if (error instanceof Error) {
+        return (
+            <div>
+                <h1>Error</h1>
+                <p>{error.message}</p>
+                <p>The stack trace is:</p>
+                <pre>{error.stack}</pre>
+            </div>
+        );
+    } else {
+        return <h1>Unknown Error</h1>;
+    }
+}

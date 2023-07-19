@@ -70,7 +70,7 @@ export default function Navbar() {
 
                 <div className="flex items-center">
                   <Link
-                    to="/join"
+                    to="/register"
                     className="text-md mr-4 rounded-md bg-gray-700 bg-opacity-0 px-3 py-2 font-bold text-white hover:bg-opacity-60"
                   >
                     Join Us

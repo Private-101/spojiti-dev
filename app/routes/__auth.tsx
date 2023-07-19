@@ -18,18 +18,17 @@ px-2 py-2 lg:px-8
 export default function AuthRoute() {
   return (
     <>
-      <div className="flex flex-1 flex-col justify-center min-h-screen bg-neutral-200 dark:bg-neutral-600">
+      <div className="flex flex-col justify-center min-h-screen bg-neutral-200 dark:bg-neutral-600">
         <Header />
         <Outlet />
         <footer
-          className="mx-auto mt-12 w-full max-w-container px-4 sm:px-6 lg:px-8">
-          <div className="border-t border-sp-primary/70 dark:border-sp-primary/90 py-4">
-            <p className="mt-2 text-center text-sm leading-6 text-slate-600">© 2023 Spojiti Inc. All rights reserved.</p>
-            <div className="mt-8 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-slate-700">
+          className="mx-auto mt-6 w-full max-w-container px-4 sm:px-6 lg:px-8">
+          <div className="border-t border-sp-primary dark:border-sp-primary/60 py-4">
+            <p className="mt-6 text-center text-sm leading-4 text-slate-600">© 2023 Spojiti Inc. All rights reserved.</p>
+            <div className="mt-4 flex items-center justify-center space-x-4 text-sm font-semibold leading-4 text-slate-700">
               <a href="/privacy-policy">Privacy policy</a>
-              <div className="h-4 w-px bg-slate-500/20">
-              </div>
-              <a href="/terms-of-service">Terms of Service</a>
+              <div className="h-4 w-px bg-sp-primary"></div>
+              <a href="/terms-of-service" className="text-slate-600 hover:text-sp-primary">Terms of Service</a>
             </div>
           </div>
         </footer>
@@ -57,7 +56,7 @@ svg box w/text 'ui'
 function Header() {
   return (
     <>
-      <header data-testid="layout-header" className="flex h-12 pb-4 items-center justify-center border border-slate-600/20 sm:fixed sm:top-0 sm:z-10 sm:w-full sm:bg-opacity-80 sm:backdrop-blur sm:backdrop-filter cursor-default">
+      <header data-testid="layout-header" className="flex h-12 pb-4 mb-6 items-center justify-center border-b border-sp-primary sm:fixed sm:top-0 sm:z-10 sm:w-full sm:bg-opacity-80 sm:backdrop-blur sm:backdrop-filter cursor-default">
         <Link to="/home#top" className="flex items-center justify-center max-w-fit cursor-pointer">
           <span className="sr-only">spojiti.com</span>
           <svg viewBox="0 0 150 40" xmlns="http://www.w3.org/2000/svg" className="sm:w-1/2 mx-auto h-16 w-auto" fill="#f58321">

@@ -29,11 +29,6 @@ const Header: React.FC<HeaderProps> = () => {
   }
       <div className="flex flex-col items-center justify-center py-16 shadow">
         <div className="flex flex-row">
-          {/*context[0] === 'light' ? (
-            <h2 className="mb-2 text-lg font-semibold text-black text-opacity-60">LIGHT MODE</h2>
-          ) : (
-            <h2 className="mb-2 text-lg font-semibold text-gray-2">DARK MODE</h2>
-          )*/}
           <DarkModeToggle />
         </div>
         <h1 className="my-2 text-4xl font-semibold text-sp-text-light dark:text-sp-text-dark">SPOJITI</h1>
