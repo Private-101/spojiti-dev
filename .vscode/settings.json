@@ -32,5 +32,7 @@
 "[typescript]" : {
     "editor.defaultFormatter": "mblode.pretty-formatter"
 },
-
+"tailwindCSS.suggestions": true,
+"editor.quickSuggestionsDelay": 1000,
+"editor.hover.delay": 1000
 }

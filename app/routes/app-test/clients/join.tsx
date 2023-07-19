@@ -61,7 +61,7 @@ export const action = async ({ request }: ActionArgs) => {
     remember: false,
     request,
     userId: user.id,
-    userRole: 'client'
+    // userRole: 'client'
   });
 };
 

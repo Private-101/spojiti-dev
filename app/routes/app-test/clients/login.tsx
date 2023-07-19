@@ -63,7 +63,7 @@ export const action = async ({ request }: ActionArgs) => {
     remember: remember === "on" ? true : false,
     request,
     userId: user.id,
-    userRole: user.role
+    // userRole: user.role
   });
 };
 

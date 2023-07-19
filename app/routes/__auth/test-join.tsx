@@ -91,7 +91,7 @@ export const action = async ({ request }: ActionArgs) => {
         remember: false,
         request,
         userId: user.id,
-        userRole: 'guest'
+        // userRole: 'guest'
     });
 };
 

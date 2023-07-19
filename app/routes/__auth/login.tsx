@@ -72,7 +72,7 @@ export const loader = async ({ request }: LoaderArgs) => {
       remember: remember === "on" ? true : false,
       request,
       userId: user.id,
-      userRole: user.role
+      // userRole: user.role
     });
   };
 

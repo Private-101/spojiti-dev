@@ -115,7 +115,7 @@ export default function SearchLayoutPage() {
       <div className="left-column w-1/3 pr-4">
         <div id="job-list" className="space-y-4">
           <p>Job List</p>
-          <JobList quantity={jobDetails ? jobDetails.length : 0} details={jobDetails} onJobCardClick={handleJobCardClick} />
+          <JobList quantity={jobDetails ? jobDetails.length : 0} details={jobDetails || []} onJobCardClick={handleJobCardClick} />
           {/*jobCards.map((job, idx) => (
             <>
             <div id="job-posts" className="mt-6 space-y-4 overflow-y-scroll h-screen snap-proximity snap-y">
