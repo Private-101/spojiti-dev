@@ -1,13 +1,15 @@
+import { Disclosure } from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link } from "@remix-run/react";
+
 import {
   dropdownItems,
   navigation,
   userNavigation,
-} from "~/components/legacy/tailwindui/any/constants"; 
+}from "~/components/legacy/tailwindui/any/constants";
+
 import { classNames } from '~/utils';
-import { Fragment } from "react";
-import { Link, NavLink, useLocation } from "@remix-run/react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+
 
 import NavOption from "~/components/legacy/tailwindui/NavOption";
 // import SpojitiLogoUrl from '~/components/common/assets/spojiti-logo.svg';
@@ -21,7 +23,7 @@ export default function Navbar() {
     <div className="min-w-full">
       <Disclosure
         as="nav"
-        className="fixed top-0 z-10 w-full rounded-sm bg-sp-primary"
+        className="fixed top-0 z-10 w-full rounded-sm bg-sp-primary-light dark:bg-sp-primary-dark"
       >
         {({ open }) => (
           <>
@@ -29,7 +31,8 @@ export default function Navbar() {
               <div className="flex h-16 items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <Link to="/home">
+< Link to = "/home#top" >
+
                       <img
                         className="inline-block h-12 w-16"
                         src='/assets/spojiti-logo.svg'
@@ -70,7 +73,8 @@ export default function Navbar() {
 
                 <div className="flex items-center">
                   <Link
-                    to="/join"
+to = "/join"
+
                     className="text-md mr-4 rounded-md bg-gray-700 bg-opacity-0 px-3 py-2 font-bold text-white hover:bg-opacity-60"
                   >
                     Join Us
@@ -85,7 +89,7 @@ export default function Navbar() {
 
                 <div className="-mr-2 flex lg:hidden">
                   {/* Mobile menu button */}
-                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-sp-primary p-2 text-gray-800 hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-sp-primary-light dark:bg-sp-primary-dark p-2 text-gray-800 hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -227,8 +231,9 @@ const userNavigation = [
 ];
 
 const dropdownItems = {
-  Candidates: ["Find Job", "Post Resume", "Company Listings"],
-  Employers: ["Find Candidates", "Post Job", "Pricing"],
+Applicants : [ "Find Job", "Post Resume", "Company Listings" ],
+Employers : [ "Find Applicants", "Post Job", "Pricing" ],
+
 };
 
 function classNames(...classes: string[]) {

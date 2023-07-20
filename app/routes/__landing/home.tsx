@@ -2,6 +2,7 @@ import { useLoaderData, useFetcher, useSubmit, useFormAction, useOutletContext }
 import { json } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
 import React from "react";
+import { type RootContextType, useRootContext } from "~/context/root.context";
 // import { NavLink } from "@remix-run/react";
 // placeholder elements
 // import Navbar from "~/components/temp/Navbar";
@@ -35,32 +36,6 @@ import {
   useRouteError,
 } from "@remix-run/react";
 
-export function ErrorBoundary() {
-  const error = useRouteError();
-
-  if (isRouteErrorResponse(error)) {
-    return (
-      <div>
-        <h1>
-          {error.status} {error.statusText}
-        </h1>
-        <p>{error.data}</p>
-      </div>
-    );
-  } else if (error instanceof Error) {
-    return (
-      <div>
-        <h1>Error</h1>
-        <p>{error.message}</p>
-        <p>The stack trace is:</p>
-        <pre>{error.stack}</pre>
-      </div>
-    );
-  } else {
-    return <h1>Unknown Error</h1>;
-  }
-}
-
 interface LoaderData {
   reviews: Review[];
 }
@@ -70,50 +45,44 @@ export const loader = async ({ request }: LoaderArgs) => {
 
   return json<LoaderData>({ reviews });
 };
-type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
 
 const Home: React.FC = () => {
   const { reviews } = useLoaderData<LoaderData>();
 
-  const submit = useSubmit();
-  const action = useFormAction();
-
-  const fetcher = useFetcher();
-
-  const [theme, toggle] = useOutletContext<OutletContextProps>();
+  // const [theme, toggle]: RootContextType = useRootContext();
 
   return (
     <>
-            <Header context={[theme, toggle]} />
+      <Header />
 
-          <Container id="features" classNames="rounded-md">
-            <FeaturesSection />
-            <div className="container bg-gray-200 py-8">
-              <ReviewCards reviews={reviews} />
-              {/*<div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <Container id="features" classNames="rounded-md">
+        <FeaturesSection />
+        <div className="container bg-gray-200 dark:bg-gray-800 py-8">
+          <ReviewCards reviews={reviews} />
+          {/*<div className="mx-auto max-w-7xl px-6 lg:px-8">
         <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">*/}
-              {/*reviews.map((review) => (
+          {/*reviews.map((review) => (
             <div key={review.name} className="mx-auto flex max-w-xs flex-col gap-y-4">
             <dt className="text-md text-gray-600">{review.name}</dt>
             <dt className="text-md text-gray-600">{review.jobTitle}</dt>
-            <dd className="order-first text-sm font-semibold tracking-tight text-gray-900 sm:text-sm">
+            <dd className="order-first text-sm font-semibold tracking-tight text-sp-text-light sm:text-sm">
               {review.quote}
             </dd>
           </div>
           ))*/}
-              {/*</dl>
+          {/*</dl>
       </div>*/}
-            </div>
-          </Container>
+        </div>
+      </Container>
 
-          <Container id="pricing" classNames="rounded-md">
-            <PricingSection />
-          </Container>
+      <Container id="pricing" classNames="rounded-md">
+        <PricingSection />
+      </Container>
 
-          <Container id="contact-us" classNames="mx-16 my-12 px-8 py-4">
-            {/*<ContactInfoSection />*/}
+      <Container id="contact-us" classNames="mx-16 my-12 px-8 py-4">
+        {/*<ContactInfoSection />*/}
         <ContactUsSection />
-          </Container>
+      </Container>
     </>
   );
 };
@@ -145,7 +114,7 @@ export default Home;
             <div key={review.name} className="mx-auto flex max-w-xs flex-col gap-y-4">
             <dt className="text-md text-gray-600">{review.name}</dt>
             <dt className="text-md text-gray-600">{review.jobTitle}</dt>
-            <dd className="order-first text-sm font-semibold tracking-tight text-gray-900 sm:text-sm">
+            <dd className="order-first text-sm font-semibold tracking-tight text-sp-text-light sm:text-sm">
               {review.quote}
             </dd>
           </div>
@@ -177,3 +146,29 @@ export default Home;
       </main>
       <AppFooter />
               */
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div>
+        <h1>
+          {error.status} {error.statusText}
+        </h1>
+        <p>{error.data}</p>
+      </div>
+    );
+  } else if (error instanceof Error) {
+    return (
+      <div>
+        <h1>Error</h1>
+        <p>{error.message}</p>
+        <p>The stack trace is:</p>
+        <pre>{error.stack}</pre>
+      </div>
+    );
+  } else {
+    return <h1>Unknown Error</h1>;
+  }
+}

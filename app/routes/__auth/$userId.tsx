@@ -2,6 +2,7 @@ import { useLoaderData, useFetcher, useSubmit, useFormAction, useOutletContext, 
 import { json, redirect } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
 import React from "react";
+import { type RootContextType, useRootContext } from "~/context/root.context";
 // import { NavLink } from "@remix-run/react";
 // placeholder elements
 // import Navbar from "~/components/temp/Navbar";
@@ -21,7 +22,7 @@ import { Container } from "~/components/legacy/tailwindui/Container";
 import PricingSection from "~/components/legacy/tailwindui/sections/Pricing";
 import FeaturesSection from "~/components/legacy/tailwindui/sections/Features";
 import ContactUsSection from '~/components/legacy/tailwindui/sections/ContactUs';
-
+import DashboardLayout from "~/components/dashboard/DashboardLayout";
 // import Reviews from "~/components/temp/Reviews";
 import { generateReviews } from "~/services/faker.server";
 import ReviewCards, {
@@ -37,6 +38,48 @@ import {
   isRouteErrorResponse,
   useRouteError,
 } from "@remix-run/react";
+
+interface LoaderData {
+  user: User;
+}
+
+export const loader = async ({ request }: LoaderArgs) => {
+    const user = await getUser(request);
+    // if (user) return safeRedirect(`/${user.id}/profile`);
+    if (!user) return redirect('/login');
+    return json<LoaderData>({ user });
+    // return json({})
+  };
+
+
+// type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
+/* interface OutletContextProps {
+  user: User
+}; */
+
+export default function UserRoute() {
+  const { user } = useLoaderData<LoaderData>();
+  // const user = useUser();
+
+  // const submit = useSubmit();
+  // const action = useFormAction();
+
+  // const fetcher = useFetcher();
+
+  // const { user } = useOutletContext<OutletContextProps>();
+  const [theme, toggle]: RootContextType = useRootContext();
+  return (
+    <>
+    <DashboardLayout>
+      <header>
+      <h1>Welcome User!</h1>
+    <p>userid: {user.id}</p>
+      </header>
+    <Outlet />
+    </DashboardLayout>
+    </>
+  );
+};
 
 export function ErrorBoundary() {
   const error = useRouteError();
@@ -63,42 +106,3 @@ export function ErrorBoundary() {
     return <h1>Unknown Error</h1>;
   }
 }
-/*
-interface LoaderData {
-  user: User;
-}
-
-export const loader = async ({ request }: LoaderArgs) => {
-    const user = await getUser(request);
-    // if (user) return safeRedirect(`/${user.id}/profile`);
-    if (!user) return redirect('/login');
-    return json({ user });
-    // return json({})
-  };
-*/
-
-// type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
-interface OutletContextProps {
-  user: User
-};
-
-export default function UserRoute() {
-    // const { user } = useLoaderData<LoaderData>();
-  // const user = useUser();
-
-  // const submit = useSubmit();
-  // const action = useFormAction();
-
-  // const fetcher = useFetcher();
-
-  const { user } = useOutletContext<OutletContextProps>();
-
-  return (
-    <>
-    <h1>Welcome User!</h1>
-    <p>userid: {user.id}</p>
-            {/*<Outlet context={[theme, toggle]} />*/}
-          
-    </>
-  );
-};

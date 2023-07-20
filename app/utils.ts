@@ -41,7 +41,13 @@ export function useMatchesData(
     () => matchingRoutes.find((route) => route.id === id),
     [matchingRoutes, id]
   );
-  return route?.data;
+  
+  if (!route) return undefined;
+  return route.data;
+};
+
+export function useRootLoaderData<TLoaderData extends Record<string, unknown>>() {
+  return useMatchesData('root') as TLoaderData;
 }
 
 function isUser(user: any): user is User {
@@ -122,18 +128,144 @@ export function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
+
 /**
- * Capitalizes the first letter of every word in a string.
- * @param str - The string to be transformed.
+ * The `titleCase` function takes a string as input and returns the same string with the first letter
+ * of each word capitalized.
+ * @param {string} str - The `str` parameter is a string that represents the input sentence or phrase
+ * that you want to convert to title case.
+ * @returns a string that has been converted to title case.
  */
 export function titleCase(str: string): string {
   return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 };
 
+/**
+ * The unslugify function converts a slug string to a human-readable string by replacing hyphens with
+ * spaces and capitalizing the first letter of each word.
+ * @param {string} str - The `str` parameter is a string that represents a slug. A slug is a
+ * URL-friendly version of a string, typically used in URLs to represent a page or resource. It usually
+ * consists of lowercase letters, numbers, and hyphens.
+ * @returns a string that has been unslugified.
+ */
 export function unslugify(str: string): string {
   return str.toLowerCase().split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 };
 
+/**
+ * The `classNames` function takes in an array of strings and returns a single string with all
+ * non-empty strings joined together with a space separator.
+ * @param {string[]} classes - The `classes` parameter is a rest parameter that allows you to pass in
+ * any number of string arguments. These arguments represent CSS class names that you want to combine
+ * into a single string.
+ * @returns a string that is the result of joining all the non-empty strings in the `classes` array
+ * with a space character.
+ */
 export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
+};
+
+export function isValidTheme(theme: string): boolean {
+  return theme === 'light' || theme === 'dark';
+}
+
+/**
+ * The function `isValidHexColor` checks if a given string is a valid hexadecimal color value.
+ * @param {string} hexValue - The hexValue parameter is a string representing a hexadecimal color
+ * value.
+ * @returns a boolean value indicating whether the provided hexValue is a valid hex color.
+ */
+export function isValidHexColor(hexValue: string): boolean {
+  // const hexRegex = /^#([A-Fa-f0-9]{3,4}){1,2}$/;
+  return /^#([A-Fa-f0-9]{3,4}){1,2}$/.test(hexValue);
+};
+/*
+CSS HEX Color Validation
+
+A CSS Hex color value starts with a hash `#` and is followed by either 3, 4, 6, or 8 characters (letters a-f and numbers 0-9). 
+The 3 or 4 characters hex color value is shorthand, with the 4th character representing the alpha value for transparency.
+
+Here's a JavaScript function that uses a regular expression to validate CSS hex color values:
+
+```javascript
+function isValidHexColor(hexValue) {
+    return /^#([A-Fa-f0-9]{3,4}){1,2}$/.test(hexValue);
+}
+```
+
+This function returns true if the input is a valid hex color, and false otherwise. The regular expression `^#([A-Fa-f0-9]{3,4}){1,2}$` ensures that:
+
+- The string starts (`^`) with a `#`.
+- It's followed by 3 or 4, or 6 or 8 (because `{1,2}` allows the 3 or 4 characters to be repeated once) hexadecimal characters (`[A-Fa-f0-9]`).
+- And the string ends (`$`) after these characters. 
+
+Let's test this function:
+
+```javascript
+console.log(isValidHexColor("#FFF")); // True
+console.log(isValidHexColor("#FFFFFF")); // True
+console.log(isValidHexColor("#FFFF")); // True
+console.log(isValidHexColor("#FFFFFFF")); // True
+console.log(isValidHexColor("#FFG")); // False
+console.log(isValidHexColor("#hello")); // False
+```
+*/
+
+type BooleanFunction = () => boolean;
+
+export const isClient: BooleanFunction = () => {
+  return typeof window !== 'undefined' /*&& Boolean('navigator' in window)*/;
+};
+
+export const isServer: BooleanFunction = () => {
+  return typeof window === 'undefined';
+};
+
+interface IQueryParams {
+  [key: string]: string;
+};
+
+/**
+ * The function `querify` takes an optional object of query parameters and returns a string
+ * representation of the parameters in URL query format.
+ * @param {IQueryParams} [queryparams] - An optional object that represents the query parameters for a
+ * URL.
+ * @returns The function `querify` returns a string that represents a query string with the provided
+ * query parameters. If `queryparams` is provided and is an object, the function will generate a query
+ * string by mapping each key-value pair in `queryparams` and joining them with an ampersand (&)
+ * separator. If `queryparams` is not provided or is an empty object, an empty string will
+ */
+function querify(queryparams?: IQueryParams) {
+  return queryparams ? `?${Object.keys(queryparams).map(q => `${q}=${queryparams[q]}`).join('&')}` : '';
+}
+
+/**
+ * The function `pathsify` takes an array of strings representing paths and returns a string with the
+ * paths concatenated and separated by forward slashes.
+ * @param {string[]} paths - An array of strings representing different paths.
+ * @returns a string that starts with a forward slash ("/") followed by the elements of the `paths`
+ * array joined together with forward slashes ("/"). Each element is converted to a string and any
+ * forward slashes in the elements are removed.
+ */
+function pathsify(paths: string[]) {
+  return `/${paths.map(path => path.toString().replace(/\//g, '')).join('/')}`;
+}
+
+/**
+ * The `urlify` function takes a base URL, an optional array of paths, and optional query parameters,
+ * and returns a formatted URL string.
+ * @param {string} url - The `url` parameter is a string representing the base URL. It is the starting
+ * point for constructing the final URL.
+ * @param {string | string[]} paths - The `paths` parameter is used to specify additional paths to be
+ * appended to the URL. It can be a single string or an array of strings. If it is a single string, it
+ * will be appended as is. If it is an array of strings, they will be joined together with slashes ("/
+ * @param {IQueryParams} [queryParams] - The `queryParams` parameter is an optional object that
+ * represents the query parameters to be appended to the URL. It can contain key-value pairs where the
+ * key represents the parameter name and the value represents the parameter value.
+ * @returns a string that combines the `url`, `paths`, and `queryParams` into a single URL string.
+ */
+export function urlify(url: string, paths: string | string[] = [], queryParams?: IQueryParams) {
+  return `${url}${pathsify(Array.isArray(paths) ? paths : [paths])}${querify(
+    queryParams
+  )}`;
 }

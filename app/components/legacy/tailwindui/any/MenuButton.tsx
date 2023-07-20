@@ -1,6 +1,6 @@
-import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Fragment } from 'react'
 
 const user = {
   name: 'Tom Cook',
@@ -23,8 +23,8 @@ const userNavigation = [
 
 const dropdownItems = {
     'Cart': ['/checkout'],
-    'Candidates': ['Find Job', 'Post Resume', 'Company Listings'],
-    'Employers': ['Find Candidates', 'Post Job', 'Pricing']
+    'Applicants': ['Find Job', 'Post Resume', 'Company Listings'],
+    'Employers': ['Find Applicants', 'Post Job', 'Pricing']
   };
 
 function classNames(...classes: string[]) {

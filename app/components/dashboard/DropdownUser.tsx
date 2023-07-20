@@ -2,10 +2,17 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import UserOne from '~/components/common/assets/images/user/user-01.png';
+// import type { User } from '~/models/user?.server';
+import type { FormattedUser } from '~/context/user.context';
+import { useUserContext } from '~/context/user.context';
 
-const DropdownUser = () => {
+interface UserProps {
+  // user: FormattedUser
+};
+
+const DropdownUser = (props: UserProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const { user } = useUserContext();
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
@@ -45,13 +52,13 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            {user?.firstName + " " + user?.lastName}
           </span>
-          <span className="block text-xs">UX Designer</span>
+          <span className="block text-xs">{user?.role}</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
-          <img src={UserOne} alt="User" />
+          <img src={user?.avatarUrl ?? UserOne} alt="User" />
         </span>
 
         <svg
@@ -155,7 +162,7 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <Link to='/logout' className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
           <svg
             className="fill-current"
             width="22"
@@ -174,7 +181,7 @@ const DropdownUser = () => {
             />
           </svg>
           Log Out
-        </button>
+        </Link>
       </div>
       {/* <!-- Dropdown End --> */}
     </div>

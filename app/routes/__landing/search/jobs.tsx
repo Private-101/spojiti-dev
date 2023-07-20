@@ -1,18 +1,13 @@
-import * as React from "react";
-import { useState, useEffect, Fragment, useRef } from "react";
-import { Link } from '@remix-run/react';
-import { json } from "@remix-run/node";
-import {
-  isRouteErrorResponse, useRouteError
-} from "@remix-run/react";
 import type { LoaderArgs } from "@remix-run/node";
-import type { JobPost } from '~/models/job.server';
+import { json } from "@remix-run/node";
+import { Link, isRouteErrorResponse, useRouteError } from '@remix-run/react';
+import { useEffect, useState } from "react";
 import type { Category } from "~/models/category.server";
 import { getAllCategories } from '~/models/category.server';
+import type { JobPost } from '~/models/job.server';
 import { getAllJobPostsByCategory } from '~/models/job.server';
 
 import { useFetcher } from "@remix-run/react";
-import Footer from '~/components/legacy/temp/Footer';
 import JobMenu from "~/experimental/interactive-menu/src/JobMenu";
 import type { FormattedCategory, FormattedJobPost } from "~/models/job.server";
 import type { JobMenuData } from '~/types';
@@ -56,15 +51,13 @@ export default function SearchLayoutPage() {
   return (
     <>
       {/* <!-- ===== Page Wrapper Start ===== --> */}
-    <div className='flex flex-col min-h-screen font-sans bg-sp-body-bg dark:bg-gray-800'>
-   {/* <Header />*/}
       <main className='grow mt-12'>
         {/** <!-- ===== Main Section Starts ===== --> */}
         <div className='flex flex-1 flex-col justify-center items-center pb-4'>
       <p className="font-bold text-lg">Are you a restaurant looking to hire?</p>
-      <Link to='/candidates' className="mb-4 mt-2 p-2 rounded-md font-semibold text-sm transition-all text-sp-primary hover:text-black border-2 border-solid border-black hover:border-sp-primary hover:cursor-pointer hover:shadow-md">
+      <Link to='/applicants' className="mb-4 mt-2 p-2 rounded-md font-semibold text-sm transition-all text-sp-primary hover:text-black border-2 border-solid border-black hover:border-sp-primary hover:cursor-pointer hover:shadow-md">
       <p className=''>
-        Click Here to Search Candidates
+        Click Here to Search Applicants
       </p>
       </Link>
       <JobMenu
@@ -76,9 +69,7 @@ export default function SearchLayoutPage() {
     </div>
         {/** <!-- ===== Main Section Ends ===== --> */}
       </main>
-    </div>
       {/* <!-- ===== Page Wrapper End ===== --> */}
-
     </>
   );
 };

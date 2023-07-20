@@ -28,6 +28,31 @@ import { faker } from "@faker-js/faker";
     readonly word: WordModule;
     */
 
+    interface IJobDetails {
+      id: string;
+      companyName: string;
+      initialAvatar: string;
+      jobTitle: string;
+      location: string;
+      updatedDate: string;
+      salary: string;
+      type: string;
+      url: string;
+  };
+
+  interface IUserProps {
+        id: string;
+        firstName: string;
+        lastName: string;
+        email: string;
+        address: string;
+        city: string;
+        state: string;
+        zipCode: string;
+        bio: string;
+        image: string;
+  }
+
     export async function generate(type: string, quantity?: number) {
       return Array.from({ length: quantity ?? 1}).map(() => generateFakeData(type, quantity));
     }
@@ -41,7 +66,7 @@ export async function generateFakeData(type: string, quantity?: number) {
         jobTitle: faker.person.jobTitle()
       };
     case "employer":
-    case "candidate":
+    case "applicant" :
     case "user":
     default:
       const userState = faker.location.state();
@@ -59,6 +84,7 @@ export async function generateFakeData(type: string, quantity?: number) {
       };
   }
 };
+
 
 interface Review {
   rating: number;

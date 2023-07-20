@@ -6,13 +6,19 @@ import DropdownMessage from '~/components/dashboard/DropdownMessage';
 import DropdownNotification from '~/components/dashboard/DropdownNotification';
 import DropdownUser from '~/components/dashboard/DropdownUser';
 import useColorMode from '~/hooks/useColorMode';
+// import type { User } from '~/models/user.server';
+// import type { FormattedUser } from '~/context/user.context';
+// import { useUserContext } from '~/context/user.context';
+// const { user } = useUserContext();
 
-const Header = (props: {
+interface HeaderProps {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
-}) => {
+  // user: FormattedUser;
+}
+const Header = (props: HeaderProps) => {
   const [colorMode, setColorMode] = useColorMode();
-
+  
   return (
     <header className="sticky top-0 z-999 flex w-full bg-sp-body-bg drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between py-4 px-4 shadow-2 md:px-6 2xl:px-11">
@@ -95,7 +101,7 @@ const Header = (props: {
               <input
                 type="text"
                 placeholder="Type to search..."
-                className="w-full bg-transparent pr-4 pl-9 focus:outline-none"
+                className="w-full bg-transparent pr-4 pl-9 focus:outline-none focus:rounded-md border-none"
               />
             </div>
           </form>
@@ -104,7 +110,7 @@ const Header = (props: {
         <div className="flex items-center gap-3 2xsm:gap-7">
           <ul className="flex items-center gap-2 2xsm:gap-4">
             {/* <!-- Dark Mode Toggler --> */}
-            <DarkModeToggle theme={'light'} trigger={() => {}} />
+            <DarkModeToggle />
             {/* <!-- Dark Mode Toggler --> */}
 
             {/* <!-- Notification Menu Area --> */}
@@ -117,7 +123,7 @@ const Header = (props: {
           </ul>
 
           {/* <!-- User Area --> */}
-          <DropdownUser />
+          <DropdownUser  />
           {/* <!-- User Area --> */}
         </div>
       </div>

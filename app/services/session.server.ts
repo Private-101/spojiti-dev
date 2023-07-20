@@ -75,7 +75,7 @@ export async function requireUserRole(
   };
 
   if (userRole !== role) {
-    const searchParams = new URLSearchParams([["role", role], ["userRole", userRole]]);
+    const searchParams = new URLSearchParams([["reason", "unauthorized"], ["role", role], ["userRole", userRole]]);
     throw redirect(`/app/denied?${searchParams}`);
   }
   return userRole;
@@ -93,19 +93,19 @@ export async function requireUser(request: Request) {
 export async function createUserSession({
   request,
   userId,
-  userRole,
+  // userRole,
   remember,
   redirectTo,
 }: {
   request: Request;
   userId: string;
-  userRole: string;
+  // userRole: string;
   remember: boolean;
   redirectTo: string;
 }) {
   const session = await getSession(request);
   session.set(USER_SESSION_KEY, userId);
-  session.set(ROLE_SESSION_KEY, userRole);
+  // session.set(ROLE_SESSION_KEY, userRole);
   
   return redirect(redirectTo, {
     headers: {

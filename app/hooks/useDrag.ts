@@ -1,3 +1,21 @@
+/**
+ * @file useDrag.ts
+ * @author your name
+ * @brief file description
+ * @version 0.1
+ * @date 2023-6-5
+ * @copyright Copyright (c) 2023
+ * Licensed under the XYZ license.
+ */
+
+
+/**
+ * @brief 
+ * 
+ * A function that enables drag and drop functionality.
+ *
+ * @return {void} This function does not return a value.
+ */
 export default function useDrag(): void {
     const draggables = document.querySelectorAll<HTMLElement>('.task');
     const droppables = document.querySelectorAll<HTMLElement>('.swim-lane');

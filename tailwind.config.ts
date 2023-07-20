@@ -45,17 +45,59 @@ We are also still ironing out some compatibility issues with certain build tools
     container: {
 			center: true,
 			padding: "2rem",
-			screens: {
+			/*screens: {
 				"2xl": "1400px"
-			}
+			}*/
 		},
     colors: {
       ...defaultColors,
+      // ...defaultColors,
+      'sp': {
+        'primary': {
+          'light': '#f58321',
+          'dark': '#c0681f',
+          'accent': '#F49D50',
+          'body': '#ffffff',
+        },
+        'text': {
+          'light': '#58595B',
+          'dark': '#F1F5F9',
+          'primary': {
+            'light': '#171717',
+            'dark': '#58595B',
+            'accent': '#F49D50',
+            'body': '#ffffff',
+          },
+          'body': {
+            'light': '#58595B',
+            'dark': '#c0681f',
+          },
+          'link': {
+            'light': '#58595B',
+            'dark': '#58595B',
+          },
+        },
+        'gray-custom': '#747577',
+      },
+      //'sp-primary': '#f58321',
+      'sp-base': {
+        'light': '#f58321',
+        'dark': '#c0681f',
+      },
+      'gradient': {
+        '100': '#a83eff',
+        '200': '#a2fef2',
+        },
+      // 'sp-body-bg': '#ffffff',
+      // 'sp-accent': '#F49D50',
+      // 'sp-body-text': '#58595B',
+      'sp-grid-bg': '#F4F4F4',
+      // 'sp-link': '#58595B',
+      // 'sp-gray-custom': '#747577',
       'sp-primary': '#F58321',
       'sp-body-bg': '#ffffff',
       'sp-accent': '#F49D50',
       'sp-body-text': '#58595B',
-      'sp-grid-bg': '#F4F4F4',
       'sp-link': '#58595B',
       'sp-gray-custom': '#747577',
       current: 'currentColor',
@@ -1221,6 +1263,14 @@ We are also still ironing out some compatibility issues with certain build tools
       'disabled',
     ],
     extend: {
+      colors: {
+        lightCyan: '#EFFAFA',
+        darkCyan: '#66a3a3',
+        veryDarkCyan: '#2C3A3A',
+      },
+      fontFamily: {
+        spartan: ['League Spartan', 'sans-serif'],
+      },
       fontSize: {
         'title-xxl': ['44px', '55px'],
         'title-xl': ['36px', '45px'],

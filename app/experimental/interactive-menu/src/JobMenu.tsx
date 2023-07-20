@@ -121,7 +121,7 @@ const JobMenu = (props: MenuProps) => {
           <legend className="m-0 p-0 font-bold ml-5 text-sp-body-text">Select any of the categories below</legend>
           <ul className='m-0 p-0 ml-5 list-none'>
             {props.categories.map((cat) => (
-              <li key={cat.id} className="inline-block w-48 pl-2 border-2 border-transparent border-solid hover:bg-sp-primary/50 hover:border-black hover:rounded-lg hover:cursor-pointer focus:bg-sp-primary/50 focus:border-black focus:cursor-pointer">
+              <li key={cat.id} className="inline-block w-48 pl-2 border-2 border-transparent border-solid hover:bg-sp-primary-light dark:bg-sp-primary-dark/50 hover:border-black hover:rounded-lg hover:cursor-pointer focus:bg-sp-primary-light dark:bg-sp-primary-dark/50 focus:border-black focus:cursor-pointer">
     
                 <TestCheckboxWithRef
                   key={cat.id}

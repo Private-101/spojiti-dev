@@ -1,16 +1,18 @@
+import { Disclosure } from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link } from "@remix-run/react";
+import { classNames } from '~/utils';
+
 import {
   dropdownItems,
   navigation,
   userNavigation
-} from "./constants"; 
-import { classNames } from '~/utils';
-import { Fragment } from "react";
-import { Link, NavLink } from "@remix-run/react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+}from "./constants";
 
-import NavOption from "~/components/legacy/tailwindui/NavOption";
+
 import SpojitiLogoUrl from '~/components/common/assets/spojiti-logo.svg';
+import NavOption from "~/components/legacy/tailwindui/NavOption";
+
 // import { useRootLoaderData, type RootLoaderData, type UserProps } from '~/root';
 
 export default function Navbar() {
@@ -223,8 +225,9 @@ const userNavigation = [
 ];
 
 const dropdownItems = {
-  Candidates: ["Find Job", "Post Resume", "Company Listings"],
-  Employers: ["Find Candidates", "Post Job", "Pricing"],
+Applicants : [ "Find Job", "Post Resume", "Company Listings" ],
+Employers : [ "Find Applicants", "Post Job", "Pricing" ],
+
 };
 
 function classNames(...classes: string[]) {

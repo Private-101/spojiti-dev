@@ -32,7 +32,7 @@ export const JobActionButtons = ({ onClickApply, onClickDetails, classes }: Acti
           Apply
   </button>*/}
   {/*<ApplyButtonModal />*/}
-  <div className="rounded-md bg-sp-primary mt-2 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sp-primary/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40 hover:scale-120">
+  <div className="rounded-md bg-sp-primary-light dark:bg-sp-primary-dark mt-2 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sp-primary-light dark:bg-sp-primary-dark/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40 hover:scale-120">
   <div className="relative flex items-center justify-center">
             <button
               type="button"

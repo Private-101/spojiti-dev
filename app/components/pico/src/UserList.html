@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.3/dist/tailwind.min.css" rel="stylesheet">
+    <title>Job Posts</title>
+    <style>
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="overflow-hidden">
+    <div class="container mx-auto p-4 h-full w-full my-4 px-2">
+        <div class="flex justify-center items-center mb-4 lg:mb-12">
+            <input id="search-bar" class="border-2 border-gray-300 bg-white h-10 w-full lg:w-2/3 pl-2 rounded-l-full text-sm focus:outline-none" type="text" placeholder="Search">
+            <button id="search-btn" class="bg-gray-400 text-white transition duration-150 ease-in-out hover:bg-blue-600 border-blue-600 h-10 w-10 flex items-center justify-center rounded-r-full font-semibold">
+                <svg class="h-7 w-7 pr-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 18C13.866 18 17 14.866 17 11C17 7.13401 13.866 4 10 4C6.13401 4 3 7.13401 3 11C3 14.866 6.13401 18 10 18Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+        <div id="job-posts" class="grid grid-cols-1 lg:grid-cols-2 mt-6 space-y-4 lg:space-x-4 overflow-y-scroll h-screen snap-proximity snap-y">
+            <!-- Job cards will be generated here -->
+        </div>
+    </div>
+    <script>
+        const briefcaseIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v2h2a2 2 0 012 2v8a2 2 0 01-2 2H2a2 2 0 01-2-2V8a2 2 0 012-2h2V4z"></path></svg>`;
+        const clockIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 110-12 6 6 0 010 12zM9 9a1 1 0 012 0V5a1 1 0 11-2 0v4zM7 12a1 1 0 110-2h4a1 1 0 110 2H7z"/></svg>`;
+        const usdIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block fill-current stroke-black mr-1" viewBox="0 0 20 20"><path d="M10.5 0C6.313 0-.098 2.443 0 10.5c0 8.312 3.402 11.494 3.402 11.494 3.437 3.058 7.037-3.092 7.098-3.094.089-.003.289-.014.481-.02l.019-.005v-.777l-.018.008c.371-3.242.168-5.526-5.551-5.527-2.338 0-4.711.263-6.372-.735C1.291 9.731 2 7.057 2 7.057c1.17-5.529 4.898-6.611 8.5-7 0 .25 0 .5.038 1.485.724-1.26 1.963-2.541 3.233-1.851 1.761.963 3.011 3.967 1.729 8.327"/></svg>`;
+        const bookmarkIcon = `<svg id="bookmark-icon-svg" class="h-12 w-12 lg:h-16 lg:w-16 inline-block mr-1 cursor-pointer" width="36" height="36" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 3H16C17.6569 3 19 4.34315 19 6V22L12 19L5 22V6C5 4.34315 6.34315 3 8 3Z" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+        
+        const jobPosts = document.getElementById('job-posts');
+        const searchBar = document.getElementById('search-bar');
+        const searchBtn = document.getElementById('search-btn');
+        
+        function getDetails(index) {
+                const employmentTypes = ["Full-time", "Part-time", "Special Event", "Temp"];
+                const id = `job-id-${index}`;
+                const companyName = `company-${index}`;
+                const initialAvatar = `${index}`;
+                const jobTitle = `job-title-${index}`;
+                const location = `job-location-${index}`;
+                const updatedDate = new Date().toLocaleString();
+                const salaryLow = Math.round(Math.random() * 15);
+                const salaryHigh = Math.round(Math.random() * 65);
+                const salary = `$ ${salaryLow}/hr - $ ${salaryHigh}/hr`;
+                const type = employmentTypes[Math.ceil(Math.random() * employmentTypes.length - 1)];
+                const url = `/jobs/${index}`;
+            return {id, companyName, initialAvatar, jobTitle, location, updatedDate, salary, type, url};
+        };
+        
+        function generateJobCard(index) {
+            const details = getDetails(index);
+            return `<div id="job-card" class="bg-white p-2 lg:p-5 rounded-lg shadow lg:shadow-md flex flex-col space-y-2 lg:space-y-3 border border-blue-400 snap-always snap-start job-card">
+                    <div class="flex items-center justify-center">
+                        <div class="rounded-full h-16 w-16 lg:h-24 lg:w-24 object-cover bg-gray-300 ml-2 lg:ml-3 flex items-center justify-center text-md lg:text-xl font-semibold">
+                            <span>${details.initialAvatar}</span>
+                        </div>
+                        <div class="ml-12 flex-grow">
+                            <h3 class="text-xl lg:text-3xl font-semibold">${details.jobTitle}</h3>
+                            <p class="text-xl lg:text-2xl">${details.companyName}</p>
+                        </div>
+                        <div id="bookmark" class="inline-flex text-transparent hover:text-blue-400 transition duration-150 ease-in-out h-12 w-12 lg:h-16 lg:w-16 mb-12 items-center justify-center font-semibold cursor-pointer">
+                        ${bookmarkIcon}
+                        <span id="title" class="sr-only">${details.jobTitle}</span>
+                        <span id="bookmark-id" class="sr-only">${details.id}</span>
+                        </div>
+                    </div>
+                    <p class="mt-2 lg:mt-3 text-md lg:text-xl font-bold">${details.type}</p>
+                    <p class="mt-2 lg:text-xl">Salary range: ${details.salary}</p>
+                    <p class="mt-2 lg:text-md">${clockIcon}Last updated: ${details.updatedDate}</p>
+                </div>`;
+        };
+
+        function generateJobCards(numberOfCards) {
+            let cards = '';
+            for (let i = 1; i <= numberOfCards; i++) {
+                cards += generateJobCard(i);
+            }
+            jobPosts.innerHTML = cards;
+            addBookmarkEventListener();
+            initializeBookmarks();
+        }
+
+        function addBookmarkEventListener() {
+            const bookmarks = document.querySelectorAll("#bookmark");
+            bookmarks.forEach((bookmark) => {
+                bookmark.addEventListener("click", () => {
+                    const bookmarkIconSvg = bookmark.querySelector("#bookmark-icon-svg");
+                    const title = bookmark.querySelector("#title").textContent;
+                    const id = bookmark.querySelector("#bookmark-id").textContent;
+                    updateBookmark(bookmarkIconSvg, title, id);
+                });
+            });
+        }
+
+        function updateBookmark(bookmarkIcon, title, id) {
+            bookmarkIcon.classList.toggle("fill-current");
+            bookmarkIcon.classList.toggle("stroke-current");
+            bookmarkIcon.classList.toggle("text-blue-400");
+            updateLocalStorage(title, id);
+        }
+
+        function updateLocalStorage(title, id) {
+            let saved_jobs = JSON.parse(localStorage.getItem("saved_jobs")) || {};
+            if (saved_jobs.hasOwnProperty(id)) {
+                delete saved_jobs[id];
+            } else {
+                saved_jobs[id] = title;
+            }
+            localStorage.setItem("saved_jobs", JSON.stringify(saved_jobs));
+        }
+
+        function initializeBookmarks() {
+            let saved_jobs = JSON.parse(localStorage.getItem("saved_jobs")) || {};
+            Object.keys(saved_jobs).forEach((key) => {
+                const bookmarkElement = document.querySelector(`[id='bookmark-id'][innerText="${key}"]`);
+                if (bookmarkElement) {
+                    const bookmarkIconElement = bookmarkElement.querySelector("#bookmark-icon-svg");
+                    if (!bookmarkIconElement.classList.contains("fill-current")) {
+                        bookmarkIconElement.classList.add("fill-current");
+                        bookmarkIconElement.classList.toggle("text-blue-400");
+                        bookmarkIconElement.classList.remove("stroke-current");
+                    }
+                }
+            });
+        }
+
+        function filterJobCards(searchText) {
+            const cards = document.getElementsByClassName('job-card');
+            Array.from(cards).forEach((card) => {
+                const cardText = card.innerText.toLowerCase();
+                if (cardText.includes(searchText.toLowerCase())) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        generateJobCards(25);
+
+        searchBar.addEventListener('input', () => {
+            filterJobCards(searchBar.value);
+        });
+
+        searchBtn.addEventListener('click', () => {
+            filterJobCards(searchBar.value);
+        });
+    </script>
+</body>
+</html>
