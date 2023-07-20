@@ -45,29 +45,23 @@ export const loader = async ({ request }: LoaderArgs) => {
 
   return json<LoaderData>({ reviews });
 };
-type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
 
 const Home: React.FC = () => {
   const { reviews } = useLoaderData<LoaderData>();
-
-  const submit = useSubmit();
-  const action = useFormAction();
-
-  const fetcher = useFetcher();
 
   // const [theme, toggle]: RootContextType = useRootContext();
 
   return (
     <>
-            <Header /> 
+      <Header />
 
-          <Container id="features" classNames="rounded-md">
-            <FeaturesSection />
-            <div className="container bg-gray-200 dark:bg-gray-800 py-8">
-              <ReviewCards reviews={reviews} />
-              {/*<div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <Container id="features" classNames="rounded-md">
+        <FeaturesSection />
+        <div className="container bg-gray-200 dark:bg-gray-800 py-8">
+          <ReviewCards reviews={reviews} />
+          {/*<div className="mx-auto max-w-7xl px-6 lg:px-8">
         <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">*/}
-              {/*reviews.map((review) => (
+          {/*reviews.map((review) => (
             <div key={review.name} className="mx-auto flex max-w-xs flex-col gap-y-4">
             <dt className="text-md text-gray-600">{review.name}</dt>
             <dt className="text-md text-gray-600">{review.jobTitle}</dt>
@@ -76,19 +70,19 @@ const Home: React.FC = () => {
             </dd>
           </div>
           ))*/}
-              {/*</dl>
+          {/*</dl>
       </div>*/}
-            </div>
-          </Container>
+        </div>
+      </Container>
 
-          <Container id="pricing" classNames="rounded-md">
-            <PricingSection />
-          </Container>
+      <Container id="pricing" classNames="rounded-md">
+        <PricingSection />
+      </Container>
 
-          <Container id="contact-us" classNames="mx-16 my-12 px-8 py-4">
-            {/*<ContactInfoSection />*/}
+      <Container id="contact-us" classNames="mx-16 my-12 px-8 py-4">
+        {/*<ContactInfoSection />*/}
         <ContactUsSection />
-          </Container>
+      </Container>
     </>
   );
 };
@@ -153,28 +147,28 @@ export default Home;
       <AppFooter />
               */
 
-      export function ErrorBoundary() {
-        const error = useRouteError();
-      
-        if (isRouteErrorResponse(error)) {
-          return (
-            <div>
-              <h1>
-                {error.status} {error.statusText}
-              </h1>
-              <p>{error.data}</p>
-            </div>
-          );
-        } else if (error instanceof Error) {
-          return (
-            <div>
-              <h1>Error</h1>
-              <p>{error.message}</p>
-              <p>The stack trace is:</p>
-              <pre>{error.stack}</pre>
-            </div>
-          );
-        } else {
-          return <h1>Unknown Error</h1>;
-        }
-      }
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div>
+        <h1>
+          {error.status} {error.statusText}
+        </h1>
+        <p>{error.data}</p>
+      </div>
+    );
+  } else if (error instanceof Error) {
+    return (
+      <div>
+        <h1>Error</h1>
+        <p>{error.message}</p>
+        <p>The stack trace is:</p>
+        <pre>{error.stack}</pre>
+      </div>
+    );
+  } else {
+    return <h1>Unknown Error</h1>;
+  }
+}

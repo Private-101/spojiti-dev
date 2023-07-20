@@ -35,14 +35,14 @@ const CookiePopup: React.FC<CookiePopupProps> = ({delay}) => {
   }, [loading, timeSince]); */
 
   useEffect(() => {
-    console.log(`starting cookie timer...`);
+    // console.log(`starting cookie timer...`);
     if (delay && typeof delay === 'number') {
-      console.log(`delay provided: ${delay} seconds`);
+      // console.log(`delay provided: ${delay} seconds`);
       const timeout = setTimeout(() => setLoading(false), delay * 1000);
       return () => clearTimeout(timeout);
     };
 // default timeout is 3 seconds before cookie banner pops up
-console.log(`default delay provided: 3 seconds`);
+// console.log(`default delay provided: 3 seconds`);
     const defaultTimer = setTimeout(() => setLoading(false), 3000);
     return () => clearTimeout(defaultTimer); 
   }, [delay])
@@ -76,10 +76,10 @@ console.log(`default delay provided: 3 seconds`);
     return null;
   };
 
-  /* if (loading) {
-    console.log('loading: true\nreturn null');
+  if (loading) {
+    // console.log('loading: true\nreturn null');
     return null;
-  } */
+  }; 
 /*
 <!-- Item -->
                 <div class="flex justify-between py-6 px-4 bg-white/30 rounded-lg">

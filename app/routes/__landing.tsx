@@ -34,26 +34,7 @@ import {
   useRouteError,
 } from "@remix-run/react";
 
-interface LoaderData {
-  reviews: Review[];
-}
-
-export const loader = async ({ request }: LoaderArgs) => {
-  const reviews = await generateReviews(3);
-
-  return json<LoaderData>({ reviews });
-};
-
-// type OutletContextProps = [string, (value?: React.SetStateAction<string> | undefined) => void];
-
 const Home: React.FC = () => {
-  const { reviews } = useLoaderData<LoaderData>();
-
-  const submit = useSubmit();
-  const action = useFormAction();
-
-  const fetcher = useFetcher();
-
   const [theme, toggle]: RootContextType = useRootContext();
 
   return (

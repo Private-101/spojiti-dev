@@ -1,4 +1,17 @@
 {
+"fc" : {
+    "prefix": "fc",
+    "description": "fc",
+    "scope": "typescriptreact",
+    "body": [
+        "function Component() {",
+        "    return (",
+        "        <></>",
+        "    )",
+        "}"
+    ]
+},
+
 	"int": {
 		"prefix": "int",
 		"description": "int",

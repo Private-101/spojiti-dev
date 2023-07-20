@@ -1,13 +1,15 @@
+import { Disclosure } from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link } from "@remix-run/react";
+
 import {
   dropdownItems,
   navigation,
   userNavigation,
-} from "~/components/legacy/tailwindui/any/constants"; 
+}from "~/components/legacy/tailwindui/any/constants";
+
 import { classNames } from '~/utils';
-import { Fragment } from "react";
-import { Link, NavLink, useLocation } from "@remix-run/react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+
 
 import NavOption from "~/components/legacy/tailwindui/NavOption";
 // import SpojitiLogoUrl from '~/components/common/assets/spojiti-logo.svg';
@@ -29,7 +31,8 @@ export default function Navbar() {
               <div className="flex h-16 items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <Link to="/home">
+< Link to = "/home#top" >
+
                       <img
                         className="inline-block h-12 w-16"
                         src='/assets/spojiti-logo.svg'
@@ -70,7 +73,8 @@ export default function Navbar() {
 
                 <div className="flex items-center">
                   <Link
-                    to="/register"
+to = "/join"
+
                     className="text-md mr-4 rounded-md bg-gray-700 bg-opacity-0 px-3 py-2 font-bold text-white hover:bg-opacity-60"
                   >
                     Join Us
@@ -227,8 +231,9 @@ const userNavigation = [
 ];
 
 const dropdownItems = {
-  Candidates: ["Find Job", "Post Resume", "Company Listings"],
-  Employers: ["Find Candidates", "Post Job", "Pricing"],
+Applicants : [ "Find Job", "Post Resume", "Company Listings" ],
+Employers : [ "Find Applicants", "Post Job", "Pricing" ],
+
 };
 
 function classNames(...classes: string[]) {
