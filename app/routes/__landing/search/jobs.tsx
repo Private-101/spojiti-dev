@@ -1,6 +1,6 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Link, isRouteErrorResponse, useRouteError } from '@remix-run/react';
+import { Link, isRouteErrorResponse, useRouteError, useLoaderData } from '@remix-run/react';
 import { useEffect, useState } from "react";
 import type { Category } from "~/models/category.server";
 import { getAllCategories } from '~/models/category.server';
@@ -29,13 +29,15 @@ export const loader = async ({request}: LoaderArgs) => {
 // export const action = async ({request}: ActionArgs) => {}
 
 export default function SearchLayoutPage() {
-  const fetcher = useFetcher<JobMenuData>();
-  const [jobs, setJobs] = useState<FormattedJobPost[]>([]);
-  const [categories, setCategories] = useState<FormattedCategory[]>([]);
-
+  const {categories, jobs} = useLoaderData<TestLoaderData>();
+  
+  // const fetcher = useFetcher<JobMenuData>();
+  const [allJobs, setAllJobs] = useState<FormattedJobPost[]>([]);
+  const [allCategories, setAllCategories] = useState<FormattedCategory[]>([]);
+/*
   useEffect(() => {
-    if (fetcher.state === "idle" && fetcher.data == null) {
-      fetcher.load(`api/job-menu-data`)
+     if (fetcher.state === "idle" && fetcher.data == null) {
+      fetcher.load(`../api/job-menu-data`)
     }
     
   }, [fetcher]);
@@ -46,7 +48,7 @@ export default function SearchLayoutPage() {
       setCategories(fetcher.data.categories);
     }
   }, [fetcher.data]);
-
+*/
   
   return (
     <>
@@ -80,7 +82,7 @@ export function ErrorBoundary() {
 
   if (isRouteErrorResponse(error)) {
     return (
-      <div>
+      <div className="mt-24">
         <h1>
           Route Error: {error.status} {error.statusText}
         </h1>
@@ -89,7 +91,7 @@ export function ErrorBoundary() {
     );
   } else if (error instanceof Error) {
     return (
-      <div>
+      <div className="mt-24">
         <h1>Client Error</h1>
         <p>{error.message}</p>
         <p>The stack trace is:</p>
@@ -97,6 +99,6 @@ export function ErrorBoundary() {
       </div>
     );
   } else {
-    return <h1>Unknown Error</h1>;
+    return <h1 className="mt-24">Unknown Error</h1>;
   }
 };

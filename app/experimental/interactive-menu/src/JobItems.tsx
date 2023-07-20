@@ -71,7 +71,7 @@ export const Items = ({ search, filter, menuOption, categoryId }: Props) => {
   // const [list, setList] = React.useState(plates);
   const fetcher = useFetcher<{formattedCategoryJobs: FormattedJobPost[]}>();
   useEffect(() => {
-    fetcher.load(`api/categories/${categoryId}`)
+    fetcher.load(`/api/categories/${categoryId}`)
   }, [categoryId]);
 /*
   function handleSearch(title: string) {

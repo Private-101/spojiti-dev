@@ -29,6 +29,7 @@ export const loader = async ({request}: LoaderArgs) => {
 // export const action = async ({request}: ActionArgs) => {}
 
 export default function SearchLayoutPage() {
+  /*
   const fetcher = useFetcher<JobMenuData>();
   const [jobs, setJobs] = useState<FormattedJobPost[]>([]);
   const [categories, setCategories] = useState<FormattedCategory[]>([]);
@@ -46,7 +47,7 @@ export default function SearchLayoutPage() {
       setCategories(fetcher.data.categories);
     }
   }, [fetcher.data]);
-
+*/
   
   return (
     <>

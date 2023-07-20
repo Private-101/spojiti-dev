@@ -81,7 +81,6 @@ interface MenuProps {
   id: string;
   categories: FormattedCategory[];
   jobs: FormattedJobPost[];
-  children?: JSX.Element
   // children: JSX.Element;
   // category: MenuOption | null;
   // jobs: JSX.Element[];
@@ -112,6 +111,7 @@ const JobMenu = (props: MenuProps) => {
   useEffect(() => console.log(JSON.stringify(checkedItems)), [checkedItems]);
 
   return (
+    <>
     <section className='bg-sp-body-bg dark:bg-sp-gray-custom p-2 w-[80%] rounded-md border-2 border-sp-primary' id={props.id} >
       <header className="flex flex-row items-center justify-center">
       <h1 className="font-bold text-sp-body-text text-lg">Interactive Restaurant Job Search</h1>
@@ -121,10 +121,10 @@ const JobMenu = (props: MenuProps) => {
           <legend className="m-0 p-0 font-bold ml-5 text-sp-body-text">Select any of the categories below</legend>
           <ul className='m-0 p-0 ml-5 list-none'>
             {props.categories.map((cat) => (
-              <li key={cat.id} className="inline-block w-48 pl-2 border-2 border-transparent border-solid hover:bg-sp-primary-light dark:bg-sp-primary-dark/50 hover:border-black hover:rounded-lg hover:cursor-pointer focus:bg-sp-primary-light dark:bg-sp-primary-dark/50 focus:border-black focus:cursor-pointer">
+              <>
+              <li key={cat.id} className="inline-block w-48 pl-2 border-2 border-transparent border-solid hover:bg-sp-primary-light dark:bg-sp-primary-dark/50 hover:border-black hover:rounded-lg hover:cursor-pointer focus:bg-sp-primary-light focus:border-black focus:cursor-pointer">
     
                 <TestCheckboxWithRef
-                  key={cat.id}
                   innerRef={checkboxRef}
                   option={{ label: cat.title, value: cat.id, disabled: false }}
                   name={cat.title}
@@ -136,27 +136,26 @@ const JobMenu = (props: MenuProps) => {
                 // onClick={handleCheckboxClick}
                 />
               </li>
+              </>
             ))}
           </ul>
         </fieldset>
         <p className="text-sm">*Note* Every time a new category is added to the database, it will be automatically updated here!</p>
       </section>
       {checkedItems.map((item, i) => (
-        <div className="min-h-screen" key={`${item}-${i}`}>
-        {props.categories.filter((category) => category.id === item).map((cat) => (
+        <>
+        <div className="min-h-screen" key={`checked-${item}-${i}`}>
+        {props.categories.filter((category) => category.id === item).map((cat, i) => (
           <>
           <p className="text-lg font-bold text-sp-body-text mb-2 max-w-fit border-b-2 border-sp-primary">{unslugify(cat.title)}</p>
           </>
         ))}
-        <Items key={item} categoryId={item} />
+        <Items key={`${item}-${i}`} categoryId={item} />
         </div>
-      ))}
-      {props.children ? (
-        <>
-        {props.children}
         </>
-      ): null}
+      ))}
     </section>
+    </>
   );
 };
 
