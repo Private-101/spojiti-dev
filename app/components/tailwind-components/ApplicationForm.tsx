@@ -193,3 +193,103 @@
   </div>
 </div>
 */
+
+export default function Application() {
+  <>
+    <div className="container mx-auto px-4 py-10">
+        <h1 className="text-2xl font-medium mb-6">Restaurant Job Application Form</h1>
+        <form>
+            <div className="bg-white px-6 py-6 shadow rounded">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <input className="border p-2 rounded" type="text" name="first_name" id="first_name" placeholder="First Name" />
+                    <input className="border p-2 rounded" type="text" name="last_name" id="last_name" placeholder="Last Name" />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <input className="border p-2 rounded" type="email" name="email" id="email" placeholder="Email" />
+                    <input className="border p-2 rounded" type="text" name="phone" id="phone" placeholder="Phone" />
+                </div>
+                <div className="mb-4">
+                    <input className="border p-2 rounded w-full" type="text" name="address" id="address" placeholder="Address" />
+                </div>
+
+                <h2 className="text-lg font-medium mb-4">Work History:</h2>
+                <div className="mb-4">
+                    <textarea className="border p-2 rounded w-full" name="work_history" id="work_history" rows={4} placeholder="Enter your work history"></textarea>
+                </div>
+
+                <h2 className="text-lg font-medium mb-4">Skills:</h2>
+                <div className="mb-4">
+                    <select className="border p-2 rounded w-full" name="skills" id="skills" multiple>
+                        <option value="cooking">Cooking</option>
+                        <option value="baking">Baking</option>
+                        <option value="customer_service">Customer Service</option>
+                        <option value="management">Management</option>
+                        <option value="cash_handling">Cash Handling</option>
+                    </select>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <h3 className="text-lg font-medium mb-2">Preferred Salary:</h3>
+                        <input className="border p-2 rounded" type="range" name="preferred_salary" id="preferred_salary" min="0" max="100" />
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-medium mb-2">Starting Date:</h3>
+                        <input className="border p-2 rounded" type="date" name="starting_date" id="starting_date" />
+                    </div>
+                </div>
+
+                <h2 className="text-lg font-medium mb-4">Work Schedule (Availability):</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-4">
+                    <label className="inline-flex items-center mr-6">
+                        <input type="checkbox" name="availability[]" value="monday" className="mr-2" />
+                        Monday
+                    </label>
+                    <label className="inline-flex items-center mr-6">
+                        <input type="checkbox" name="availability[]" value="tuesday" className="mr-2" />
+                        Tuesday
+                    </label>
+                    <label className="inline-flex items-center mr-6">
+                        <input type="checkbox" name="availability[]" value="wednesday" className="mr-2" />
+                        Wednesday
+                    </label>
+                    <label className="inline-flex items-center mr-6">
+                        <input type="checkbox" name="availability[]" value="thursday" className="mr-2" />
+                        Thursday
+                    </label>
+                    <label className="inline-flex items-center mr-6">
+                        <input type="checkbox" name="availability[]" value="friday" className="mr-2" />
+                        Friday
+                    </label>
+                    <label className="inline-flex items-center mr-6">
+                        <input type="checkbox" name="availability[]" value="saturday" className="mr-2" />
+                        Saturday
+                    </label>
+                    <label className="inline-flex items-center">
+                        <input type="checkbox" name="availability[]" value="sunday" className="mr-2" />
+                        Sunday
+                    </label>
+                </div>
+
+                <h2 className="text-lg font-medium mb-4">Background History:</h2>
+                <div className="mb-4">
+                    <textarea className="border p-2 rounded w-full" name="background_history" id="background_history" rows={4} placeholder="Enter your background history"></textarea>
+                </div>
+
+                <h2 className="text-lg font-medium mb-4">Upload Resume/Cover Letter:</h2>
+                <div className="mb-4">
+                    <label className="w-full flex flex-col items-center px-4 py-2 bg-white text-blue-500 rounded-lg shadow-lg tracking-wide border border-blue-400 cursor-pointer hover:bg-blue-500 hover:text-white">
+                        <svg className="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M10 20a10 10 0 110-20 10 10 0 010 20zm-2-13l3-3 3 3h-2v6H9V7H7z" />
+                        </svg>
+                        <input type="file" accept=".doc,.pdf" className="hidden" name="resume_cover_letter" id="resume_cover_letter" />
+                        <span className="mt-2 leading-normal">Select File</span>
+                    </label>
+                </div>
+                <button type="submit" className="bg-blue-500 text-white px-8 py-2 rounded hover:bg-blue-700">Submit</button>
+            </div>
+        </form>
+    </div>
+  </>
+}

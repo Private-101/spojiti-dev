@@ -5,7 +5,7 @@ import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { redirect, json } from "@remix-run/node";
 import { Listbox, Transition, Dialog } from "@headlessui/react";
 import { Form, useFetcher, useSearchParams, useLoaderData } from "@remix-run/react";
-
+import Application from '~/components/tailwind-components/ApplicationForm';
 interface ActionButtonProps {
   onClickApply?: (ev: React.MouseEvent) => void;
   onClickDetails?: (ev: React.MouseEvent) => void;
@@ -68,7 +68,7 @@ export const JobActionButtons = ({ onClickApply, onClickDetails, classes }: Acti
                     leaveFrom="opacity-100 scale-100"
                     leaveTo="opacity-0 scale-95"
                   >
-                    <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-sp-body-bg p-6 text-left align-middle shadow-xl transition-all">
+                    {<Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-sp-body-bg p-6 text-left align-middle shadow-xl transition-all">
                       <Dialog.Title
                         as="h3"
                         className="text-lg font-medium leading-6 text-gray-900"
@@ -92,7 +92,7 @@ export const JobActionButtons = ({ onClickApply, onClickDetails, classes }: Acti
                           Got it, thanks!
                         </button>
                       </div>
-                    </Dialog.Panel>
+                    </Dialog.Panel>}
                   </Transition.Child>
                 </div>
               </div>
