@@ -11,15 +11,18 @@ export interface IDropdownButtonProps {
     itemsAlign?: 'left' | 'right';
     itemsMarginTop?: number;
     items: IDropdownButtonItemProps[]
+    itemHTMLButtonProps: Partial<React.ButtonHTMLAttributes<HTMLButtonElement>>;
 };
 
-export function DropdownButton(props: IDropdownButtonProps) {
-    const {title, items, size, itemsAlign, itemsMarginTop} = props;
+export type MergedButtonProps = Partial<IDropdownButtonProps> & Partial<React.ButtonHTMLAttributes<HTMLButtonElement>>;
+
+export function DropdownButton(props: MergedButtonProps) {
+    const {title, items, size, itemsAlign, itemsMarginTop, itemHTMLButtonProps, ...rest} = props;
   return (
     <div className="relative min-w-fit inline-block text-right">
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className={classNames(size ? `text-${size} shadow-${size} focus:shadow-${size} hover:shadow-${size}` : "text-sm focus:shadow-md hover:shadow-md", "inline-flex w-full justify-center rounded-md bg-sp-primary bg-opacity-80 hover:bg-opacity-100 px-4 py-2 font-medium text-white focus:outline focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75")}>
+          <Menu.Button {...rest} className={classNames(size ? `text-${size} shadow-${size} focus:shadow-${size} hover:shadow-${size}` : "text-sm focus:shadow-md hover:shadow-md", "inline-flex w-full justify-center rounded-md bg-sp-primary bg-opacity-80 hover:bg-opacity-100 px-4 py-2 font-medium text-white focus:outline focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75")}>
             {title}
             <ChevronDownIcon
               className="ml-2 -mr-1 h-5 w-5 text-white/80 hover:text-white"
@@ -37,7 +40,7 @@ export function DropdownButton(props: IDropdownButtonProps) {
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items className={classNames(size ? `shadow-${size}` : "shadow-lg", itemsAlign ? `${itemsAlign}-0 origin-top-${itemsAlign}` : "left-0 origin-top-left", itemsMarginTop ? `mt-${itemsMarginTop}` : "mt-2", "absolute border-b border-b-sp-primary dark:border-b-white divide-y divide-sp-primary dark:divide-white rounded-md bg-white dark:bg-sp-primary ring-1 ring-black ring-opacity-5 focus:outline-none w-56 z-999")}>
-            {items.map((item, i) => (
+            {items && items.map((item, i) => (
                 <DropdownButtonItem key={i} {...item} />
             ))}
           </Menu.Items>
@@ -178,23 +181,25 @@ export function DropdownButton(props: IDropdownButtonProps) {
               </Menu.Item>
             </div>
             */
-
-export interface IDropdownButtonItemProps extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+/* extends React.ButtonHTMLAttributes<HTMLButtonElement> */
+export interface IDropdownButtonItemProps  {
     title: string;
     to?: string;
     Icon?: SVGProps<SVGSVGElement>
     className?: string;
     activeClassName?: string;
+    buttonItem: Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> | undefined;
 };
                    
 export function DropdownButtonItem(props: IDropdownButtonItemProps) {
-    const { title, className, activeClassName } = props;
+    const { title, className, activeClassName, buttonItem } = props;
 
     return (
         <>
         <Menu.Item>
                 {({ active }) => (
                   <button
+                  {...buttonItem}
                     className={classNames(active ? activeClassName ?? 'bg-sp-primary dark:bg-slate-100 text-white dark:text-gray-900' : 'text-gray-900 dark:text-white', className ?? 'group flex w-full items-center rounded-md px-2 py-2 text-md font-medium')}
                   >
                     {title}
