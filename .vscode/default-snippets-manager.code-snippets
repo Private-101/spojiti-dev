@@ -1,4 +1,18 @@
 {
+"iremix" : {
+    "prefix": "iremix",
+    "description": "iremix",
+    "scope": "typescriptreact",
+    "body": [ "import {} from '@remix-run/react';", "import {} from '@remix-run/node';", "import type {} from '@remix-run/node';" ]
+},
+"todo" : {
+    "prefix": "todo",
+    "description": "todo",
+    "scope": "typescriptreact",
+    "body": [ "{/* TODO: what */}" ]
+},
+
+
 "fc" : {
     "prefix": "fc",
     "description": "fc",

@@ -7,32 +7,26 @@
     },
     "editor.suggest.showFunctions": true,
     "editor.suggest.localityBonus": true,
-"editor.inlineSuggest.suppressSuggestions" : true,
-
+    "editor.inlineSuggest.suppressSuggestions" : false,
     "editor.formatOnSave": true,
-"editor.formatOnSaveMode" : "modificationsIfAvailable",
-
+    "editor.formatOnSaveMode" : "modificationsIfAvailable",
     "editor.snippetSuggestions": "top",
     "editor.acceptSuggestionOnEnter": "off",
     "editor.autoClosingBrackets": "always",
     "editor.autoClosingQuotes": "beforeWhitespace",
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": true
-    },
-    "editor.codeLens": false,
-"editor.defaultFormatter" : "mblode.pretty-formatter",
-
+    "editor.codeLens": true,
+    "editor.defaultFormatter" : "mblode.pretty-formatter",
     "docwriter.progress.trackFunctions": true,
     "docwriter.progress.trackClasses": true,
-"docwriter.progress.trackTypes" : true,
-"[typescriptreact]" : {
+    "docwriter.progress.trackTypes" : true,
+    "[typescriptreact]" : {
     "editor.defaultFormatter": "mblode.pretty-formatter"
-},
-"pretty-formatter.bracePadding" : true,
-"[typescript]" : {
+    },
+    "pretty-formatter.bracePadding" : true,
+    "[typescript]" : {
     "editor.defaultFormatter": "mblode.pretty-formatter"
-},
-"tailwindCSS.suggestions": true,
-"editor.quickSuggestionsDelay": 1000,
-"editor.hover.delay": 1000
+    },
+    "tailwindCSS.suggestions": true,
+    "editor.quickSuggestionsDelay": 1000,
+    "editor.hover.delay": 1000
 }

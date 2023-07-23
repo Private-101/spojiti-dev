@@ -41,7 +41,7 @@ const Home: React.FC = () => {
     <>
       <CookiePopup />
       <Navbar />
-      <main id="top" className="scroll-smooth">
+      <main id="top" className="scroll-smooth bg-gradient-to-r from-indigo-100/50 to-blue-100 dark:from-blue-800 dark:to-indigo-900">
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           {/* Your content */}
           <Container classNames="rounded-md rounded">

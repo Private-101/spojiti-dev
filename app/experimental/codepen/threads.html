@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <main id="app">
+    
+            <header class="thread__head">
+                <img src="https://assets.codepen.io/13471/threads.png" alt="Threads Logo">
+            </header>
+            
+            <thread class="thread">
+                
+                <button class="thread__avatar" title="follow @simeydotme">
+                    <img class="thread__avatar-image" src="https://assets.codepen.io/13471/simey.png" alt="The Avatar for user Simeydotme">
+                    <svg class="thread__avatar-follow" viewbox="0 0 12 12"><use href="#icon-plus" /></svg>
+                </button>
+                
+                <section class="thread__info">
+                    <a class="thread__user-name" href="#">simeydotme</a>
+                    <time class="thread__date">1&nbsp;h</time>
+                    <button class="thread__actions">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><use href="#icon-dots" /></svg>
+                    </button>
+                </section>
+                
+                <section class="thread__content">
+                    <p>Checkout my new Threads🧵 UI <span class="thread__hashtag">#codepen</span>! 
+                        <br><br>
+                        I was inspired by reading the post on <a href="https://codepen.io/shadeed" target="_blank" class="thread__userat">@shadeed</a>'s website <a href="https://ishadeed.com/article/threads-app-css/" target="_blank">https://ishadeed.com/article/threads-app-css/</a>, go check it out!
+                        <br><br>
+                        I took some liberties with things like icons and colors, but I especially wanted to make the thread svg (and little loopy) to be completely flexible, expanding to the height. I used a few little tricks like quantity-queries for the avatars, and check out that carousel with a really basic lightbox, haha!
+                        <br><br>
+                        <span class="thread__hashtag">#css</span> <span class="thread__hashtag">#threads</span> <span class="thread__hashtag">#html</span> <span class="thread__hashtag">#responsive</span> <span class="thread__hashtag">#mobile</span> <span class="thread__hashtag">#ui</span>    
+                    </p>
+                    
+                    <a class="thread__embed" href="https://ishadeed.com/article/threads-app-css/">
+                        <header>
+                            <img class="thread__embed__thumb" src="https://ishadeed.com/assets/threads-app-css/twitter-card.jpg" alt="">
+                        </header>
+                        <section class="thread__embed__content">
+                            <p class="thread__embed__domain">ishadeed.com</p>
+                            <p class="thread__embed__preview">A few interesting CSS findings from the threads app by Meta.</p>
+                        </section>
+                    </a>
+                </section>
+                
+                <section class="thread__interactions">
+                    <button class="heart">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-heart" /></svg>
+                    </button>
+                    <button class="comment">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-comment" /></svg>
+                    </button>
+                    <button class="repost">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-repost" /></svg>
+                    </button>
+                    <button class="send">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-send" /></svg>
+                    </button>
+                </section>
+                
+                <div class="thread__line">
+                    <svg class="thread__vertical" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                      <line x1="10" y1="0" x2="10" y2="20" stroke="currentColor" />
+                    </svg>
+                </div>
+                
+                <div class="thread__interaction-avatars">
+                    <a href="#" class="thread__avatar" title="view @shadeed's threads">
+                        <img class="thread__avatar-image" src="https://assets.codepen.io/182774/internal/avatars/users/default.png?fit=crop&format=auto&height=100&version=1662614010&width=100" alt="The Avatar for user @shadeed">
+                    </a>
+                </div>
+                
+                <div class="thread__replies">
+                    <span>1 reply</span>
+                </div>
+                
+            </thread>
+        
+            <thread class="thread">
+                
+                <svg class="thread__reposted-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-repost" /></svg>
+                <p class="thread__reposted">simeydotme reposted</p>
+                
+                <button class="thread__avatar" title="follow @zuck">
+                    <img class="thread__avatar-image" src="https://static.independent.co.uk/2022/08/22/10/mark%20zuckerberg%20metaverse%20avatar.png" alt="The Avatar for user Zuck">
+                    <svg class="thread__avatar-follow" viewbox="0 0 12 12"><use href="#icon-plus" /></svg>
+                </button>
+                
+                <section class="thread__info">
+                    <a class="thread__user-name" href="#">zuck</a>
+                    <time class="thread__date">2&nbsp;w</time>
+                    <button class="thread__actions">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><use href="#icon-dots" /></svg>
+                    </button>
+                </section>
+                
+                <section class="thread__content">
+                    <p>Let's do this. Welcome to Threads. 🔥</p>
+                </section>
+                
+                <section class="thread__interactions">
+                    <button class="heart">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-heart" /></svg>
+                    </button>
+                    <button class="comment">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-comment" /></svg>
+                    </button>
+                    <button class="repost">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-repost" /></svg>
+                    </button>
+                    <button class="send">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-send" /></svg>
+                    </button>
+                </section>
+                
+                <div class="thread__line">
+                    <svg class="thread__vertical" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                      <line x1="10" y1="0" x2="10" y2="20" stroke="currentColor" />
+                    </svg>
+                </div>
+                
+                <div class="thread__interaction-avatars">
+                    <a href="#" class="thread__avatar" title="view @elonmusk's threads">
+                        <img class="thread__avatar-image" src="https://media.discordapp.net/attachments/1036500984802844732/1131242358210568254/simeydotme_elon_musk_with_a_joint_in_his_mouth_vapor_all_around_90da6537-40f3-4adf-8240-10c575cd7ec1.png?width=200&height=200" alt="The Avatar for user @elonmusk">
+                    </a>
+                </div>
+                
+                <div class="thread__replies">
+                    <span>1 reply</span> 
+                    <span aria-role="presentation">·</span>
+                    <span>2M likes</span>
+                </div>
+                
+            </thread>
+            
+            <thread class="thread">
+                
+                <button class="thread__avatar" title="follow @zuck">
+                    <img class="thread__avatar-image" src="https://static.independent.co.uk/2022/08/22/10/mark%20zuckerberg%20metaverse%20avatar.png" alt="The Avatar for user Zuck">
+                    <svg class="thread__avatar-follow" viewbox="0 0 12 12"><use href="#icon-plus" /></svg>
+                </button>
+                
+                <section class="thread__info">
+                    <a class="thread__user-name" href="#">zuck</a>
+                    <time class="thread__date">14&nbsp;m</time>
+                    <button class="thread__actions">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><use href="#icon-dots" /></svg>
+                    </button>
+                </section>
+                
+                <section class="thread__content">
+                    <p>Hey everyone. We are LIVE from my BACKYARD... where I am smoking a... brisket and some ribs. Hey everyone. We are LIVE from my BACKYARD... where I am smoking a... brisket and some ribs. 🍖</p>
+                    <ul class="thread__carousel">
+                        <li><img tabindex="0" src="https://media.discordapp.net/attachments/1036500984802844732/1131227629593305118/simeydotme_disney_style_nintendo_mii_style_avatar_a_close-up_we_281d4934-7642-4035-9248-6e27564e2136.png" alt=""></li>
+                    </ul>
+                </section>
+                
+                <section class="thread__interactions">
+                    <button class="heart">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-heart" /></svg>
+                    </button>
+                    <button class="comment">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-comment" /></svg>
+                    </button>
+                    <button class="repost">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-repost" /></svg>
+                    </button>
+                    <button class="send">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-send" /></svg>
+                    </button>
+                </section>
+                
+                <div class="thread__line">
+                    <svg class="thread__vertical" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                      <line x1="10" y1="-1" x2="10" y2="21" stroke="currentColor" />
+                    </svg>
+                    <svg class="thread__loop" viewBox="0 0 20 10">
+                        <path fill="none" stroke="currentColor" d="M10-1.97c0,0,0,1.65,0,2.92c0,4.33-2,6.2-4.37,6.39c-4.12,0.33-4.15-4.54,0-4.23 C7.7,3.27,10,5.1,10,9.24v2.92"/>
+                    </svg>
+                    <svg class="thread__bottom" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                      <line x1="10" y1="-1" x2="10" y2="21" stroke="currentColor" />
+                    </svg>
+                </div>
+                
+                <div class="thread__interaction-avatars">
+                    <a href="#" class="thread__avatar" title="view @elonmusk's threads">
+                        <img class="thread__avatar-image" src="https://media.discordapp.net/attachments/1036500984802844732/1131242358210568254/simeydotme_elon_musk_with_a_joint_in_his_mouth_vapor_all_around_90da6537-40f3-4adf-8240-10c575cd7ec1.png?width=200&height=200" alt="The Avatar for user @elonmusk">
+                    </a>
+                    <a href="#" class="thread__avatar" title="view @bigbezos's threads">
+                        <img class="thread__avatar-image" src="https://media.discordapp.net/attachments/1036500984802844732/1131252781412536361/simeydotme_super_close_up_portrait_profile_picture_of_Jerrfrey__5784a447-72a8-40d5-b411-d21bd81ea922.png?width=200&height=200" alt="The Avatar for user @bigbezos">
+                    </a>
+                </div>
+                
+                <div class="thread__replies">
+                    <span>109K replies</span> 
+                    <span aria-role="presentation">·</span>
+                    <span>17 likes</span>
+                </div>
+                
+            </thread>
+            
+            <thread class="thread thread--continued">
+                
+                <button class="thread__avatar" title="follow @zuck">
+                    <img class="thread__avatar-image" src="https://static.independent.co.uk/2022/08/22/10/mark%20zuckerberg%20metaverse%20avatar.png" alt="The Avatar for user Zuck">
+                    <svg class="thread__avatar-follow" viewbox="0 0 12 12"><use href="#icon-plus" /></svg>
+                </button>
+                
+                <section class="thread__info">
+                    <a class="thread__user-name" href="#">zuck</a>
+                    <time class="thread__date">12&nbsp;m</time>
+                    <button class="thread__actions">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><use href="#icon-dots" /></svg>
+                    </button>
+                </section>
+                
+                <section class="thread__content">
+                    <p>I am… I’m making meats now. Smoking these meats here. Our little meat smoking. It’s smoking, so. I’m the meat chef. Yeah, someone asked me, do I smoke meat? Smoking meat. Smoking these meats. Smoking meats earlier in the day. Smoking these meats. Just set the charcoal up and you set the uh… the woodchips up.
+                        <br>
+                        <br>
+                        <span class="thread__hashtag">#ratio</span> <span class="thread__hashtag">#meat</span> <span class="thread__hashtag">#smoker</span>
+                    </p>
+                    <ul class="thread__carousel">
+                        <li><img tabindex="0" src="https://media.discordapp.net/attachments/1036500984802844732/1131230065561182379/simeydotme_3d_disney_style_a_close-up_webcam_image_of_mark_zuck_649d3da8-8149-4b7a-9954-39340f26752f.png" alt=""></li>
+                        <li><img tabindex="0" src="https://reviewed-com-res.cloudinary.com/image/fetch/s--Vbn2kwJ---/b_white,c_limit,cs_srgb,f_auto,fl_progressive.strip_profile,g_center,q_auto,w_972/https://reviewed-production.s3.amazonaws.com/1630593960000/meatsmoking_hero.jpg" alt=""></li>
+                    </ul>
+                </section>
+                
+                <section class="thread__interactions">
+                    <button class="heart">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-heart" /></svg>
+                    </button>
+                    <button class="comment">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-comment" /></svg>
+                    </button>
+                    <button class="repost">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-repost" /></svg>
+                    </button>
+                    <button class="send">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-send" /></svg>
+                    </button>
+                </section>
+                
+                <div class="thread__line">
+                    <svg class="thread__vertical" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                      <line x1="10" y1="0" x2="10" y2="20" stroke="currentColor" />
+                    </svg>
+                </div>
+                
+                <div class="thread__interaction-avatars">
+                    <a href="#" class="thread__avatar" title="view @elonmusk's threads">
+                        <img class="thread__avatar-image" src="https://media.discordapp.net/attachments/1036500984802844732/1131242358210568254/simeydotme_elon_musk_with_a_joint_in_his_mouth_vapor_all_around_90da6537-40f3-4adf-8240-10c575cd7ec1.png?width=200&height=200" alt="The Avatar for user @elonmusk">
+                    </a>
+                    <a href="#" class="thread__avatar" title="view @bigbezos's threads">
+                        <img class="thread__avatar-image" src="https://media.discordapp.net/attachments/1036500984802844732/1131252781412536361/simeydotme_super_close_up_portrait_profile_picture_of_Jerrfrey__5784a447-72a8-40d5-b411-d21bd81ea922.png?width=200&height=200" alt="The Avatar for user @bigbezos">
+                    </a>
+                    <a href="#" class="thread__avatar" title="vate @bill_gates' threads ">
+                        <img class="thread__avatar-image" src="https://avatars.githubusercontent.com/u/34310101?v=4" alt="The Avatar for user @bill_gates">
+                    </a>
+                </div>
+                
+                <div class="thread__replies">
+                    <span>78K replies</span> 
+                    <span aria-role="presentation">·</span>
+                    <span>5 likes</span>
+                </div>
+                
+            </thread>
+            
+            <thread class="thread">
+                
+                <button class="thread__avatar" title="follow @elonmusk">
+                    <img class="thread__avatar-image" src="https://media.discordapp.net/attachments/1036500984802844732/1131242358210568254/simeydotme_elon_musk_with_a_joint_in_his_mouth_vapor_all_around_90da6537-40f3-4adf-8240-10c575cd7ec1.png?width=200&height=200" alt="The Avatar for user @elonmusk">
+                    <svg class="thread__avatar-follow" viewbox="0 0 12 12"><use href="#icon-plus" /></svg>
+                </button>
+                
+                <section class="thread__info">
+                    <a class="thread__user-name" href="#">elonmusk</a>
+                    <time class="thread__date">14&nbsp;m</time>
+                    <button class="thread__actions">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><use href="#icon-dots" /></svg>
+                    </button>
+                </section>
+                
+                <section class="thread__content">
+                    <p>Checking out this new town square, just dropping this here 🤣</p>
+                    <a class="thread__embed" href="#">
+                        <header>
+                            <img class="thread__embed__thumb" src="https://pbs.twimg.com/profile_images/1590968738358079488/IY9Gx6Ok_200x200.jpg" alt="">
+                        </header>
+                        <section class="thread__embed__content">
+                            <p class="thread__embed__domain">twitter.com</p>
+                            <p class="thread__embed__preview">Elon Musk on Twitter: “@kwmarkoff26656 @MarioNawfal I’m up for a cage match if he is lol” / Twitter</p>
+                        </section>
+                    </a>
+                </section>
+                
+                <section class="thread__interactions">
+                    <button class="heart">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-heart" /></svg>
+                    </button>
+                    <button class="comment">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-comment" /></svg>
+                    </button>
+                    <button class="repost">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-repost" /></svg>
+                    </button>
+                    <button class="send">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-send" /></svg>
+                    </button>
+                </section>
+                
+                <div class="thread__line">
+                    <svg class="thread__vertical" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                      <line x1="10" y1="-1" x2="10" y2="21" stroke="currentColor" />
+                    </svg>
+                </div>
+                
+                <div class="thread__interaction-avatars">
+                    <a href="#"  class="thread__avatar" title="view @zuck's threads">
+                        <img class="thread__avatar-image" src="https://static.independent.co.uk/2022/08/22/10/mark%20zuckerberg%20metaverse%20avatar.png" alt="The Avatar for user Zuck">
+                    </a>
+                </div>
+                
+                <div class="thread__replies">
+                    <span>1 reply</span> 
+                    <span aria-role="presentation">·</span>
+                    <span>117K likes</span>
+                </div>
+                
+            </thread>
+            
+            <thread class="thread">
+                <button class="thread__avatar" title="follow @bigbezos">
+                    <img class="thread__avatar-image" src="https://media.discordapp.net/attachments/1036500984802844732/1131252781412536361/simeydotme_super_close_up_portrait_profile_picture_of_Jerrfrey__5784a447-72a8-40d5-b411-d21bd81ea922.png?width=200&height=200" alt="The Avatar for user @bigbezos">
+                    <svg class="thread__avatar-follow" viewbox="0 0 12 12"><use href="#icon-plus" /></svg>
+                </button>
+                
+                <section class="thread__info">
+                    <a class="thread__user-name" href="#">bigbezos</a>
+                    <time class="thread__date">1&nbsp;m</time>
+                    <button class="thread__actions">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><use href="#icon-dots" /></svg>
+                    </button>
+                </section>
+                
+                <section class="thread__content">
+                    <p>concerning 🙄 <br><br><br>(hehe, jk! I'm here too!!!)</p>
+                </section>
+                
+                <section class="thread__interactions">
+                    <button class="heart">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-heart" /></svg>
+                    </button>
+                    <button class="comment">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-comment" /></svg>
+                    </button>
+                    <button class="repost">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-repost" /></svg>
+                    </button>
+                    <button class="send">
+                        <svg width="24" height="24" viewBox="0 0 24 24"><use href="#icon-send" /></svg>
+                    </button>
+                </section>
+                
+            </thread>
+            
+        </main>
+        
+        <!-- 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+            social icons
+        -->
+        <a class="social-icon codepen" href="https://codepen.io/simeydotme" title="view my codepens">
+            Made by Simey
+        </a>
+        
+        <a class="social-icon twitter" href="https://twitter.com/simeydotme">
+            <svg viewBox="0 0 24 24">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z"></path>
+            </svg>
+        </a>
+        <a class="social-icon github" href="https://github.com/simeydotme">
+            <svg viewBox="0 0 24 24">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path>
+            </svg>
+        </a>
+        
+        
+        
+        
+        
+        <div class="refs">
+            <svg id="icon-heart" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 3C4.239 3 2 5.216 2 7.95c0 2.207.875 7.445 9.488 12.74a.985.985 0 0 0 1.024 0C21.125 15.395 22 10.157 22 7.95C22 5.216 19.761 3 17 3s-5 3-5 3s-2.239-3-5-3Z"/></svg>
+            <svg id="icon-comment" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g transform="translate(24 0) scale(-1 1)"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-linejoin="round" d="M14 19c3.771 0 5.657 0 6.828-1.172C22 16.657 22 14.771 22 11c0-3.771 0-5.657-1.172-6.828C19.657 3 17.771 3 14 3h-4C6.229 3 4.343 3 3.172 4.172C2 5.343 2 7.229 2 11c0 3.771 0 5.657 1.172 6.828c.653.654 1.528.943 2.828 1.07"/><path d="M14 19c-1.236 0-2.598.5-3.841 1.145c-1.998 1.037-2.997 1.556-3.489 1.225c-.492-.33-.399-1.355-.212-3.404L6.5 17.5"/></g></g></svg>
+            <svg id="icon-repost" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m18 2l3 3l-3 3M6 22l-3-3l3-3"/><path d="M21 5H10a7 7 0 0 0-7 7m0 7h11a7 7 0 0 0 7-7"/></g></svg>
+            <svg id="icon-send" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.912 12H4L2.023 4.135A.662.662 0 0 1 2 3.995c-.022-.721.772-1.221 1.46-.891L22 12L3.46 20.896c-.68.327-1.464-.159-1.46-.867a.66.66 0 0 1 .033-.186L3.5 15"/></svg>
+            <svg id="icon-dots" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7 12a2 2 0 1 1-4 0a2 2 0 0 1 4 0Zm7 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0Zm7 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0Z"/></svg>
+            <svg id="icon-plus" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="currentColor" d="M19 11h-6V5a1 1 0 0 0-2 0v6H5a1 1 0 0 0 0 2h6v6a1 1 0 0 0 2 0v-6h6a1 1 0 0 0 0-2Z"/></svg>
+        </div>
+    </body>
+</html>

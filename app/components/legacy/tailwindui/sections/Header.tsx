@@ -31,8 +31,9 @@ const Header: React.FC<HeaderProps> = () => {
         <div className="flex flex-row mb-2">
           <DarkModeToggle />
         </div>
-        <h1 className="my-2 mb-2 text-4xl font-semibold text-sp-text-light dark:text-sp-text-dark">SPOJITI</h1>
-        <h2 className="mb-6 text-2xl font-semibold text-sp-text-light dark:text-sp-text-dark">
+        {/* text-sp-text-light dark:text-sp-text-dark */}
+        <h1 className="my-2 mb-2 text-4xl font-bold text-gray-800 dark:text-gradient-to-r dark:from-slate-200 dark:to-slate-300">SPOJITI</h1>
+        <h2 className="mb-6 text-2xl font-semibold text-gray-700 dark:text-gradient-to-r dark:from-slate-200 dark:to-slate-300">
           The Food and Beverage Meeting Place
         </h2>
         <div className="flex min-h-full min-w-full flex-grow flex-col lg:flex-row justify-center space-x-5 px-6 py-12 lg:px-8">
