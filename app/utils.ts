@@ -161,9 +161,164 @@ export function unslugify(str: string): string {
  * @returns a string that is the result of joining all the non-empty strings in the `classes` array
  * with a space character.
  */
-export function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
+
+
+type AllowedClassNameTypes = ObjectBooleanFilterType[] | string[];
+/**
+ * The `classNames` function takes in a set of class names and returns a string of combined class
+ * names, filtering out any falsy values.
+ * @param {AllowedClassNameTypes} classes - The `classes` parameter is the input that contains the
+ * class names to be combined and filtered. It can be of type `AllowedClassNameTypes`, which is a
+ * custom type that specifies the allowed types for class names.
+ * @returns a string that is the combination of all the truthy values from the `objects` and `strings`
+ * arrays, joined together with a space separator.
+ */
+/* export function classNames(...classes: AllowedClassNameTypes) {
+  const { strings, objects } = classNameFilter(classes, {throwOnError: false});
+  let combined = filterTruthyValues(objects, strings);
+
+  return combined.filter(Boolean).join(' ')
+}; */
+
+export function classNames(...classes: string[]): string {
+  return classes.filter(Boolean).join(' ');
 };
+
+/**
+ * @description
+ * The filterStringsAndObjects function iterates through the input array and checks the type of each item. 
+ * If it's a string, it adds it to the strings array; if it's an object, it adds it to the objects array. 
+ * Finally, it returns an object containing both arrays.
+ * 
+ * @example
+ * const mixedArray: (string | { [key: string]: boolean })[] = ["apple", { banana: true }, "orange", { mango: false }, "grape"];
+ * 
+ * const { strings, objects } = filterStringsAndObjects(mixedArray);
+ * 
+ * console.log("Strings:", strings); // Output: ["apple", "orange", "grape"]
+ * console.log("Objects:", objects); // Output: [{ banana: true }, { mango: false }]
+ * 
+ */
+  type ObjectBooleanFilterType = { [key: string]: boolean };
+  type AllowedInputTypes = Array<string | ObjectBooleanFilterType> | string | ObjectBooleanFilterType;
+  interface ObjectFilterFunctionOptions {
+    throwOnError?: boolean;
+  }
+function classNameFilter(input: AllowedInputTypes, {throwOnError = false}: ObjectFilterFunctionOptions): { strings: string[], objects: ObjectBooleanFilterType[] } {
+  const strings: string[] = [];
+  const objects: { [key: string]: boolean }[] = [];
+
+  if (Array.isArray(input)) {
+    input.forEach(item => {
+      if (typeof item === 'string') {
+        strings.push(item);
+      } else if (typeof item === 'object') {
+        objects.push(item);
+      } else {
+        console.warn(`item of type ${typeof item} is not allowed!`);
+        if (throwOnError) throw new Error('classNames boolean function: invalid inputs!');
+        console.warn('classNames boolean function: invalid inputs!');
+      }
+    });
+  } else {
+    if (typeof input === 'string') {
+      strings.push(input);
+    } else if (typeof input === 'object') {
+      objects.push(input);
+    } else {
+      console.warn(`input of type ${typeof input} is not allowed!`);
+      if (throwOnError) throw new Error('classNames boolean function: invalid inputs!');
+      console.warn('classNames boolean function: invalid inputs!');
+    }
+  };
+
+  // const flattenObjects = objects.filter((_, idx) => objects[idx].key == true)
+
+  return { strings, objects };
+};
+
+/**
+ * @description
+ * The filterTruthyValues function iterates through the array of objects and checks each key-value pair. 
+ * If the value is true, it pushes the key (string) to the truthyValues array. 
+ * Finally, it returns the array containing the truthy values.
+ * 
+ * @example
+ * const isActive = true;
+ * const isVisable = false;
+ * const isDarkMode = true;
+ * const data: { [key: string]: boolean }[] = [
+  { "border border-blue-400": isActive === true },
+  { "hidden": isVisible === false },
+  { "flex": isVisible === true },
+  { "bg-white": isDarkMode === fale },
+  { "bg-black": isDarkMode === true }
+];
+
+
+const truthyValues = filterTruthyValues(data);
+console.log(truthyValues); // Output: ["border border-blue-400", "hidden", "bg-black"]
+console.log(truthyValues.join(" ")); // Output: "border border-blue-400 hidden bg-black"
+
+const isActive = true;
+  const isVisable = false;
+  const isDarkMode = true;
+  // const data: { [key: string]: boolean }[]
+  
+  const data = [
+  { "border border-blue-400": isActive === true },
+  { "hidden": isVisible === false },
+  { "flex": isVisible === true },
+  { "bg-white": isDarkMode === false },
+  { "bg-black": isDarkMode === true }
+];
+  
+const data = {
+  hello: isActive, 
+    goodbye: !isDarkMode || isVisable,
+    world: !isVisable
+  // world: isVisible == false !Error! for false, use !isVisible instead
+};
+
+
+const entries = Object.entries(data);
+const arr = [];
+entries.map(([key, val], idx) => {
+  if (val == false) return;
+  if (val == true) 
+  return arr.push(key)
+})
+
+const title = document.getElementById('title');
+title.innerText = arr.join(" ") // => hello world
+ */
+function filterTruthyValues(obj: ObjectBooleanFilterType | ObjectBooleanFilterType[], str: string | string[]): string[] {
+  let truthyValues: string[] = [];
+
+  if (Array.isArray(obj)) {
+    obj.forEach(o => {
+      for (const key in o) {
+        if (o[key]) {
+          truthyValues.push(key);
+        }
+      }
+    });
+  } else {
+    for (const key in obj) {
+      if (obj[key]) {
+        truthyValues.push(key);
+      }
+    }
+  };
+
+  if (Array.isArray(str)) {
+    truthyValues.concat(str);
+  } else {
+    truthyValues.push(str);
+  }
+
+  return truthyValues;
+}
 
 export function isValidTheme(theme: string): boolean {
   return theme === 'light' || theme === 'dark';

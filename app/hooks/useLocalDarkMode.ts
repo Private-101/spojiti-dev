@@ -1,5 +1,5 @@
 import React from "react";
-import useLocalStorage from "./useLocalStorage";
+import {useLocalStorage} from 'usehooks-ts';
 import { isClient } from "~/utils";
 export default function useLocalDarkMode() {
     console.log('useLocalDarkMode triggered');

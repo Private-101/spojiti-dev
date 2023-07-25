@@ -1,3 +1,4 @@
+
 /*
 <style> select {
  border-radius: 4px;
@@ -112,14 +113,39 @@
  "https://spojiti.com/resume/michael-tegqb2lixl-waiter-server-bartender-phoenix-arizona-85392/"
 */
 import React from 'react';
-import { Link, useSearchParams } from '@remix-run/react';
-import { } from '@remix-run/node';
-import type {  } from '@remix-run/node';
+import { Link, useSearchParams, useSubmit, useNavigation } from '@remix-run/react';
+import { json, redirect } from '@remix-run/node';
+import type { LoaderArgs, ActionArgs } from '@remix-run/node';
 import { generateUserCard, type IUserCardProps } from '~/experimental/pages/page.data';
-import SocialShareButtons from '~/components/common/SocialShareButtons'
+import SocialShareButtons from '~/components/common/SocialShareButtons';
+import { MinusSmallIcon } from '@heroicons/react/24/solid';
 type JobOrUserType = "job" | "user";
 
+/*
+interface SearchPageFilterOptions {
+    category: string;
+    jobTitle: string;
+    jobLocation: string;
+    datePosted: string;
+    fullTime: boolean;
+    partTime: boolean;
+    temp: boolean;
+    remote: boolean;
+    minSalary: number;
+}
+    
+    
 
+    const categoryParam = searchParams.get("category");
+    const jobTitleParam = searchParams.get("job-title");
+    const jobLocationParam = searchParams.get("job-location");
+    const datePostedParam = searchParams.get("date-posted");
+    const fullTimeParam = searchParams.get("full-time");
+    const partTimeParam = searchParams.get("part-time");
+    const tempParam = searchParams.get("temp");
+    const remoteParam = searchParams.get("remote");
+    const minSalaryParam = searchParams.get("min-salary");
+    */
 
 /*
 type: 'job' | 'user';
@@ -176,14 +202,93 @@ tags?: string[]
 
 
  */
-interface IColumnsProps {
-    
-}
 
- export default function ColumnsRoute() {
+
+export default function ColumnsRoute() {
     const [searchParams, setSearchParams] = useSearchParams();
-    const categoryFilterRef = React.createRef<HTMLSelectElement>();
+    const [userData, setUserData] = React.useState<IUserCardProps[] | null>(null);
+    const [minSalary, setMinSalary] = React.useState<number>(20);
+
+    const categoryParam = searchParams.get("category");
+    const jobTitleParam = searchParams.get("job-title");
+    const jobLocationParam = searchParams.get("job-location");
+    const datePostedParam = searchParams.get("date-posted");
+    const fullTimeParam = searchParams.get("full-time");
+    const partTimeParam = searchParams.get("part-time");
+    const tempParam = searchParams.get("temp");
+    const remoteParam = searchParams.get("remote");
+    const minSalaryParam = searchParams.get("min-salary");
+
     React.useEffect(() => {
+        if (!categoryParam) {}
+        if (!jobTitleParam) {}
+        if (!jobLocationParam) {}
+        if (!datePostedParam) {}
+        if (!fullTimeParam) {}
+        if (!partTimeParam) {}
+        if (!tempParam) {}
+        if (!remoteParam) {}
+        if (!minSalaryParam) {}
+    }, [categoryParam, datePostedParam, fullTimeParam, jobLocationParam, jobTitleParam, minSalaryParam, partTimeParam, remoteParam, tempParam]);
+
+    React.useEffect(() => {
+        if (!userData) {
+            let data = Array.from({ length: 3 }).map((_, i) => generateUserCard());
+            setUserData(data)
+            // const { id, name, avatar, positions, skills } = generateUserCard();
+        }
+    }, [userData]);
+
+    const memoizedUserData = React.useMemo(() => userData, [userData]);
+
+    
+    React.useEffect(() => {
+        
+    }, []);
+
+    const updateMinSalary = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.currentTarget.valueAsNumber !== minSalary) {
+            setMinSalary(event.currentTarget.valueAsNumber);
+        }
+    }, [minSalary])
+
+    // const categoryFilterRef = React.useRef<HTMLSelectElement>(null);
+    const submit = useSubmit();
+    const navigation = useNavigation();
+
+    function handleCategoryChange(event: React.ChangeEvent<HTMLSelectElement>) {
+        // submit(event.currentTarget, { replace: true });
+        console.log(event.currentTarget.value);
+        if (!searchParams.has('category')) {
+            setSearchParams((search) => [...search, ['category', event.currentTarget.value]]);
+        } else if (searchParams.get('category') !== event.currentTarget.value) {
+            let [category, ...rest] = searchParams;
+            setSearchParams([...rest, ['category', event.currentTarget.value]]);
+        }
+
+        // submit({category: event.currentTarget.value}, {method: "POST", replace: true});
+    };
+
+    function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+        event.preventDefault();
+        if (event.currentTarget.name === 'min-salary') updateMinSalary(event);
+        if (!searchParams.has(event.currentTarget.name)) {
+            setSearchParams({
+                [event.currentTarget.name]: event.currentTarget.value,
+                ...searchParams
+            });
+        } else if (searchParams.get(event.currentTarget.name) !== event.currentTarget.value) {
+            let [prev, ...rest] = searchParams;
+            console.log(`[${prev[0]}]: ${prev[1]} has changed to [${event.currentTarget.name}]: ${event.currentTarget.value}`)
+            setSearchParams({
+                ...rest,
+                [event.currentTarget.name]: event.currentTarget.value,
+            });
+            // setSearchParams([...rest, [event.currentTarget.name, event.currentTarget.value]]);
+        }
+        
+    }
+    /* React.useEffect(() => {
         const selectedCategory = searchParams.get('category');
         if (categoryFilterRef && categoryFilterRef.current && typeof categoryFilterRef.current.value === 'string') {
             if (!selectedCategory || selectedCategory !== categoryFilterRef.current.value) {
@@ -191,7 +296,7 @@ interface IColumnsProps {
             }
             
         }
-    }, [searchParams, setSearchParams, categoryFilterRef]);
+    }, [searchParams, setSearchParams, categoryFilterRef]); */
 
     return (
         <>
@@ -203,77 +308,88 @@ interface IColumnsProps {
                             <label htmlFor="categories" className="self-center">
                                 <span className="font-semibold text-lg">Job Categories:</span>
                             </label>
-                            <span id="categories" className="">
-                                <select ref={categoryFilterRef} id="categories">
-                                    <option value="">None</option>
-                                    <option value="97">Banquet Staff</option>
-                                    <option value="96">Bar Staff</option>
-                                    <option value="98">Catering</option>
-                                    <option value="94">Kitchen Staff</option>
-                                    <option value="91">Management</option>
-                                    <option value="95">Restaurant Staff</option>
-                                </select>
-                            </span>
+                            <select id="categories" onChange={(e) => handleCategoryChange(e)}>
+                                <option value="none">None</option>
+                                <option value="banquet-staff">Banquet Staff</option>
+                                <option value="bar-staff">Bar Staff</option>
+                                <option value="catering">Catering</option>
+                                <option value="kitchen-staff">Kitchen Staff</option>
+                                <option value="management">Management</option>
+                                <option value="restaurant-staff">Restaurant Staff</option>
+                            </select>
                         </div>
                         <div className="grid grid-cols-2 grid-rows-1 gap-1 mb-4 leading-6 text-neutral-500">
-                        <label htmlFor="job-title" className="self-center">
+                            <label htmlFor="job-title" className="self-center">
                                 <span className="font-semibold text-lg">Job Title:</span>
+                                <input id="job-title" name="job-title" className="w-full text-sm h-12 p-4 rounded-lg border dark:bg-gray-800 border-gray-300 dark:border-gray-700 focus:outline-gray-300 focus:outline focus:outline-offset-2 dark:focus:outline-gray-700 outline-2" placeholder="Select Job Position" onChange={e => handleInputChange(e)} />
                             </label>
-                            <input id="job-title" placeholder="Select Job Position" />
+                            
                         </div>
                         <div className="grid grid-cols-2 grid-rows-1 gap-1 mb-4 leading-6 text-neutral-500">
-                        <label htmlFor="job-types" className="self-center">
+                            <label htmlFor="job-types" className="self-center">
                                 <span className="font-semibold text-lg">Job Types:</span>
                             </label>
                             <div id="job-types" className="flex flex-row flex-wrap justify-around">
                                 <span>
-                                <input name="full-time" type="checkbox" value="full-time" />
-                                <label htmlFor="full-time" className="mx-2">full-time</label>
+                                    <input id="full-time" name="full-time" type="checkbox" value="full-time" className="peer appearance-none cursor-pointer border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-full checked:border-gray-900 dark:checked:border-gray-400 w-8 h-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gray-900 dark:focus-visible:outline-gray-400 focus-visible:outline-offset-2" onChange={e => handleInputChange(e)} />
+                                    <label htmlFor="full-time" className="mx-2">full-time</label>
                                 </span>
                                 <span>
-                                <input name="part-time" type="checkbox" value="part-time" />
-                                <label htmlFor="part-time" className="mx-2">part-time</label>
+                                    <input id="part-time" name="part-time" type="checkbox" value="part-time" className="peer appearance-none cursor-pointer border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-full checked:border-gray-900 dark:checked:border-gray-400 w-8 h-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gray-900 dark:focus-visible:outline-gray-400 focus-visible:outline-offset-2" onChange={e => handleInputChange(e)} />
+                                    <label htmlFor="part-time" className="mx-2">part-time</label>
                                 </span>
                                 <span>
-                                <input name="remote" type="checkbox" value="remote" />
-                                <label htmlFor="remote" className="mx-2">remote</label>
+                                    <input id="remote" name="remote" type="checkbox" value="remote" className="peer appearance-none cursor-pointer border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-full checked:border-gray-900 dark:checked:border-gray-400 w-8 h-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gray-900 dark:focus-visible:outline-gray-400 focus-visible:outline-offset-2" onChange={e => handleInputChange(e)} />
+                                    <label htmlFor="remote" className="mx-2">remote</label>
                                 </span>
                                 <span>
-                                <input name="temporary" type="checkbox" value="temporary" />
-                                <label htmlFor="temporary" className="mx-2">temporary</label>
+                                    <input id="temp" name="temp" type="checkbox" value="temp" className="peer appearance-none cursor-pointer border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-full checked:border-gray-900 dark:checked:border-gray-400 w-8 h-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gray-900 dark:focus-visible:outline-gray-400 focus-visible:outline-offset-2" onChange={e => handleInputChange(e)} />
+                                    <label htmlFor="temp" className="mx-2">temporary</label>
                                 </span>
                             </div>
                         </div>
                         <div className="grid grid-cols-2 grid-rows-1 gap-1 mb-4 leading-6 text-neutral-500">
-                        <label htmlFor="job-regions" className="self-center">
+                            <label htmlFor="job-location" className="self-center">
                                 <span className="font-semibold text-lg">Zip Code / City:</span>
                             </label>
-                            <input id="job-regions" placeholder="Select Location" /></div>
+                            <input id="job-location" name="job-location" className="w-full text-sm h-12 p-4 rounded-lg border dark:bg-gray-800 border-gray-300 dark:border-gray-700 focus:outline-gray-300 focus:outline focus:outline-offset-2 dark:focus:outline-gray-700 outline-2" placeholder="Enter Location" onChange={e => handleInputChange(e)} />
+                            </div>
                         <div className="grid grid-cols-2 grid-rows-1 gap-1 mb-4 leading-6 text-neutral-500">
-                        <label htmlFor="date" className="self-center">
+                            <label htmlFor="date-posted" className="self-center">
                                 <span className="font-semibold text-lg">Date Posted:</span>
                             </label>
-                            <input id="date" placeholder="Select location" type="date" /></div>
+                            <input id="date-posted" name="date-posted" placeholder="Select a date" type="date" onChange={e => handleInputChange(e)} />
+                            </div>
                         <div className="grid grid-cols-2 grid-rows-1 gap-1 mb-4 leading-6 text-neutral-500">
                             <div className="flex flex-row gap-2 self-center">
-                                <label htmlFor="salary">
-                                <span className="font-semibold text-lg">Salary:</span>
-                            </label>
-                                <b id="salary">$0+ Placeholder</b>
+                                <label htmlFor="min-salary">
+                                    <span className="font-semibold text-lg">Minimum Salary:</span>
+                                </label>
+                                <b id="salary">${minSalary}</b>
                             </div>
-                            <input id="salary" type="range" min="0" max="100" step="10" onInput={() => {/*document.getElementById('salary')?.value=event.target.valueloca*/ }} /></div>
+                            <input id="salary" name="min-salary" type="range" min={0} max={100} step={5} defaultValue={minSalary} onChange={e => handleInputChange(e)} />
+                            </div>
                     </div>
                 </div>
                 <div className="flex flex-col flex-grow justify-stretch items-start p-2 w-full bg-white text-neutral-800 transition-all" data-id="04dbacc" data-element_type="column">
                     <div id="user-list" className="flex relative flex-nowrap flex-grow order-none self-auto w-full m-0 content-start p-2 min-w-full">
                         <div id="user-list-cards" className="w-full space-y-2">
-                            {Array.from({ length: 3 }).map((_, i) => {
+                            {memoizedUserData === null ? (<p>Loading Users</p>) : (
+                                <>
+                                {memoizedUserData.map((user, i) => (
+                                    <div key={`user-card-${i}`} className="w-full border-b border-solid cursor-pointer border-sp-primary/30 rounded-md hover:border-2 hover:border-sp-primary hover:shadow-md">
+                                    <UserCard {...user} />
+                                </div>
+                                ))}
+                                </>
+                            )}
+                            {/*Array.from({ length: 3 }).map((_, i) => {
                                 return (
                                     <div key={`user-card-${i}`} className="w-full border-b border-solid cursor-pointer border-sp-primary/30 rounded-md hover:border-2 hover:border-sp-primary hover:shadow-md">
                                         <UserCard />
                                     </div>
                                 )
-                            })}
+                            })*/}
 
                         </div>
                     </div>
@@ -317,8 +433,8 @@ interface ICardProps {
 }
 // max-w-full h-full leading-6 align-middle rounded-none cursor-pointer text-neutral-700
 
-function UserCard() {
-    const { id, name, avatar, positions, skills } = generateUserCard();
+function UserCard({ id, name, avatar, positions, skills }: IUserCardProps) {
+    
     return (
         <>
             <div id={`user-${id}`} className="leading-6 transition-all">

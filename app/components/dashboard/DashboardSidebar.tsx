@@ -2,7 +2,9 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import Logo from '~/components/common/assets/spojiti-logo.svg';
 import SidebarLinkGroup from '~/components/dashboard/SidebarLinkGroup';
-import useLocalStorage from '~/hooks/useLocalStorage';
+import { useLocalStorage } from 'usehooks-ts'
+
+
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -13,23 +15,30 @@ export default function DashboardSidebar({ sidebarOpen, setSidebarOpen }: Sideba
   const location = useLocation();
   const { pathname } = location;
 
-  const trigger = useRef<any>(null);
-  const sidebar = useRef<any>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const sidebar = useRef<HTMLElement>(null);
   
-  // const [sidebarExpanded, setSidebarExpanded] = useLocalStorage('sidebar-expanded', false);
+  const [sidebarExpanded, setSidebarExpanded] = useLocalStorage('sidebar-expanded', false);
   // const storedSidebarExpanded = window.localStorage.getItem('sidebar-expanded');
   // const [sidebarExpanded, setSidebarExpanded] = useState(
     // storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true'
   // );
+  
 
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
       if (!sidebar.current || !trigger.current) return;
+      /**
+       * In the corrected code, we've used type assertions (as Node) for target when calling the contains method. This informs TypeScript that target is of type Node (or any other valid type expected by contains) and resolves the error.
+       * 
+       * Keep in mind that type assertions should be used carefully, and it's always good to ensure the types match correctly to avoid runtime errors. In this case, since the clickHandler receives a MouseEvent, the type assertion is appropriate since target is a property of the MouseEvent interface.
+       *        
+       */
       if (
         !sidebarOpen ||
-        sidebar.current.contains(target) ||
-        trigger.current.contains(target)
+        sidebar.current.contains(target as Node) ||
+        trigger.current.contains(target as Node)
       )
         return;
       setSidebarOpen(false);
@@ -39,14 +48,15 @@ export default function DashboardSidebar({ sidebarOpen, setSidebarOpen }: Sideba
   });
 
   // close if the esc key is pressed
-  /* useEffect(() => {
-    const keyHandler = ({ keyCode }: KeyboardEvent) => {
-      if (!sidebarOpen || keyCode !== 27) return;
+  useEffect(() => {
+    // https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values
+    const keyHandler = ({ key }: KeyboardEvent) => {
+      if (!sidebarOpen || key !== 'Escape' || 'Esc') return;
       setSidebarOpen(false);
     };
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
-  }); */
+  });
 
   /* useEffect(() => {
     // window.localStorage.setItem('sidebar-expanded', sidebarExpanded.toString());

@@ -34,7 +34,7 @@ import AppFooter from "~/components/legacy/tailwindui/AppFooter";
 
 import DarkModeToggle from "~/components/common/DarkModeToggle";
 import { useOptionalUser, safeRedirect, useUser } from '~/utils';
-import useLocalStorage from "~/hooks/useLocalStorage";
+import {useLocalStorage} from "usehooks-ts";
 import { getUser } from "~/services/session.server";
 
 import type { User } from '~/models/user.server';

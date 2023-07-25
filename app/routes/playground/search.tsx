@@ -1,8 +1,7 @@
-import type { LoaderArgs } from "@remix-run/node";
+import type { LoaderArgs, ActionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Link, isRouteErrorResponse, useRouteError } from '@remix-run/react';
 import { useEffect, useState } from "react";
-
 import { useFetcher, Outlet } from "@remix-run/react";
 import JobMenu from "~/experimental/interactive-menu/src/JobMenu";
 import type { FormattedCategory, FormattedJobPost } from "~/models/job.server";
@@ -10,6 +9,7 @@ import type { JobMenuData } from '~/types';
 import {UsersList} from '~/components/pico/UserList';
 import { DropdownButton, type IDropdownButtonItemProps } from "~/components/playground/DropdownButton";
 import ColumnsRoute from '~/experimental/pages/columns';
+import type { IUserCardProps } from "~/experimental/pages/page.data";
 /*
 interface ISearchParamsOptions {
     userType: 'employer' | 'applicant' | 'guest';
@@ -33,7 +33,7 @@ enum SearchTypesEnum {
 };
 
 export const loader = async ({request}: LoaderArgs) => {
-  const url = new URL(request.url);
+  /* const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
   const userType = searchParams.get('user-type');
   if (!userType) {
@@ -55,9 +55,10 @@ export const loader = async ({request}: LoaderArgs) => {
         break;
     default:
         break;
-  }
+  } */
   // if (url.pathname !== '/search/jobs') return redirect('/search/jobs');
-  return json<SearchLoaderData>({searchtype: searchType, usertype: userType});
+  return json({});
+  // return json<SearchLoaderData>({searchtype: searchType, usertype: userType});
   /*const searchParams = new URL(request.url).searchParams;
   const selectedCategory = searchParams.has("category") ? searchParams.get("category") : '';
   const categories = await getAllCategories();
@@ -65,7 +66,9 @@ export const loader = async ({request}: LoaderArgs) => {
   return json<TestLoaderData>({categories, jobs})*/
 };
 
-// export const action = async ({request}: ActionArgs) => {}
+export const action = ({request}: ActionArgs) => {
+  return null;
+}
 
 export default function SearchLayoutPage() {
   /*
@@ -181,3 +184,35 @@ const items: IDropdownButtonItemProps[] = [
     
 
     /*<UsersList />*/
+
+    export function ErrorBoundary() {
+      const error = useRouteError();
+    
+      if (isRouteErrorResponse(error)) {
+        return (
+          <div className="flex flex-col items-center justify-center text-slate-800 dark:text-slate-200 max-w-150">
+            <h1 className="text-3xl font-semibold mb-8">
+              Playground Client Error: {error.status} {error.statusText}
+            </h1>
+            <p className="border-2 border-red-500 text-lg font-normal">{error.data}</p>
+          </div>
+        );
+      } else if (error instanceof Error) {
+        return (
+          <div className="flex flex-col items-center justify-center text-slate-800 dark:text-slate-200 max-w-150">
+            <h1 className="text-3xl font-bold mb-8">Client Error</h1>
+            <div className="border-2 border-red-500 text-lg font-normal">
+            <p className="mb-2">{error.message}</p>
+            <p className="font-semibold text-xl">The stack trace is:</p>
+            <pre className="">{error.stack}</pre>
+            </div>
+          </div>
+        );
+      } else {
+        return (
+          <div className="flex flex-col items-center justify-center text-slate-800 dark:text-slate-200">
+              <h1 className="text-3xl font-bold">Unknown Error</h1>
+          </div>
+        );
+      }
+    };

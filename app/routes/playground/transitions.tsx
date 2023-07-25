@@ -3,7 +3,7 @@ import { Transition } from '@headlessui/react';
 import { NavLink, useSearchParams } from '@remix-run/react'
 import { DropdownButton, DropdownButtonItem } from '~/components/playground/DropdownButton';
 import { classNames } from '~/utils';
-
+import TabsDemoPage from '~/experimental/pages/tabs.demo';
 type PaginationAction = (index: number) => void;
 
 export default function TransitionRoute() {
@@ -33,7 +33,7 @@ export default function TransitionRoute() {
     return (
         <>
             <section className="flex flex-col min-h-screen w-full justify-around items-center bg-slate-100 p-12">
-
+                <TabsDemoPage />
                 <Modal buttonSize={"xl"} buttonIsClosedText="Click to Open!" buttonIsOpenText="Click to Close!" setIsOpen={setIsOpen} isOpen={isOpen}>
                     <>
                         <div className="rounded-md p-4 shadow shadow-white border border-neutral-100">
