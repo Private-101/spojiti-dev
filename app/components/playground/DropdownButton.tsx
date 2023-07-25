@@ -188,18 +188,18 @@ export interface IDropdownButtonItemProps  {
     Icon?: SVGProps<SVGSVGElement>
     className?: string;
     activeClassName?: string;
-    buttonItem: Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> | undefined;
+    buttonAttributes?: Partial<React.ButtonHTMLAttributes<HTMLButtonElement>>;
 };
                    
 export function DropdownButtonItem(props: IDropdownButtonItemProps) {
-    const { title, className, activeClassName, buttonItem } = props;
+    const { title, className, activeClassName, buttonAttributes } = props;
 
     return (
         <>
         <Menu.Item>
                 {({ active }) => (
                   <button
-                  {...buttonItem}
+                  {...buttonAttributes}
                     className={classNames(active ? activeClassName ?? 'bg-sp-primary dark:bg-slate-100 text-white dark:text-gray-900' : 'text-gray-900 dark:text-white', className ?? 'group flex w-full items-center rounded-md px-2 py-2 text-md font-medium')}
                   >
                     {title}

@@ -11,28 +11,38 @@ import {UsersList} from '~/components/pico/UserList';
 import { DropdownButton, type IDropdownButtonItemProps } from "~/components/playground/DropdownButton";
 import ColumnsRoute from '~/experimental/pages/columns';
 /*
-interface TestLoaderData {
-  categories: Category[];
-  jobs: JobPost[];
-}
-
 interface ISearchParamsOptions {
     userType: 'employer' | 'applicant' | 'guest';
 }
 */
 
+interface SearchLoaderData {
+  searchtype: string;
+  usertype: string;
+};
+
 enum UserTypesEnum {
+    GUEST,
     EMPLOYER,
-    APPLICANT,
-    GUEST
+    APPLICANT
+};
+
+enum SearchTypesEnum {
+  EMPLOYERS,
+  APPLICANTS
 };
 
 export const loader = async ({request}: LoaderArgs) => {
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
-  const userType = searchParams.get('userType');
+  const userType = searchParams.get('user-type');
   if (!userType) {
-    searchParams.set('userType', UserTypesEnum.GUEST.toString());
+    searchParams.set('user-type', UserTypesEnum.GUEST.toString());
+    return redirect(`${url}?${searchParams}`);
+  };
+  const searchType = searchParams.get('search-type');
+  if (!searchType) {
+    searchParams.set('search-type', SearchTypesEnum.EMPLOYERS.toString());
     return redirect(`${url}?${searchParams}`);
   };
 
@@ -47,7 +57,7 @@ export const loader = async ({request}: LoaderArgs) => {
         break;
   }
   // if (url.pathname !== '/search/jobs') return redirect('/search/jobs');
-  return json({});
+  return json<SearchLoaderData>({searchtype: searchType, usertype: userType});
   /*const searchParams = new URL(request.url).searchParams;
   const selectedCategory = searchParams.has("category") ? searchParams.get("category") : '';
   const categories = await getAllCategories();

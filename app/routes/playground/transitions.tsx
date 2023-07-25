@@ -4,110 +4,129 @@ import { NavLink, useSearchParams } from '@remix-run/react'
 import { DropdownButton, DropdownButtonItem } from '~/components/playground/DropdownButton';
 import { classNames } from '~/utils';
 
-type PaginationAction = (index: number) => IPaginationActionResult | void;
+type PaginationAction = (index: number) => void;
 
-interface IPaginationActionResult {
-    action: 'previous' | 'next' | 'go';
-    index: number;
-}
 export default function TransitionRoute() {
-    const [isOpen, setIsOpen] = useState(true);
-    const [pages, setPages] = useState<number>(5);
+    const [isOpen, setIsOpen] = useState(false);
     const [currentPageIndex, setCurrentPageIndex] = useState<number>(0);
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        if (!searchParams.has('current')) {
-            searchParams.set('current', currentPageIndex.toString());
-        } else if (searchParams.get('current') !== currentPageIndex.toString()) {
-            setCurrentPageIndex(searchParams.get('current'))
+        const currentPage = searchParams.get('current-page-index');
+
+        if (!currentPage) {
+            searchParams.set('current-page-index', currentPageIndex.toString());
+        } else if (currentPage !== currentPageIndex.toString()) {
+            setCurrentPageIndex(Number(currentPage));
         }
 
-    })
+    }, [searchParams, currentPageIndex]);
 
     const pageAction: PaginationAction = (n: number) => {
-        setCurrentPage(n + 1);
-        setSearchParams([['current', (n + 1).toString()]]);
-
-        return {
-            action: 'go',
-            index: n
-        }
+        setCurrentPageIndex(n);
+        setSearchParams([['current-page-index', n.toString()]]);
     };
-    
-    
+
+
 
 
     return (
         <>
-            <section className="flex flex-col min-h-screen w-full justify-around items-center bg-black p-12">
-                <div className="w-96 space-y-2">
-                    <span className="inline-flex rounded-md shadow-sm">
-                        <button
-                            type="button"
-                            onClick={() => setIsOpen((v) => !v)}
-                            className="focus:shadow-outline-blue inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 transition duration-150 ease-in-out hover:text-gray-500 focus:border-blue-300 focus:outline-none active:bg-gray-50 active:text-gray-800"
-                        >
-                            {isOpen ? 'Hide' : 'Show'}
-                        </button>
-                    </span>
+            <section className="flex flex-col min-h-screen w-full justify-around items-center bg-slate-100 p-12">
 
-                    <Transition
-                        show={isOpen}
-                        appear={false}
-                        enter="transition-opacity duration-75"
-                        enterFrom="opacity-0"
-                        enterTo="opacity-100"
-                        leave="transition-opacity duration-150"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                        // beforeEnter={() => console.log('beforeEnter')}
-                        // afterEnter={() => console.log('afterEnter')}
-                        // beforeLeave={() => console.log('beforeLeave')}
-                        // afterLeave={() => console.log('afterLeave')}
-                        // enter="transition-colors ease-out duration-[5s]"
-                        // enterFrom="transform bg-red-500"
-                        // enterTo="transform bg-blue-500"
-                        // leave="transition-colors ease-in duration-[5s]"
-                        // leaveFrom="transform bg-blue-500"
-                        // leaveTo="transform bg-red-500"
-                        // entered="bg-blue-500"
-                        className="h-64 rounded-md p-4 shadow shadow-white border border-neutral-100"
-                    >
-                        Contents to show and hide
-                    </Transition>
-                </div>
-
-                <PaginationGroup totalPages={pages} start={1} actions={[pageAction]} />
+                <Modal buttonSize={"xl"} buttonIsClosedText="Click to Open!" buttonIsOpenText="Click to Close!" setIsOpen={setIsOpen} isOpen={isOpen}>
+                    <>
+                        <div className="rounded-md p-4 shadow shadow-white border border-neutral-100">
+                            <PaginationGroup totalPages={5} currentPageIndex={currentPageIndex} action={pageAction} />
+                        </div>
+                    </>
+                </Modal>
             </section>
         </>
     )
 };
+interface IModalProps {
+    buttonSize: "sm" | "md" | "lg" | "xl";
+    isOpen: boolean;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    children: React.ReactNode;
+    // modalDisplay: 'relative' | 'absolute' | 'fixed' | 'flex';
+    buttonIsOpenText?: string;
+    buttonIsClosedText?: string;
+}
+function Modal({ isOpen, setIsOpen, buttonIsOpenText, buttonIsClosedText, children, buttonSize }: IModalProps) {
 
+    return (
+        <>
+            <div className="min-w-fit space-y-2">
+                <span className="inline-flex rounded-md shadow-sm">
+                    <>
+                        <button
+                            type="button"
+                            id="modal-trigger"
+                            onClick={() => setIsOpen((v) => !v)}
+                            className={classNames(`text-${buttonSize}`, "inline-flex items-center rounded-md border-2 border-sp-primary bg-transparent px-3 py-2 font-medium leading-4 text-slate-800 dark:text-slate-200 transition duration-150 ease-in-out hover:border-blue-500 dark:hover:border-blue-300 hover:font-semibold focus:border-blue-500 dark:focus:border-blue-300 focus:outline-none dark:active:bg-sp-primary dark:active:border-blue-300")}
+                        >
+                            {isOpen ? buttonIsOpenText ? buttonIsOpenText : 'Hide' : buttonIsClosedText ? buttonIsClosedText : 'Show'}
+                        </button>
+                    </>
+                </span>
+
+                <Transition
+                    show={isOpen}
+                    appear={false}
+                    enter="transition-opacity duration-75"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="transition-opacity duration-150"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                // beforeEnter={() => console.log('beforeEnter')}
+                // afterEnter={() => console.log('afterEnter')}
+                // beforeLeave={() => console.log('beforeLeave')}
+                // afterLeave={() => console.log('afterLeave')}
+                // enter="transition-colors ease-out duration-[5s]"
+                // enterFrom="transform bg-red-500"
+                // enterTo="transform bg-blue-500"
+                // leave="transition-colors ease-in duration-[5s]"
+                // leaveFrom="transform bg-blue-500"
+                // leaveTo="transform bg-red-500"
+                // entered="bg-blue-500"
+                // className="h-64 rounded-md p-4 shadow shadow-white border border-neutral-100"
+                >
+                    <div id="modal-wrapper" className="flex">
+                        {children}
+                    </div>
+                </Transition>
+            </div>
+        </>
+    );
+};
 
 
 interface IPaginationGroupProps {
-    totalPages: number, 
-    start: number,
-    actions: [PaginationAction];
+    title?: string;
+    totalPages: number;
+    currentPageIndex: number;
+    action: PaginationAction;
     // [PaginationAction, PaginationAction, PaginationAction] | [PaginationAction, PaginationAction] | 
     // previous: (n: number) => void;
     // next: (n: number) => void;
-}
-function PaginationGroup({totalPages, start, actions}: IPaginationGroupProps) {
-    const [searchParams] = useSearchParams();
-    const [current, setCurrent] = useState<number>(start);
-    const cur = searchParams.get('current')
-    const [action] = actions;
+};
 
-    return <div id="pagination-wrapper" className="flex flex-col w-full items-center space-y-2 place-items-center min-h-[100vh] border border-gray-400 bg-white">
-        <span className="font-bold text-xl text-white dark:text-[#444]">Title</span>
-        <ul id="pagination" className="p-2 m-0 list-none flex flex-row justify-around content-center items-center">
-            {Array.from({ length: totalPages }).map((_, i) => (
-                <li key={`li-${i + 1}`} onClick={() => action(i)} className={classNames(current === i + 1 ? "w-[38px] bg-sp-primary/60 hover:bg-sp-primary" : "w-[10px] bg-gray-200 hover:bg-sp-primary hover:w-[15px]", "h-[10px] rounded-full mx-1 transition-all cursor-pointer")} role="presentation"><button className="inline-block invisible"></button></li>
-            ))}
-        </ul>
-    </div>;
+function PaginationGroup({ title, totalPages, currentPageIndex, action }: IPaginationGroupProps) {
+    return (
+        <>
+            <div id="pagination-wrapper" className="flex flex-col min-w-fit items-center space-y-2 place-items-center min-h-fit border border-gray-100 rounded-xl">
+                {title ? <span className="font-bold text-xl text-white dark:text-[#444]">{title}</span> : <></>}
+                <ul id="pagination" className="p-2 m-0 list-none flex flex-row justify-around content-center items-center">
+                    {Array.from({ length: totalPages }).map((_, i) => (
+                        <li key={`li-${i}`} onClick={() => action(i)} className={classNames(currentPageIndex === i ? "w-[38px] bg-sp-primary/60 hover:bg-sp-primary" : "w-[10px] bg-gray-200 hover:bg-sp-primary hover:w-[15px]", "h-[10px] rounded-full mx-1 transition-all cursor-pointer")} role="presentation"><button className="inline-block invisible"></button></li>
+                    ))}
+                </ul>
+            </div>
+        </>
+    );
 }
 /*
 <li className="w-[10px] h-[10px] rounded-full mx-1 bg-gray-200 transition-all cursor-pointer hover:bg-sp-primary hover:w-[15px] active:bg-red-300 active:w-[38px]" role="presentation"><button className="inline-block invisible"></button></li>

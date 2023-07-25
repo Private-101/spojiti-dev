@@ -1,4 +1,18 @@
 {
+"ireact" : {
+    "prefix": "ireact",
+    "description": "ireact",
+    "scope": "typescriptreact",
+    "body": [
+        "import React, { ",
+        "    createContext, useCallback, useContext, useDebugValue, ",
+        "    useDeferredValue, useEffect, useId, useImperativeHandle, ",
+        "    useInsertionEffect, useLayoutEffect, useMemo, useReducer, ",
+        "    useRef, useState, useSyncExternalStore, useTransition",
+        "} from 'react';"
+    ]
+},
+
 "iremix" : {
     "prefix": "iremix",
     "description": "iremix",

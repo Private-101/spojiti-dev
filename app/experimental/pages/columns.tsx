@@ -112,9 +112,9 @@
  "https://spojiti.com/resume/michael-tegqb2lixl-waiter-server-bartender-phoenix-arizona-85392/"
 */
 import React from 'react';
-import { Link } from '@remix-run/react';
+import { Link, useSearchParams } from '@remix-run/react';
 import { } from '@remix-run/node';
-import type { } from '@remix-run/node';
+import type {  } from '@remix-run/node';
 import { generateUserCard, type IUserCardProps } from '~/experimental/pages/page.data';
 import SocialShareButtons from '~/components/common/SocialShareButtons'
 type JobOrUserType = "job" | "user";
@@ -176,20 +176,35 @@ tags?: string[]
 
 
  */
-export default function ColumnsRoute() {
+interface IColumnsProps {
+    
+}
+
+ export default function ColumnsRoute() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const categoryFilterRef = React.createRef<HTMLSelectElement>();
+    React.useEffect(() => {
+        const selectedCategory = searchParams.get('category');
+        if (categoryFilterRef && categoryFilterRef.current && typeof categoryFilterRef.current.value === 'string') {
+            if (!selectedCategory || selectedCategory !== categoryFilterRef.current.value) {
+                setSearchParams([['category', categoryFilterRef.current.value]]);
+            }
+            
+        }
+    }, [searchParams, setSearchParams, categoryFilterRef]);
 
     return (
         <>
-            <section className="grid grid-cols-3 grid-rows-1 gap-0 container rounded-md border border-sp-primary/60 hyphens-none min-h-screen mx-0 my-0 px-0 py-0 leading-6 text-neutral-800 dark:text-neutral-100" data-id="80da8c2" data-element_type="section" data-settings="{&quot;stretch_section&quot;:&quot;section-stretched&quot;}">
-                <div className="flex flex-col relative justify-stretch items-start flex-shrink p-2 w-full leading-6 bg-white border-r border-r-sp-primary/60 text-neutral-500 hyphens-none transition-all" id="elementor-widget-container">
+            <section id="search-column-section" className="grid grid-cols-3 grid-rows-1 gap-0 container rounded-md border border-sp-primary/60 hyphens-none min-h-screen mx-0 my-0 px-0 py-0 leading-6 text-neutral-800 dark:text-neutral-100">
+                <div id="filter-container" className="flex flex-col justify-start items-start p-2 max-w-fit flex-shrink bg-white border-r border-r-sp-primary/60 transition-all">
                     <span className="text-2xl font-medium mb-2 self-center">Filters</span>
-                    <div id="filter-container" className="flex flex-col flex-wrap content-start justify-start items-center h-full overflow-y-scroll gap-6 p-2 leading-6 bg-white rounded-sm text-neutral-500">
-                        <div className="grid grid-cols-1 gap-1 mb-4 leading-6 text-neutral-500">
-                            <label htmlFor="categories">
+                    <div id="filter-container" className="flex flex-col flex-wrap content-start justify-around items-start h-full overflow-y-scroll p-2 leading-6 bg-white rounded-sm text-neutral-500">
+                        <div className="grid grid-cols-2 grid-rows-1 gap-1 mb-4 leading-6 text-neutral-500">
+                            <label htmlFor="categories" className="self-center">
                                 <span className="font-semibold text-lg">Job Categories:</span>
                             </label>
                             <span id="categories" className="">
-                                <select id="categories">
+                                <select ref={categoryFilterRef} id="categories">
                                     <option value="">None</option>
                                     <option value="97">Banquet Staff</option>
                                     <option value="96">Bar Staff</option>
@@ -200,39 +215,47 @@ export default function ColumnsRoute() {
                                 </select>
                             </span>
                         </div>
-                        <div className="grid grid-cols-2 gap-1 mb-4 leading-6 text-neutral-500">
-                        <label htmlFor="job-title">
+                        <div className="grid grid-cols-2 grid-rows-1 gap-1 mb-4 leading-6 text-neutral-500">
+                        <label htmlFor="job-title" className="self-center">
                                 <span className="font-semibold text-lg">Job Title:</span>
                             </label>
                             <input id="job-title" placeholder="Select Job Position" />
                         </div>
-                        <div className="grid grid-cols-1 gap-1 mb-4 leading-6 text-neutral-500">
-                        <label htmlFor="job-types">
+                        <div className="grid grid-cols-2 grid-rows-1 gap-1 mb-4 leading-6 text-neutral-500">
+                        <label htmlFor="job-types" className="self-center">
                                 <span className="font-semibold text-lg">Job Types:</span>
                             </label>
-                            <div id="job-types">
-                                <input name="full-time" type="checkbox" value="54" />
-                                <label htmlFor="full-time">full-time</label>
-                                <input name="part-time" type="checkbox" value="55" />
-                                <label htmlFor="part-time">part-time</label>
-                                <input name="remote" type="checkbox" value="99" />
-                                <label htmlFor="remote">remote</label>
-                                <input name="temporary" type="checkbox" value="57" />
-                                <label htmlFor="temporary">temporary</label>
+                            <div id="job-types" className="flex flex-row flex-wrap justify-around">
+                                <span>
+                                <input name="full-time" type="checkbox" value="full-time" />
+                                <label htmlFor="full-time" className="mx-2">full-time</label>
+                                </span>
+                                <span>
+                                <input name="part-time" type="checkbox" value="part-time" />
+                                <label htmlFor="part-time" className="mx-2">part-time</label>
+                                </span>
+                                <span>
+                                <input name="remote" type="checkbox" value="remote" />
+                                <label htmlFor="remote" className="mx-2">remote</label>
+                                </span>
+                                <span>
+                                <input name="temporary" type="checkbox" value="temporary" />
+                                <label htmlFor="temporary" className="mx-2">temporary</label>
+                                </span>
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 gap-1 mb-4 leading-6 text-neutral-500">
-                        <label htmlFor="job-regions">
+                        <div className="grid grid-cols-2 grid-rows-1 gap-1 mb-4 leading-6 text-neutral-500">
+                        <label htmlFor="job-regions" className="self-center">
                                 <span className="font-semibold text-lg">Zip Code / City:</span>
                             </label>
                             <input id="job-regions" placeholder="Select Location" /></div>
-                        <div className="grid grid-cols-1 gap-1 mb-4 leading-6 text-neutral-500">
-                        <label htmlFor="date">
+                        <div className="grid grid-cols-2 grid-rows-1 gap-1 mb-4 leading-6 text-neutral-500">
+                        <label htmlFor="date" className="self-center">
                                 <span className="font-semibold text-lg">Date Posted:</span>
                             </label>
                             <input id="date" placeholder="Select location" type="date" /></div>
-                        <div className="grid grid-cols-1 gap-1 mb-4 leading-6 text-neutral-500">
-                            <div className="flex flex-row gap-2">
+                        <div className="grid grid-cols-2 grid-rows-1 gap-1 mb-4 leading-6 text-neutral-500">
+                            <div className="flex flex-row gap-2 self-center">
                                 <label htmlFor="salary">
                                 <span className="font-semibold text-lg">Salary:</span>
                             </label>
@@ -241,7 +264,7 @@ export default function ColumnsRoute() {
                             <input id="salary" type="range" min="0" max="100" step="10" onInput={() => {/*document.getElementById('salary')?.value=event.target.valueloca*/ }} /></div>
                     </div>
                 </div>
-                <div className="flex flex-col relative justify-stretch items-start flex-shrink p-2 w-full leading-6 bg-white text-neutral-500 hyphens-none transition-all" data-id="04dbacc" data-element_type="column">
+                <div className="flex flex-col flex-grow justify-stretch items-start p-2 w-full bg-white text-neutral-800 transition-all" data-id="04dbacc" data-element_type="column">
                     <div id="user-list" className="flex relative flex-nowrap flex-grow order-none self-auto w-full m-0 content-start p-2 min-w-full">
                         <div id="user-list-cards" className="w-full space-y-2">
                             {Array.from({ length: 3 }).map((_, i) => {
