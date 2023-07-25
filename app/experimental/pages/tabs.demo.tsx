@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from '@remix-run/react';
 import { } from '@remix-run/node';
 import type {  } from '@remix-run/node';
-import { generateUserCard, type IUserCardProps } from '~/experimental/pages/page.data';
+import { generateUserCard } from '~/experimental/pages/page.data';
+import type { IUserCardProps } from '~/temp/dev/types';
 import SocialShareButtons from '~/components/common/SocialShareButtons';
 import { TabList, Panel, Tab, Content } from '~/experimental/Tabs/index';
 

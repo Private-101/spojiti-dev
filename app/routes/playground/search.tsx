@@ -9,7 +9,8 @@ import type { JobMenuData } from '~/types';
 import {UsersList} from '~/components/pico/UserList';
 import { DropdownButton, type IDropdownButtonItemProps } from "~/components/playground/DropdownButton";
 import ColumnsRoute from '~/experimental/pages/columns';
-import type { IUserCardProps } from "~/experimental/pages/page.data";
+import type { IUserCardProps } from '~/temp/dev/types';
+
 /*
 interface ISearchParamsOptions {
     userType: 'employer' | 'applicant' | 'guest';
@@ -140,50 +141,6 @@ const items: IDropdownButtonItemProps[] = [
   );
 };
 
-/*<div
-  data-qa-id="search-results-wrapper"
-  data-element="Results"
-  data-component="SearchResultsWrapper"
-  data-source-file="SearchResultsWrapper.tsx"
-  class="flex-grow flex-shrink self-stretch leading-5 bg-white lg:w-0 lg:flex-shrink-0 lg:flex-grow-0 text-neutral-800 will-change-transform"
-  style="flex-basis: calc(58% - 194.3px); z-index: 1;"
->
-<a
-  aria-label="Search result number 1: Gloria M."
-  role="group"
-  href="https://www.rover.com/members/gloria-m-dog-loving-couple-with-lots-of-room/?service_type=overnight-boarding&amp;frequency=onetime&amp;pet_type=dog"
-  rel="noreferrer"
-  target="_blank"
-  class="absolute top-0 left-0 w-full h-full leading-5 text-blue-600 cursor-pointer hover:text-blue-800 focus:text-blue-800"
-  style="text-decoration: none; z-index: 1;"
-></a>
-
-</div>
-
-
-
- <div
-  data-element="Wrapper"
-  data-component="StickySidebar"
-  data-source-file="StickySidebar.tsx"
-  className="flex relative basis-80 flex-grow-0 flex-shrink-0 self-stretch mx-1 leading-5 md:block text-neutral-800"
->
-<div
-  className="px-2 pt-2 pb-0 m-0 min-w-0 leading-5 text-neutral-800 border-2 border-black"
-  data-element="Box"
-  data-component="CollectionWrapper"
-  data-source-file="CollectionWrapper.tsx"
-></div>
-
-</div>
-
-
-*/
-
-
-    
-
-    /*<UsersList />*/
 
     export function ErrorBoundary() {
       const error = useRouteError();

@@ -107,8 +107,9 @@ export default function SearchLayoutPage() {
             <input id="search-bar" className="border-2 border-gray-300 bg-white h-10 w-full pl-2 rounded-l-full text-sm focus:outline-none" type="text" placeholder="Search" />
             <button id="search-btn" className="bg-gray-400 text-white transition duration-150 ease-in-out hover:bg-blue-600 border-blue-600 h-10 w-10 flex items-center justify-center rounded-r-full font-semibold">
                 <svg className="h-6 w-6 pr-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10 18C13.866 18 17 14.866 17 11C17 7.13401 13.866 4 10 4C6.13401 4 3 7.13401 3 11C3 14.866 6.13401 18 10 18Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+< path d = "M10 18C13.866 18 17 14.866 17 11C17 7.13401 13.866 4 10 4C6.13401 4 3 7.13401 3 11C3 14.866 6.13401 18 10 18Z" stroke = "currentColor" stroke - width = "2" strokeLinecap = "round" stroke - linejoin = "round" /> <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+
+
                 </svg>
             </button>
         </div>
@@ -160,7 +161,9 @@ function Card({ index, details, onJobCardClick }: IDemoJobCardProps) {
   const clockIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 110-12 6 6 0 010 12zM9 9a1 1 0 012 0V5a1 1 0 11-2 0v4zM7 12a1 1 0 110-2h4a1 1 0 110 2H7z"/></svg>`;
   const usdIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block fill-current stroke-black mr-1" viewBox="0 0 20 20"><path d="M10.5 0C6.313 0-.098 2.443 0 10.5c0 8.312 3.402 11.494 3.402 11.494 3.437 3.058 7.037-3.092 7.098-3.094.089-.003.289-.014.481-.02l.019-.005v-.777l-.018.008c.371-3.242.168-5.526-5.551-5.527-2.338 0-4.711.263-6.372-.735C1.291 9.731 2 7.057 2 7.057c1.17-5.529 4.898-6.611 8.5-7 0 .25 0 .5.038 1.485.724-1.26 1.963-2.541 3.233-1.851 1.761.963 3.011 3.967 1.729 8.327"/></svg>`;
   const bookmarkIcon = `<svg id="bookmark-icon-svg" class="h-8 w-8 inline-block mr-1 fill-current" width="36" height="36" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M8 3H16C17.6569 3 19 4.34315 19 6V22L12 19L5 22V6C5 4.34315 6.34315 3 8 3Z" stroke="#000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+< path d = "M8 3H16C17.6569 3 19 4.34315 19 6V22L12 19L5 22V6C5 4.34315 6.34315 3 8 3Z" stroke = "#000" stroke - width = "1" strokeLinecap = "round" stroke - linejoin = "round" />
+
+
   </svg>`;
 
   if (!details || !details.id) {

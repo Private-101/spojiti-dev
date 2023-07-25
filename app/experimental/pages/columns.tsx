@@ -116,7 +116,10 @@ import React from 'react';
 import { Link, useSearchParams, useSubmit, useNavigation } from '@remix-run/react';
 import { json, redirect } from '@remix-run/node';
 import type { LoaderArgs, ActionArgs } from '@remix-run/node';
-import { generateUserCard, type IUserCardProps } from '~/experimental/pages/page.data';
+import { generateUserCard } from '~/experimental/pages/page.data';
+import type { IUserCardProps }
+    from '~/temp/dev/types';
+
 import SocialShareButtons from '~/components/common/SocialShareButtons';
 import { MinusSmallIcon } from '@heroicons/react/24/solid';
 type JobOrUserType = "job" | "user";
@@ -219,18 +222,22 @@ export default function ColumnsRoute() {
     const remoteParam = searchParams.get("remote");
     const minSalaryParam = searchParams.get("min-salary");
 
-    React.useEffect(() => {
-        if (!categoryParam) {}
-        if (!jobTitleParam) {}
-        if (!jobLocationParam) {}
-        if (!datePostedParam) {}
-        if (!fullTimeParam) {}
-        if (!partTimeParam) {}
-        if (!tempParam) {}
-        if (!remoteParam) {}
-        if (!minSalaryParam) {}
-    }, [categoryParam, datePostedParam, fullTimeParam, jobLocationParam, jobTitleParam, minSalaryParam, partTimeParam, remoteParam, tempParam]);
-
+    /*
+    
+        React.useEffect(() => {
+            if (!categoryParam) {}
+            if (!jobTitleParam) {}
+            if (!jobLocationParam) {}
+            if (!datePostedParam) {}
+            if (!fullTimeParam) {}
+            if (!partTimeParam) {}
+            if (!tempParam) {}
+            if (!remoteParam) {}
+            if (!minSalaryParam) {}
+        }, [categoryParam, datePostedParam, fullTimeParam, jobLocationParam, jobTitleParam, minSalaryParam, partTimeParam, remoteParam, tempParam]);
+    * /
+    
+    */
     React.useEffect(() => {
         if (!userData) {
             let data = Array.from({ length: 3 }).map((_, i) => generateUserCard());
@@ -241,9 +248,9 @@ export default function ColumnsRoute() {
 
     const memoizedUserData = React.useMemo(() => userData, [userData]);
 
-    
+
     React.useEffect(() => {
-        
+
     }, []);
 
     const updateMinSalary = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -286,7 +293,7 @@ export default function ColumnsRoute() {
             });
             // setSearchParams([...rest, [event.currentTarget.name, event.currentTarget.value]]);
         }
-        
+
     }
     /* React.useEffect(() => {
         const selectedCategory = searchParams.get('category');
@@ -323,7 +330,7 @@ export default function ColumnsRoute() {
                                 <span className="font-semibold text-lg">Job Title:</span>
                                 <input id="job-title" name="job-title" className="w-full text-sm h-12 p-4 rounded-lg border dark:bg-gray-800 border-gray-300 dark:border-gray-700 focus:outline-gray-300 focus:outline focus:outline-offset-2 dark:focus:outline-gray-700 outline-2" placeholder="Select Job Position" onChange={e => handleInputChange(e)} />
                             </label>
-                            
+
                         </div>
                         <div className="grid grid-cols-2 grid-rows-1 gap-1 mb-4 leading-6 text-neutral-500">
                             <label htmlFor="job-types" className="self-center">
@@ -353,13 +360,13 @@ export default function ColumnsRoute() {
                                 <span className="font-semibold text-lg">Zip Code / City:</span>
                             </label>
                             <input id="job-location" name="job-location" className="w-full text-sm h-12 p-4 rounded-lg border dark:bg-gray-800 border-gray-300 dark:border-gray-700 focus:outline-gray-300 focus:outline focus:outline-offset-2 dark:focus:outline-gray-700 outline-2" placeholder="Enter Location" onChange={e => handleInputChange(e)} />
-                            </div>
+                        </div>
                         <div className="grid grid-cols-2 grid-rows-1 gap-1 mb-4 leading-6 text-neutral-500">
                             <label htmlFor="date-posted" className="self-center">
                                 <span className="font-semibold text-lg">Date Posted:</span>
                             </label>
                             <input id="date-posted" name="date-posted" placeholder="Select a date" type="date" onChange={e => handleInputChange(e)} />
-                            </div>
+                        </div>
                         <div className="grid grid-cols-2 grid-rows-1 gap-1 mb-4 leading-6 text-neutral-500">
                             <div className="flex flex-row gap-2 self-center">
                                 <label htmlFor="min-salary">
@@ -368,7 +375,7 @@ export default function ColumnsRoute() {
                                 <b id="salary">${minSalary}</b>
                             </div>
                             <input id="salary" name="min-salary" type="range" min={0} max={100} step={5} defaultValue={minSalary} onChange={e => handleInputChange(e)} />
-                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="flex flex-col flex-grow justify-stretch items-start p-2 w-full bg-white text-neutral-800 transition-all" data-id="04dbacc" data-element_type="column">
@@ -376,11 +383,11 @@ export default function ColumnsRoute() {
                         <div id="user-list-cards" className="w-full space-y-2">
                             {memoizedUserData === null ? (<p>Loading Users</p>) : (
                                 <>
-                                {memoizedUserData.map((user, i) => (
-                                    <div key={`user-card-${i}`} className="w-full border-b border-solid cursor-pointer border-sp-primary/30 rounded-md hover:border-2 hover:border-sp-primary hover:shadow-md">
-                                    <UserCard {...user} />
-                                </div>
-                                ))}
+                                    {memoizedUserData.map((user, i) => (
+                                        <div key={`user-card-${i}`} className="w-full border-b border-solid cursor-pointer border-sp-primary/30 rounded-md hover:border-2 hover:border-sp-primary hover:shadow-md">
+                                            <UserCard {...user} />
+                                        </div>
+                                    ))}
                                 </>
                             )}
                             {/*Array.from({ length: 3 }).map((_, i) => {
@@ -434,7 +441,7 @@ interface ICardProps {
 // max-w-full h-full leading-6 align-middle rounded-none cursor-pointer text-neutral-700
 
 function UserCard({ id, name, avatar, positions, skills }: IUserCardProps) {
-    
+
     return (
         <>
             <div id={`user-${id}`} className="leading-6 transition-all">
@@ -493,7 +500,7 @@ function ActionButton({ text, link }: IActionButtonProps) {
                 {text}
                 <span className="mr-2 bg-transparent rounded-full">
                     <svg className="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin = "round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
                     </svg></span>
 
             </Link>

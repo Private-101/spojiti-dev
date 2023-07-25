@@ -3,28 +3,25 @@
     "editor.quickSuggestions": {
         "other": "on",
         "comments": "on",
-        "strings": "off"
+        "strings": "on"
     },
     "editor.suggest.showFunctions": true,
     "editor.suggest.localityBonus": true,
-    "editor.inlineSuggest.suppressSuggestions" : false,
-    "editor.formatOnSave": true,
-    "editor.formatOnSaveMode" : "modificationsIfAvailable",
+    "editor.formatOnSave": false,
     "editor.snippetSuggestions": "top",
     "editor.acceptSuggestionOnEnter": "off",
     "editor.autoClosingBrackets": "always",
     "editor.autoClosingQuotes": "beforeWhitespace",
     "editor.codeLens": true,
-    "editor.defaultFormatter" : "mblode.pretty-formatter",
+    "editor.defaultFormatter" : "vscode.typescript-language-features",
     "docwriter.progress.trackFunctions": true,
     "docwriter.progress.trackClasses": true,
     "docwriter.progress.trackTypes" : true,
     "[typescriptreact]" : {
-    "editor.defaultFormatter": "mblode.pretty-formatter"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
     },
-    "pretty-formatter.bracePadding" : true,
     "[typescript]" : {
-    "editor.defaultFormatter": "mblode.pretty-formatter"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "tailwindCSS.suggestions": true,
     "editor.quickSuggestionsDelay": 1000,

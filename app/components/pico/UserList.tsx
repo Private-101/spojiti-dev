@@ -169,7 +169,9 @@ interface IBookmarkIconProps {
 const BookmarkIcon: React.FC<{}> = () => {
     return (
         <svg id="bookmark-icon-svg" className="h-12 w-12 lg:h-16 lg:w-16 inline-block mr-1 cursor-pointer" width="36" height="36" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M8 3H16C17.6569 3 19 4.34315 19 6V22L12 19L5 22V6C5 4.34315 6.34315 3 8 3Z" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+< path d = "M8 3H16C17.6569 3 19 4.34315 19 6V22L12 19L5 22V6C5 4.34315 6.34315 3 8 3Z" stroke - width = "1" strokeLinecap = "round" stroke - linejoin = "round" />
+
+
   </svg>
     )
 };
@@ -180,7 +182,9 @@ const BookmarkIconWithRef = React.forwardRef<SVGSVGElement, {}>(function bookmar
     // const { title, titleId } = props;
     return (
         <svg id="bookmark-icon-svg" ref={ref} className="h-12 w-12 lg:h-16 lg:w-16 inline-block mr-1 cursor-pointer" width="36" height="36" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 3H16C17.6569 3 19 4.34315 19 6V22L12 19L5 22V6C5 4.34315 6.34315 3 8 3Z" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+< path d = "M8 3H16C17.6569 3 19 4.34315 19 6V22L12 19L5 22V6C5 4.34315 6.34315 3 8 3Z" stroke - width = "1" strokeLinecap = "round" stroke - linejoin = "round" />
+
+
       </svg>
     );
   });
@@ -262,8 +266,9 @@ function SearchButton() {
         <>
         <button id="search-btn" className="bg-gray-400 text-white transition duration-150 ease-in-out hover:bg-blue-600 border-blue-600 h-10 w-10 flex items-center justify-center rounded-r-full font-semibold">
                 <svg className="h-7 w-7 pr-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10 18C13.866 18 17 14.866 17 11C17 7.13401 13.866 4 10 4C6.13401 4 3 7.13401 3 11C3 14.866 6.13401 18 10 18Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+< path d = "M10 18C13.866 18 17 14.866 17 11C17 7.13401 13.866 4 10 4C6.13401 4 3 7.13401 3 11C3 14.866 6.13401 18 10 18Z" stroke = "currentColor" stroke - width = "2" strokeLinecap = "round" stroke - linejoin = "round" /> <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+
+
                 </svg>
             </button>
         </>

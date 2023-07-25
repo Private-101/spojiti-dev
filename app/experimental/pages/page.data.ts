@@ -1,15 +1,5 @@
 import {faker} from '@faker-js/faker';
-
-export interface IUserCardProps {
-    id: string;
-    // ex. 123456
-    name: string;
-    // michael wenzler
-    avatar: string;
-    positions: string[]
-    skills: string[];
-    
-};
+import type { IUserCardProps } from '~/temp/dev/types';
 
 const positions = [
     "Waiter",
@@ -61,6 +51,7 @@ export function generateUserCard(): IUserCardProps {
     return {
         id: faker.string.nanoid(),
         name: faker.person.fullName(),
+        category: faker.helpers.arrayElement(positions),
         avatar: faker.internet.avatar(),
         positions: faker.helpers.arrayElements(positions, {min: 1, max: 3}),
         skills: faker.helpers.arrayElements(skills, {min: 1, max: 3})
