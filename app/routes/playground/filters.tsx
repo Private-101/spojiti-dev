@@ -40,7 +40,7 @@ export default function FiltersRoute() {
       >
         {(display) => (
             <div key={`search-${display.id}`} className="max-w-fit border-b border-solid cursor-pointer border-sp-primary/30 rounded-md hover:border-2 hover:border-sp-primary hover:shadow-md">
-            <DisplayCard key={`search-display-${display.id}`} {...display} />
+            <DisplayCard {...display} />
         </div>
           )}
       </CustomSearchInput>

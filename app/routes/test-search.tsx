@@ -2,57 +2,58 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { redirect, json } from "@remix-run/node";
 import type { LoaderFunction, LoaderArgs } from "@remix-run/node";
 import {
-	Outlet,
-	useLoaderData,
+    Outlet,
+    useLoaderData,
     Link,
-	type ShouldReloadFunction,
+    type ShouldReloadFunction,
 } from "@remix-run/react";
 import { classNames } from '~/utils';
 interface ITestItem {
     id: number;
     label: string;
 }
-export async function loader({request,}: LoaderArgs) {
+export async function loader({ request, }: LoaderArgs) {
     let url = new URL(request.url);
     if (url.pathname.match(/^\/tabs\/?$/)) {
-    return redirect("/tabs/jobs");
-  };
+        return redirect("/tabs/jobs");
+    };
 
-  return null;
+    return null;
 }
 
 export const unstable_shouldReload: ShouldReloadFunction = ({ submission }) =>
-	!!submission &&
-	["/login", "/logout", "/items"].some((pathname) =>
-		submission.action.startsWith(pathname)
-	);
+    !!submission &&
+    ["/login", "/logout", "/items"].some((pathname) =>
+        submission.action.startsWith(pathname)
+    );
 
-    interface Job {
-        id: number;
-        title: string;
-        company: string;
-        imageUrl: string;
-        location: string;
-        lastUpdated: string;
-        salary: string;
-        type: string;
-    };
+interface Job {
+    id: number;
+    title: string;
+    company: string;
+    imageUrl: string;
+    location: string;
+    lastUpdated: string;
+    salary: string;
+    type: string;
+};
 
 export default function TestSearchPage() {
-	// const { items } = useLoaderData<typeof loader>();
+    // const { items } = useLoaderData<typeof loader>();
     // const [currentTab, setCurrentTab] = useState<number>(0);
     const [hidden, setHidden] = useState<boolean>(true);
 
     const closeDropdownMenu = useCallback((e: MouseEvent) => {
         if (!hidden) {
-        const parentTarget = (e.target as HTMLElement).parentElement
-        if (!parentTarget || parentTarget.id !== "dropdownMenu") {
-          // click is outside of dropdown list
-          setHidden(true);
+            const parentTarget = (e.target as HTMLElement).parentElement
+            if (!parentTarget || parentTarget.id !== "dropdownMenu") {
+                // click is outside of dropdown list
+                setHidden(true);
+            }
         }
-      }}, [hidden]);
+    }, [hidden]);
 
-      useEffect(() => {
+    useEffect(() => {
         // const dropdownMenu = document.getElementById("dropdownMenu");
         if (!hidden) {
             document.addEventListener("click", closeDropdownMenu);
@@ -60,54 +61,54 @@ export default function TestSearchPage() {
                 document.removeEventListener("click", closeDropdownMenu);
             }
         };
-      }, [closeDropdownMenu, hidden]);
+    }, [closeDropdownMenu, hidden]);
 
-	return (
-		<>
-        <header className="bg-white shadow-sm">
-        <nav className="container mx-auto px-4 py-2 flex items-center">
-            <div className="logo flex-auto">
-                <img src="https://via.placeholder.com/50" alt="Logo" className="h-8" />
-            </div>
-            <div className="searchbar flex-auto relative">
-                <input type="text" id="searchbar" placeholder="Search jobs..." className="border border-gray-300 rounded-md w-full pl-8 pr-10 py-1" />
-< svg className = "absolute top-2 left-2 h-4 w-4 text-gray-400" viewBox = "0 0 24 24" fill = "none" xmlns = "http://www.w3.org/2000/svg" > <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2"></circle>
-<path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2"></path></svg>
+    return (
+        <>
+            <header className="bg-white shadow-sm">
+                <nav className="container mx-auto px-4 py-2 flex items-center">
+                    <div className="logo flex-auto">
+                        <img src="https://via.placeholder.com/50" alt="Logo" className="h-8" />
+                    </div>
+                    <div className="searchbar flex-auto relative">
+                        <input type="text" id="searchbar" placeholder="Search jobs..." className="border border-gray-300 rounded-md w-full pl-8 pr-10 py-1" />
+                        < svg className="absolute top-2 left-2 h-4 w-4 text-gray-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" > <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2"></circle>
+                            <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2"></path></svg>
 
-                <button id="clearSearch" className="absolute top-1 right-2 w-5 h-5 text-gray-400" onClick={() => { /* Clear search logic */ }}>
-< svg viewBox = "0 0 24 24" fill = "none" xmlns = "http://www.w3.org/2000/svg" > <path d="M18 6L6 18" stroke="currentColor" strokeWidth="2"></path>
-<path d="M6 6l12 12" stroke="currentColor" strokeWidth="2"></path></svg>
+                        <button id="clearSearch" className="absolute top-1 right-2 w-5 h-5 text-gray-400" onClick={() => { /* Clear search logic */ }}>
+                            < svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" > <path d="M18 6L6 18" stroke="currentColor" strokeWidth="2"></path>
+                                <path d="M6 6l12 12" stroke="currentColor" strokeWidth="2"></path></svg>
 
-                </button>
-            </div>
-            <div className="avatar relative cursor-pointer">
-                <img src="https://via.placeholder.com/32" alt="account avatar" className="rounded-full" onClick={() => { /* Toggle dropdown logic */ }} />
-                <ul id="dropdownMenu" className={classNames('absolute bg-white right-0 mt-2 p-2 shadow-lg rounded-md', hidden ? 'hidden' : 'block')}>
-                    <li><Link to="profile" className="block px-4 py-1 hover:bg-gray-200">Profile</Link></li>
-                    <li><Link to="settings" className="block px-4 py-1 hover:bg-gray-200">Settings</Link></li>
-                    <li><Link to="/logout" className="block px-4 py-1 hover:bg-gray-200">Logout</Link></li>
-                </ul>
-            </div>
-        </nav>
-        <div className="w3-container">
-        <h1>Tabs Layout Route</h1>
-        <p>
-          <Link to="/">Go back home</Link>
-        </p>
-      </div>
-        <div className="container mx-auto px-4">
-            <ul className="tabs flex border-b pb-1">
-                <li className="tab w-1/3 text-center"><Link to="jobs" className="w-full py-2 font-bold">Jobs</Link></li>
-                <li className="tab w-1/3 text-center"><Link to="saved" className="w-full py-2">Saved</Link></li>
-                <li className="tab w-1/3 text-center"><Link to="alerts" className="w-full py-2">Alerts</Link></li>
-            </ul>
-        </div>
-    </header>
-    <main className="container mx-auto px-4 py-6 flex">
-        <Outlet />
-    </main>
+                        </button>
+                    </div>
+                    <div className="avatar relative cursor-pointer">
+                        <img src="https://via.placeholder.com/32" alt="account avatar" className="rounded-full" onClick={() => { /* Toggle dropdown logic */ }} />
+                        <ul id="dropdownMenu" className={classNames('absolute bg-white right-0 mt-2 p-2 shadow-lg rounded-md', hidden ? 'hidden' : 'block')}>
+                            <li><Link to="profile" className="block px-4 py-1 hover:bg-gray-200">Profile</Link></li>
+                            <li><Link to="settings" className="block px-4 py-1 hover:bg-gray-200">Settings</Link></li>
+                            <li><Link to="/logout" className="block px-4 py-1 hover:bg-gray-200">Logout</Link></li>
+                        </ul>
+                    </div>
+                </nav>
+                <div className="w3-container">
+                    <h1>Tabs Layout Route</h1>
+                    <p>
+                        <Link to="/">Go back home</Link>
+                    </p>
+                </div>
+                <div className="container mx-auto px-4">
+                    <ul className="tabs flex border-b pb-1">
+                        <li className="tab w-1/3 text-center"><Link to="jobs" className="w-full py-2 font-bold">Jobs</Link></li>
+                        <li className="tab w-1/3 text-center"><Link to="saved" className="w-full py-2">Saved</Link></li>
+                        <li className="tab w-1/3 text-center"><Link to="alerts" className="w-full py-2">Alerts</Link></li>
+                    </ul>
+                </div>
+            </header>
+            <main className="container mx-auto px-4 py-6 flex">
+                <Outlet />
+            </main>
         </>
-	);
+    );
 
     /*
     <!DOCTYPE html>

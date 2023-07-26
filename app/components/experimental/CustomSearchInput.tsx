@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import useDebounce from "~/hooks/useDebounce";
-import { genericSearch } from "~/utils/filters/genericSearch";
+import { genericSearch } from "~/context/filters/genericSearch";
 import type { IUserCardProps } from '~/temp/dev/types';
 import type { PropsWithChildrenFunction } from "~/types";
 

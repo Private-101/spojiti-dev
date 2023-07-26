@@ -13,4 +13,6 @@ export function genericFilter<T>(object: T, filters: Array<IFilter<T>>) {
   return filters.every((filter) => {
     return filter.isTruthyPicked ? object[filter.property] : !object[filter.property];
   });
-}
+};
+
+

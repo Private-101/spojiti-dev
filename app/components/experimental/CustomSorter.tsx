@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useState } from "react";
-import type { ISorter } from "~/utils/filters/genericSort";
+import type { ISorter } from "~/context/filters/genericSort";
 import type { PropsWithChildrenFunction } from "~/types";
-import { genericSort } from "~/utils/filters/genericSort";
+import { genericSort } from "~/context/filters/genericSort";
 import type { IUserCardProps } from '~/temp/dev/types';
 
 export interface ISortersProps<T> {

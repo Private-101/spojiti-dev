@@ -1,4 +1,4 @@
-const whatFilter = [
+export const whatFilter = [
     { title: 'work from home' },
     { title: 'part time' },
     { title: 'hiring immediately' },
@@ -11,7 +11,7 @@ const whatFilter = [
     { title: 'walmart' },
   ];
   
-  const whereFilter = [
+  export const whereFilter = [
     { title: 'San Jose, CA' },
     { title: 'San Francisco, CA' },
     { title: 'Sunnyvale, CA' },
@@ -25,7 +25,7 @@ const whatFilter = [
     { title: 'Any location' },
   ];
   
-  const datePostedFilter = [
+  export const datePostedFilter = [
     { title: 'Last 24 hours' },
     { title: 'Last 3 days' },
     { title: 'Last 7 days' },
@@ -33,13 +33,13 @@ const whatFilter = [
     { title: 'Any date' },
   ];
   
-  const jobTypeFilter = [
+  export const jobTypeFilter = [
     { title: 'Full Time' },
     { title: 'Internship' },
     { title: 'Contract' },
   ];
   
-  const industryFilter = [
+  export const industryFilter = [
     { title: 'Business Operations & Management' },
     { title: 'Construction' },
     { title: 'Education' },

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {} from '@remix-run/react';
-import type {} from '@remix-run/react';
-import {} from '@remix-run/node';
-import type {} from '@remix-run/node';
+// import {} from '@remix-run/react';
+// import type {} from '@remix-run/react';
+// import {} from '@remix-run/node';
+// import type {} from '@remix-run/node';
 
 interface SearchBarProps {};
 

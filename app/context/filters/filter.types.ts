@@ -28,6 +28,17 @@ interface JobPost {
     description: string;
     responsabilities: EmploymentResponsibilityType[]
 };
+
+export enum FilterOptionsEnum {
+    EmploymentType, 
+    EmploymentAvailability, 
+    EmploymentLocation,
+    EmploymentSalary, 
+    EmploymentResponsibilityType, 
+    ExperienceRequiredType, 
+    
+};
+
 type FilterOption = EmploymentAvailability | EmploymentSalary | EmploymentResponsibilityType | ExperienceRequiredType | EmploymentType | EmploymentLocation;
 type EmploymentType = 'fulltime' | 'parttime' | 'contract' | 'temp' | string;
 type EmploymentAvailability = '8 hour shift' | 'Weekends as needed' | 'Saturday' | 'Sunday' | 'Morning shift' | 'Evening shift' | 'Day shift' | 'Night shift' | 'Monday to Friday' | string;

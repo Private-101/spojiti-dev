@@ -1,8 +1,8 @@
 import * as React from "react";
 import { type ReactNode, useState } from "react";
-import type { IFilter } from "~/utils/filters/genericFilter";
+import type { IFilter } from "~/context/filters/genericFilter";
 import type { PropsWithChildrenFunction } from "~/types";
-import { genericFilter } from "~/utils/filters/genericFilter";
+import { genericFilter } from "~/context/filters/genericFilter";
 import type { IUserCardProps } from '~/temp/dev/types';
 
 export interface IFiltersProps<T> {

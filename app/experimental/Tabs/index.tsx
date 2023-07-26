@@ -1,6 +1,6 @@
-import {} from '@remix-run/react';
-import {} from '@remix-run/node';
-import type {} from '@remix-run/node';
+// // import {} from '@remix-run/react';
+// // import {} from '@remix-run/node';
+// // import type {} from '@remix-run/node';
 import React, { 
     createContext, useCallback, useContext, useDebugValue, 
     useDeferredValue, useEffect, useId, useImperativeHandle, 
@@ -8,36 +8,9 @@ import React, {
     useRef, useState, useSyncExternalStore, useTransition
 } from 'react';
 import { createPortal } from 'react-dom';
-import { classNames } from '~/utils';
+import { classNames, NOOP } from '~/utils';
+import type { ITabListContext, ITabListProps, ITabPanelProps, ITabProps, ITabContentProps } from './types';
 
-export interface ICheckboxInputProps extends Omit<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'type'> {};
-
-export interface ICheckboxInputRefProps { setChecked(checked: boolean): void; }
-
-export const CheckboxInputWithRef = React.forwardRef<ICheckboxInputRefProps, ICheckboxInputProps>(function CheckboxInput(props, ref) {
-  const handleRef = React.useRef<HTMLInputElement|null>(null);
-  
-  React.useImperativeHandle(ref, () => ({
-      setChecked(checked:boolean) {
-          if (handleRef.current) {
-              handleRef.current.checked = checked;
-          }
-      }
-  }), []);
-  return (
-      <input ref={ handleRef } type="checkbox" {...props} /> 
-  )
-});
-
-const NOOP = () => {}
-
-  export type ITabListContext = HTMLUListElement | null;
-
-  export interface ITabListProps {
-    children: React.ReactNode;
-    activePanel: number, 
-    onActivePanelChange: React.Dispatch<React.SetStateAction<number>>;
-  }
 
   const tabListElementContext = createContext<HTMLUListElement | null>(null);
   const selectedPanelContext = createContext<number | null>(null);
@@ -45,7 +18,7 @@ const NOOP = () => {}
   const panelContext = createContext<number | null>(null);
   
 
-  export const TabList: React.FC<ITabListProps> = ({ children, activePanel = 0, onActivePanelChange = NOOP }) => {
+  export const TabList: React.FC<ITabListProps> = ({ children, activePanel = 0 }) => {
     const [tabListElement, setTabListElement] = useState<HTMLUListElement | null>(null);
     const [selectedPanel, setSelectedPanel] = useState<number>(activePanel);
     return (
@@ -62,10 +35,7 @@ const NOOP = () => {}
     )
   };
 
-interface ITabPanelProps {
-  index: number;
-  children: React.ReactNode;
-};
+
 export const Panel: React.FC<ITabPanelProps> = ({ children, index }) => {
   const panelRef = useRef<number>(index);
   return (
@@ -75,9 +45,7 @@ export const Panel: React.FC<ITabPanelProps> = ({ children, index }) => {
   )
 }
 
-interface ITabProps {
-  children: React.ReactNode;
-};
+
 export const Tab: React.FC<ITabProps> = ({ children }) => {
   const tabListElement = useContext(tabListElementContext);
   const setSelectedPanel = useContext(setSelectedPanelContext);
@@ -100,9 +68,7 @@ return createPortal(
   tabListElement as Element
 )
 }
-interface ITabContentProps {
-  children: React.ReactNode;
-};
+
 export const Content: React.FC<ITabContentProps> = ({ children }) => {
   const selectedPanel = useContext(selectedPanelContext);
   const panel = useContext(panelContext);
@@ -222,3 +188,7 @@ const App = () => {
 
 export default App
   */
+
+
+
+
