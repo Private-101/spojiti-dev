@@ -55,7 +55,7 @@ export default function PlaygroundLayoutRoute() {
   const redirectTo = encodeURIComponent(location.pathname + location.search);
 
   return (
-    <section id={'playground'} className="min-h-screen bg-sp-body-bg dark:bg-gray-800">
+    <section id={'playground'}>
       <Outlet />
     </section>
   );

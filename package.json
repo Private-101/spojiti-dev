@@ -35,6 +35,7 @@
   ],
   "dependencies": {
     "@headlessui/react": "^1.7.15",
+    "@headlessui/tailwindcss": "^0.2.0",
     "@heroicons/react": "^2.0.18",
     "@prisma/client": "^4.15.0",
     "@remix-run/css-bundle": "^1.17.1",

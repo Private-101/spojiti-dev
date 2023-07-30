@@ -31,7 +31,7 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>((props, ref) => {
   return (
     <div
       ref={ref}
-      className={classNames(colClassNames.join(" "), className ?? "")}
+      className={classNames("grid", colClassNames.join(" "), className ?? "")}
       {...other}
     >
       {children}

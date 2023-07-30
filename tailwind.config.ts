@@ -1270,9 +1270,99 @@ We are also still ironing out some compatibility issues with certain build tools
     ],
     extend: {
       colors: {
-      //  lightCyan: '#EFFAFA',
-      //  darkCyan: '#66a3a3',
-      //  veryDarkCyan: '#2C3A3A',
+      //  tremor styles - https://github.com/tremorlabs/tremor/blob/main/tailwind.config.js
+      // light mode
+      tremor: {
+        brand: {
+          faint: "#eff6ff", // blue-50
+          muted: "#bfdbfe", // blue-200
+          subtle: "#60a5fa", // blue-400
+          DEFAULT: "#3b82f6", // blue-500
+          emphasis: "#1d4ed8", // blue-700
+          inverted: "#ffffff", // white
+        },
+        background: {
+          muted: "#f9fafb", // gray-50
+          subtle: "#f3f4f6", // gray-100
+          DEFAULT: "#ffffff", // white
+          emphasis: "#374151", // gray-700
+        },
+        border: {
+          DEFAULT: "#e5e7eb", // gray-200
+        },
+        ring: {
+          DEFAULT: "#e5e7eb", // gray-200
+        },
+        content: {
+          subtle: "#9ca3af", // gray-400
+          DEFAULT: "#6b7280", // gray-500
+          emphasis: "#374151", // gray-700
+          strong: "#111827", // gray-900
+          inverted: "#ffffff", // white
+        },
+      },
+      // dark mode
+      "dark-tremor": {
+        brand: {
+          faint: "#0B1229", // custom
+          muted: "#172554", // blue-950
+          subtle: "#1e40af", // blue-800
+          DEFAULT: "#3b82f6", // blue-500
+          emphasis: "#60a5fa", // blue-400
+          inverted: "#030712", // gray-950
+        },
+        background: {
+          muted: "#131A2B", // custom
+          subtle: "#1f2937", // gray-800
+          DEFAULT: "#111827", // gray-900
+          emphasis: "#d1d5db", // gray-300
+        },
+        border: {
+          DEFAULT: "#1f2937", // gray-800
+        },
+        ring: {
+          DEFAULT: "#1f2937", // gray-800
+        },
+        content: {
+          subtle: "#4b5563", // gray-600
+          DEFAULT: "#6b7280", // gray-600
+          emphasis: "#e5e7eb", // gray-200
+          strong: "#f9fafb", // gray-50
+          inverted: "#000000", // black
+        },
+      },
+      },
+      boxShadow: {
+        // core
+        default: '0px 8px 13px -3px rgba(0, 0, 0, 0.07)',
+        card: '0px 1px 3px rgba(0, 0, 0, 0.12)',
+        'card-2': '0px 1px 2px rgba(0, 0, 0, 0.05)',
+        switcher:
+          '0px 2px 4px rgba(0, 0, 0, 0.2), inset 0px 2px 2px #FFFFFF, inset 0px -1px 1px rgba(0, 0, 0, 0.1)',
+        'switch-1': '0px 0px 5px rgba(0, 0, 0, 0.15)',
+        1: '0px 1px 3px rgba(0, 0, 0, 0.08)',
+        2: '0px 1px 4px rgba(0, 0, 0, 0.12)',
+        3: '0px 1px 5px rgba(0, 0, 0, 0.14)',
+        4: '0px 4px 10px rgba(0, 0, 0, 0.12)',
+        5: '0px 1px 1px rgba(0, 0, 0, 0.15)',
+        6: '0px 3px 15px rgba(0, 0, 0, 0.1)',
+        7: '-5px 0 0 #313D4A, 5px 0 0 #313D4A',
+        8: '1px 0 0 #313D4A, -1px 0 0 #313D4A, 0 1px 0 #313D4A, 0 -1px 0 #313D4A, 0 3px 13px rgb(0 0 0 / 8%)',
+        // tremor styles
+        // light
+        "tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        "tremor-card": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+        "tremor-dropdown": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        // dark
+        "dark-tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        "dark-tremor-card": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+        "dark-tremor-dropdown": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+      },
+      borderRadius: {
+        // tremor styles
+        "tremor-small": "0.375rem",
+        "tremor-default": "0.5rem",
+        "tremor-full": "9999px",
       },
       fontFamily: {
       //  spartan: ['League Spartan', 'sans-serif'],
@@ -1286,6 +1376,11 @@ We are also still ironing out some compatibility issues with certain build tools
         'title-md2': ['26px', '30px'],
         'title-sm': ['20px', '26px'],
         'title-xsm': ['18px', '24px'],
+        // tremor styles
+        "tremor-label": ["0.75rem", { lineHeight: "1.25rem" }],
+        "tremor-default": ["0.875rem", { lineHeight: "1.25rem" }],
+        "tremor-title": ["1.125rem", { lineHeight: "1.75rem" }],
+        "tremor-metric": ["1.875rem", { lineHeight: "2.25rem" }],
       },
       spacing: {
         4.5: '1.125rem',
@@ -1440,22 +1535,7 @@ We are also still ironing out some compatibility issues with certain build tools
       borderWidth: {
         6: '6px',
       },
-      boxShadow: {
-        default: '0px 8px 13px -3px rgba(0, 0, 0, 0.07)',
-        card: '0px 1px 3px rgba(0, 0, 0, 0.12)',
-        'card-2': '0px 1px 2px rgba(0, 0, 0, 0.05)',
-        switcher:
-          '0px 2px 4px rgba(0, 0, 0, 0.2), inset 0px 2px 2px #FFFFFF, inset 0px -1px 1px rgba(0, 0, 0, 0.1)',
-        'switch-1': '0px 0px 5px rgba(0, 0, 0, 0.15)',
-        1: '0px 1px 3px rgba(0, 0, 0, 0.08)',
-        2: '0px 1px 4px rgba(0, 0, 0, 0.12)',
-        3: '0px 1px 5px rgba(0, 0, 0, 0.14)',
-        4: '0px 4px 10px rgba(0, 0, 0, 0.12)',
-        5: '0px 1px 1px rgba(0, 0, 0, 0.15)',
-        6: '0px 3px 15px rgba(0, 0, 0, 0.1)',
-        7: '-5px 0 0 #313D4A, 5px 0 0 #313D4A',
-        8: '1px 0 0 #313D4A, -1px 0 0 #313D4A, 0 1px 0 #313D4A, 0 -1px 0 #313D4A, 0 3px 13px rgb(0 0 0 / 8%)',
-      },
+    
       dropShadow: {
         1: '0px 1px 0px #E2E8F0',
         2: '0px 1px 4px rgba(0, 0, 0, 0.12)',
@@ -1495,6 +1575,8 @@ We are also still ironing out some compatibility issues with certain build tools
   require('@tailwindcss/aspect-ratio'),
   require('@tailwindcss/typography'),
   require('tailwind-children'),
+  // https://www.npmjs.com/package/@headlessui/tailwindcss
+  require('@headlessui/tailwindcss')
   // tailwindLayouts,
   /* require('tailwind-layouts')({
     ...defaultOptions,
