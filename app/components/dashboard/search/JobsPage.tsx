@@ -91,7 +91,7 @@ export default function JobsPage() {
   }
 
   return (
-    <main className="font-spartan relative">
+    <main className="font-sans relative">
       {jobClicked.length > 0 && (
         <div
           onClick={() => {

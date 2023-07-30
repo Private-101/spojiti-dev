@@ -1,0 +1,128 @@
+import React, {
+    createContext,
+    type Context,
+    type WeakValidationMap,
+    useContext,
+    memo,
+    useMemo,
+    useDebugValue,
+    useEffect,
+    type PropsWithChildren,
+  } from 'react';
+  // import { useConstant, } from '@lyonph/react-hooks';
+  import ModelManager from './model-manager';
+  // import MissingScopedModelError from './utils/MissingScopedModelError';
+  // import generateId from './utils/id';
+  
+  export type ScopedModelHook<Model, Props = unknown> = (props: Props) => Model;
+  
+  export type ScopedModelMemo<Props = unknown> = (prev: Props, next: Props) => boolean;
+  export type ScopedModelBailout<T> = (prev: T, next: T) => boolean;
+  
+  export interface ScopedModelOptions<Model, Props = unknown> {
+    displayName?: string;
+    propTypes?: WeakValidationMap<PropsWithChildren<Props>>;
+    defaultProps?: Partial<PropsWithChildren<Props>> | undefined;
+    shouldUpdate?: ScopedModelMemo<Props>;
+    shouldNotify?: ScopedModelBailout<Model>;
+  }
+  
+  export interface ScopedModel<Model, Props = unknown> {
+    context: Context<ModelManager<Model> | null>;
+    Provider: React.FC<PropsWithChildren<Props>>;
+    displayName: string;
+  }
+  
+  function SHOULD_NOTIFY<T>(a: T, b: T): boolean {
+    return !Object.is(a, b);
+  }
+  
+  /**
+   * Creates a scoped model instance that generates a state from a given
+   * React-based hook function which allows fine-grained control on injected
+   * contextual state within the component tree.
+   * @param useModelHook
+   * @param options
+   */
+  export default function createModel<Model, Props = unknown>(
+    useModelHook: ScopedModelHook<Model, Props>,
+    options: ScopedModelOptions<Model, Props> = {},
+  ): ScopedModel<Model, Props> {
+    const context = createContext<ModelManager<Model> | null>(null);
+    const id = Math.round(Math.random() * 99999999) // generateId();
+  
+    /**
+     * Display name for the model
+     */
+    const displayName = options.displayName || `ScopedModel-${id}`;
+    const shouldNotify = options.shouldNotify ?? SHOULD_NOTIFY;
+  
+    function useProcessor(props: Props) {
+      const emitter = useContext(context);
+      if (!emitter) {
+        throw new Error(`ERROR: ${displayName}`); // MissingScopedModelError(displayName);
+      }
+  
+      const model = useModelHook(props);
+  
+      emitter.hydrate(model);
+  
+      useEffect(() => {
+        emitter.initialized = true;
+      }, [emitter]);
+  
+      useEffect(() => {
+        const hasValue = emitter.hasValue();
+        if ((hasValue && shouldNotify(emitter.value, model)) || !hasValue) {
+          emitter.consume(model);
+        }
+      }, [emitter, model]);
+  
+      useDebugValue(model);
+    }
+  
+    function ProcessorInner(props: Props) {
+      useProcessor(props);
+      return null;
+    }
+  
+    const Processor = memo(ProcessorInner, options.shouldUpdate);
+  
+    function Provider({ children, ...props }: PropsWithChildren<Props>) {
+      const emitter = useMemo(() => new ModelManager<Model>(), []); // useConstant(() => new ModelManager<Model>());
+  
+      useEffect(() => () => {
+        emitter.destroy();
+      }, [emitter]);
+  
+      return (
+        <context.Provider value={emitter}>
+          <Processor {...props as any} />
+          { children }
+        </context.Provider>
+      );
+    }
+  
+    Provider.propTypes = options.propTypes;
+  
+    /**
+     * Provider default props
+     */
+    Provider.defaultProps = options.defaultProps;
+  
+    /**
+     * Display name for the Provider
+     */
+    if (process.env.NODE_ENV !== 'production') {
+      ProcessorInner.displayName = `ScopedModelProcessor(${displayName}.Processor)`;
+      Processor.displayName = `ScopedModelProcessor(${displayName}.Processor)`;
+      Provider.displayName = `ScopedModel(${displayName})`;
+      context.displayName = displayName;
+    }
+  
+    return {
+      context,
+      Provider,
+      displayName,
+    };
+  }

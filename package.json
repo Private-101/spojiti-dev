@@ -66,6 +66,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
+    "@openapitools/openapi-generator-cli": "^2.7.0",
     "@remix-run/dev": "^1.17.1",
     "@remix-run/eslint-config": "^1.17.1",
     "@testing-library/cypress": "^9.0.0",

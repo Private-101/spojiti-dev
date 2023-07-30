@@ -1,8 +1,13 @@
 import type { Config } from "tailwindcss";
 import defaultColors from 'tailwindcss/colors';
-
+// import { tailwindLayouts } from 'tailwind-layouts';
+// import { defaultOptions } from "theme/plugins/tailwind-layouts/lib/main";
 import defaultTheme from 'tailwindcss/defaultTheme';
+const BLACKLIST = ["lightBlue", "warmGray", "trueGray", "coolGray", "blueGray"];
 
+
+// let filteredColors = Object.entries(defaultColors).filter((color, i) => BLACKLIST.includes(color[0].));
+// let mappedColors: {[key: string]: any} = filteredColors.map((color, i) => filteredColors[color[0] = color[1]]);
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -50,8 +55,9 @@ We are also still ironing out some compatibility issues with certain build tools
 			}*/
 		},
     colors: {
+      ...defaultTheme.colors,
       ...defaultColors,
-      // ...defaultColors,
+      // ...mappedColors,
       'sp': {
         'primary': {
           'light': '#f58321',
@@ -1264,12 +1270,12 @@ We are also still ironing out some compatibility issues with certain build tools
     ],
     extend: {
       colors: {
-        lightCyan: '#EFFAFA',
-        darkCyan: '#66a3a3',
-        veryDarkCyan: '#2C3A3A',
+      //  lightCyan: '#EFFAFA',
+      //  darkCyan: '#66a3a3',
+      //  veryDarkCyan: '#2C3A3A',
       },
       fontFamily: {
-        spartan: ['League Spartan', 'sans-serif'],
+      //  spartan: ['League Spartan', 'sans-serif'],
       },
       fontSize: {
         'title-xxl': ['44px', '55px'],
@@ -1399,18 +1405,18 @@ We are also still ironing out some compatibility issues with certain build tools
         280: '70rem',
         292.5: '73.125rem',
       },
-      maxHeight: {
-        35: '8.75rem',
-        70: '17.5rem',
-        90: '22.5rem',
-        550: '34.375rem',
-        300: '18.75rem',
-      },
+      //maxHeight: {
+      //  35: '8.75rem',
+      //  70: '17.5rem',
+      //  90: '22.5rem',
+      //  550: '34.375rem',
+      //  300: '18.75rem',
+      //},
       minWidth: {
-        22.5: '5.625rem',
-        42.5: '10.625rem',
+      //  22.5: '5.625rem',
+      //  42.5: '10.625rem',
         47.5: '11.875rem',
-        75: '18.75rem',
+      //  75: '18.75rem',
       },
       zIndex: {
         999999: '999999',
@@ -1488,6 +1494,16 @@ We are also still ironing out some compatibility issues with certain build tools
   require('@tailwindcss/forms'),
   require('@tailwindcss/aspect-ratio'),
   require('@tailwindcss/typography'),
-  require('tailwind-children')
-],
+  require('tailwind-children'),
+  // tailwindLayouts,
+  /* require('tailwind-layouts')({
+    ...defaultOptions,
+    useLogicalProperties: true,
+    measureExceptions: [
+      defaultOptions.measureExceptions,
+      '.prose *:not(img):not(video)',
+    ].join(','),
+  }) */
+  // require('tailwind-layouts'),
+], // @openapitools/openapi-generator-cli
 } satisfies Config;

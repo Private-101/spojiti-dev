@@ -1,27 +1,80 @@
 import React, { createContext, useState, useReducer } from "react";
-
-type FilterContextType = "light" | "dark";
+import type { FilterFn, SortOption } from "./filters/filter.types";
+// type FilterContextType = "light" | "dark";
 // type Reducer<S, A> = (prevState: S, action: A) => S;
-/*
-https://stackblitz.com/edit/usereducer-typescript
-https://www.sumologic.com/blog/react-hook-typescript/
-type State =
+
+// https://stackblitz.com/edit/usereducer-typescript
+// https://www.sumologic.com/blog/react-hook-typescript/
+/*type State<T> =
  | { status: 'empty' }
  | { status: 'loading' }
  | { status: 'error', error: string }
- | { status: 'success', data: HNResponse }
+ | { status: 'success', data: T }*/
+
+ /*
+items?: Array<T>;
+loading: boolean;
+selectedItemIndex?: number;
+searchTerm?: string;
+filters?: Set<FilterFn<T>>;
+selectedSortOption: SortOption;
+
+  setData: Dispatch<SetStateAction<Array<T> | undefined>>;
+  setLoading: Dispatch<SetStateAction<boolean | undefined>>;
+  setSelectedItemIndex: Dispatch<SetStateAction<number | undefined>>;
+  setSearchTerm: Dispatch<SetStateAction<string | undefined>>;
+  filterSearch: FilterFn<T>;
+  addFilter: (filter: FilterFn<T>) => void;
+  clearFilters: BlankVoidFn;
+  setSelectedSortOption: Dispatch<SetStateAction<SortOption | undefined>>;
+*/
+
+type LoadingIndexType = {
+  index: number;
+  isLoading: boolean
+};
+
 type State<T> = {
-    data?: T;
-    isLoading: boolean;
-    error?: string;
+  items?: Array<T>;
+  loading: boolean;
+  loadingIndex: LoadingIndexType;
+  selectedItemIndex?: number;
+  searchTerm?: string;
+  filters?: Set<FilterFn<T>>;
+  selectedSortOption: SortOption;
    };
+const enum ActionEnum {
+  SET_DATA = "SET_DATA",
+  SET_LOADING = "SET_LOADING",
+  SET_LOADING_INDEX = "SET_LOADING_INDEX",
+  SET_SELECTED_ITEM_INDEX = "SET_SELECTED_ITEM_INDEX",
+  SET_SEARCH_TERM = "SET_SEARCH_TERM",
+  FILTER_SEARCH = "FILTER_SEARCH",
+  ADD_FILTER = "ADD_FILTER",
+  CLEAR_FILTERS = "CLEAR_FILTERS",
+  SET_SELECTED_SORT_OPTION = "SET_SELECTED_SORT_OPTION"
+};
+type Action<T> =
+ | { type: ActionEnum.SET_DATA; payload?: T[] }
+ | { type: ActionEnum.SET_LOADING; payload?: boolean }
+ | { type: ActionEnum.SET_LOADING_INDEX; payload?: LoadingIndexType }
+ | { type: ActionEnum.SET_SELECTED_ITEM_INDEX; payload?: number }
+ | { type: ActionEnum.SET_SEARCH_TERM; payload?: string }
+ | { type: ActionEnum.FILTER_SEARCH }
+ | { type: ActionEnum.ADD_FILTER; payload?: FilterFn<T> }
+ | { type: ActionEnum.CLEAR_FILTERS }
+ | { type: ActionEnum.SET_SELECTED_SORT_OPTION; payload?: SortOption }
 
-   type Action<T> =
- | { type: 'request' }
- | { type: 'success', results: T }
- | { type: 'failure', error: string };
+ type ActionMap = Map<keyof typeof ActionEnum, React.Dispatch<Action<string>>>;
 
- function reducer(state: State, action: Action): State {
+ const actions: ActionMap = new Map<ActionEnum, React.Dispatch<Action<string>>>();
+ actions.set("SET_DATA", () => {});
+
+
+/*
+type Action<T> = 
+ function reducer<T>(state: State<T>, action: Action<T>): State<T> {
+  const ACTION_MAP = new Map<State<T>, Action<T>>([[]])
     switch (action.type) {
     case 'request':
     return { isLoading: true };
@@ -31,7 +84,8 @@ type State<T> = {
     return { isLoading: false, error: action.error };
     }
    }
-
+*/
+/*
    const [{
  data,
  isLoading,
@@ -64,13 +118,14 @@ type State<T> = {
  ))}
  </ul>
  </div>
- */
+ 
 const FilterContext = createContext<FilterContextType>("light");
 interface IFilterContextProviderProps {
+    data: 
     children: React.ReactNode;
 }
 const FilterContextProvider: React.FC<IFilterContextProviderProps> = ({children}) => {
-    const [theme, setFilter] = useState<FilterContextType>("light");
+    const [filter, setFilter] = useState<FilterContextType>("light");
   
     return (
       <FilterContext.Provider value={theme}>
@@ -80,7 +135,7 @@ const FilterContextProvider: React.FC<IFilterContextProviderProps> = ({children}
   };
 
 
-  /*
+  
   import React, { useReducer } from "react";
 
 const reducer = (state, action) => {

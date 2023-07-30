@@ -1,18 +1,18 @@
 import * as React from "react";
 import { useState } from "react";
-import type { ISorter } from "~/context/filters/genericSort";
+import type { ISortOptions } from "~/context/filters/genericSort";
 import type { PropsWithChildrenFunction } from "~/types";
 import { genericSort } from "~/context/filters/genericSort";
 import type { IUserCardProps } from '~/temp/dev/types';
 
-export interface ISortersProps<T> {
+export interface ISortOptionssProps<T> {
   defaultProperty: Extract<keyof T, string | number | Date>;
   data: Array<T>;
 }
 
-export default function CustomSorter<T extends {}>(props: PropsWithChildrenFunction<ISortersProps<T>, T>) {
+export default function CustomSorter<T extends {}>(props: PropsWithChildrenFunction<ISortOptionssProps<T>, T>) {
   const { data, defaultProperty, children } = props;
-  const [activeSorter, setActiveSorter] = useState<ISorter<T>>({
+  const [activeSorter, setActiveSorter] = useState<ISortOptions<T>>({
     property: defaultProperty,
     isDescending: true,
   });

@@ -1,6 +1,7 @@
 {
-  "exclude": ["./cypress", "./cypress.config.ts"],
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "app/**/**/*.tsx", "app/components/**/*.tsx", "app/experimental/interactive-menu/data/hardData.js"],
+  "exclude": ["./cypress", "./cypress.config.ts", "node_modules", ".vscode", "scripts"],
+  // "app/**/**/*.{tsx, ts}", "app/components/**/*.tsx", "app/components/**/*.ts",
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "app/experimental/interactive-menu/data/hardData.js"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
     "types": ["vitest/globals"],
@@ -8,7 +9,7 @@
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "module": "CommonJS",
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
     "target": "ES2019",
     "strict": true,
