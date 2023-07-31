@@ -1,0 +1,119 @@
+https://github.com/dai-shi/use-context-selector
+
+
+// provider.tsx
+import React, {
+  ReactNode,
+  useCallback,
+  useRef,
+  useState,
+  // createContext,
+  // useContext,
+} from 'react';
+
+import { createContext, useContext, useContextUpdate } from 'use-context-selector';
+
+// const useContextUpdate = () => (fn: any) => fn();
+
+type State = {
+  result: number;
+  promise: Promise<void> | null;
+};
+
+const useValue = () => {
+  const countRef = useRef(0);
+  const [state, setState] = useState<State>({
+    result: countRef.current,
+    promise: null,
+  });
+  const increment = useCallback(() => {
+    countRef.current += 1;
+    const nextState: State = {
+      result: countRef.current,
+      promise: new Promise<void>((resolve) => {
+        setTimeout(() => {
+          nextState.promise = null;
+          resolve();
+        }, 1000);
+      }),
+    };
+    setState(nextState);
+  }, []);
+  return { state, increment };
+};
+
+const MyContext = createContext<ReturnType<typeof useValue> | null>(null);
+
+export const Provider = ({ children }: { children: ReactNode }) => (
+  <MyContext.Provider value={useValue()}>
+    {children}
+  </MyContext.Provider>
+);
+
+export const useMyState = () => {
+  const update = useContextUpdate(MyContext);
+  const value = useContext(MyContext);
+  if (value === null) {
+    throw new Error('Missing Provider');
+  }
+  return {
+    state: value.state,
+    increment: useCallback(() => {
+      update(value.increment, { suspense: true });
+    }, [update, value.increment]),
+  };
+};
+
+// counter.tsx
+import React, { useTransition } from 'react';
+
+import { useMyState } from './Provider';
+
+const Counter = () => {
+  const [isPending, startTransition] = useTransition();
+  const { state, increment } = useMyState();
+  if (state.promise) {
+    throw state.promise;
+  }
+  const onClick = () => {
+    startTransition(increment);
+  };
+  return (
+    <div>
+      {Math.random()}
+      <div>
+        <span>Count: {state.result}</span>
+        <button type="button" onClick={onClick}>+1</button>
+        {isPending && 'Pending...'}
+      </div>
+    </div>
+  );
+};
+
+export default Counter;
+
+// app.tsx
+import React, { StrictMode, Suspense } from 'react';
+
+import { Provider } from './Provider';
+import Counter from './Counter';
+
+const Body = () => (
+  <div>
+    <h1>Counter</h1>
+    <Counter />
+    <Counter />
+  </div>
+);
+
+const App = () => (
+  <StrictMode>
+    <Provider>
+      <Suspense fallback="Loading...">
+        <Body />
+      </Suspense>
+    </Provider>
+  </StrictMode>
+);
+
+export default App;

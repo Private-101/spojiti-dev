@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Transition } from '@headlessui/react';
 import { Bars3Icon } from "@heroicons/react/24/solid";
+import { MusicalNoteIcon, PlayIcon, TicketIcon, UserCircleIcon, ListBulletIcon } from "@heroicons/react/24/outline";
+import { classNames } from '~/utils';
 import {
   Form,
   Outlet,
@@ -101,7 +103,9 @@ export default function LayoutDemosRoute() {
           {/* <!-- ===== Header Start ===== --> */}
       <Flex flexDirection="row" justifyContent="between" alignItems="start" className="mb-2 px-4">
         <Bars3Icon className="w-6 h-6 self-start" onClick={() => setIsOpen((o) => !o)} />
-        <Avatar className="">Item {selectedIndex + 1} Selected</Avatar>
+        <TextAvatar className="" />
+        {/*<UserCircleIcon className="w-6 h-6" />*/}
+        {/*<Avatar className="">Item {selectedIndex + 1} Selected</Avatar>*/}
       </Flex>
           {/* <!-- ===== Header End ===== --> */}
 
@@ -172,22 +176,190 @@ export default function LayoutDemosRoute() {
 
 type IShape = 'circle' | 'square';
 
-interface AvatarWrapperProps {
-  htmlWidth: string;
-  htmlHeight: string;
-  bgColor: string;
-  shape: IShape;
+interface AvatarWrapperBaseProps {
+  // in px
+  htmlWidth?: number;
+  // in px
+  htmlHeight?: number;
+  // #fff
+  bgColor?: string;
+  // circle | square
+  shape?: IShape;
+  // #000
   textColor?: string;
+  children?: React.ReactNode;
 }
-function Avatar(props: AvatarWrapperProps) {
+type AvatarWrapperProps = AvatarWrapperBaseProps & React.HTMLAttributes<HTMLDivElement>;
+// type MergeFunction = (props: T, defaults: Partial<T>) => T;
+const AvatarPropDefaults: Partial<AvatarWrapperProps> = {
+  htmlWidth: 16,
+  htmlHeight: 16,
+  bgColor: "#fff",
+  shape: "circle",
+  textColor: "#000",
+}
+function merge<T extends {}>(props: T, defaults: Partial<T>): T {
+  let merged = {};
+  for (const key in props) {
+    if (!props[key] && !defaults[key]) {
+      continue;
+    }
+  }
+  return {
+    ...defaults as Required<T>,
+    ...props as Required<T>
+  };
+}
+const AvatarWrapper = React.forwardRef<HTMLDivElement, AvatarWrapperProps>((props, ref) => {
+  const { 
+    htmlWidth,
+    htmlHeight,
+    bgColor,
+    shape,
+    textColor,
+    className,
+    children,
+  } = merge<AvatarWrapperProps>(props, AvatarPropDefaults);
+
   return (
     <>
-    <div className="flex rounded-full overflow-hidden max-w-[16px] min-w-[16px] h-[16px] text-center items-center justify-center bg-neutral-200 text-neutral-800 border-2 border-black">
-    
+    <div 
+    ref={ref}
+    className={classNames("", `h-${htmlHeight}`, className ?? "", `max-w-${htmlWidth} min-w-${htmlWidth}`, "flex rounded-full overflow-hidden h-[16px] text-center items-center justify-center bg-neutral-200 text-neutral-800 border-2 border-black")}>
+    {children}
     </div>
     </>
   )
+})
+/*
+(props: AvatarWrapperProps) {
+  return (
+    <>
+    
+    </>
+  )
+};
+*/
+/*
+type ScaleTypes = "sm" 110 | "md" 125 | "lg" 150 | "xl" 200 | number n% | none (default)
+interface AvatarTextProps { 
+  scale: number;
+  // scale?: ScaleTypes; // scale-${axis}-${scales[scale]}
+  // axis?: "x" | "y" | none (default)
+};
+const scales = {
+  sm: 110,
+  md: 125,
+  lg: 150,
+  xl: 200,
+  none: 100
 }
+<p className=`m-0 align-middle font-bold whitespace-nowrap uppercase`></p>
+
+
+*/
+// Get sum representing all characters in text.
+const sumOfCharacters = (text: string) => {
+  let sum = 0;
+  for (let i = 0; i < text.length; i += 1) {
+    sum += text.charCodeAt(i);
+  }
+  return sum;
+};
+
+interface TextAvatarBaseProps {
+  shape?: IShape;
+  text?: string;
+  bgColor?: string;
+  textColor?: string;
+  htmlWidth?: number;
+  htmlHeight?: number;
+  imageAlt?: string;
+  textProcessor?: (text: string) => string;
+};
+
+type TextAvatarMergedProps = TextAvatarBaseProps & React.HTMLAttributes<HTMLParagraphElement>;
+interface TextAvatarProps {
+  shape?: IShape;
+  text?: string;
+  bgColor?: string;
+  textColor?: string;
+  htmlWidth?: number;
+  htmlHeight?: number;
+  imageAlt?: string;
+  textProcessor?: (text: string) => string;
+
+  className?: string;
+  
+};
+
+// type TextAvatarImperativeHandleProps = Omit<HTMLParagraphElement, keyof HTMLDivElement> & HTMLDivElement;
+const TextAvatar = React.forwardRef<HTMLParagraphElement, TextAvatarMergedProps>(({
+  htmlWidth = 24,
+  htmlHeight = 24,
+  className = "",
+  shape = "circle",
+  text = "text avatar",
+  bgColor = '#fff',
+  textColor = '#000',
+  textProcessor = (text: string) => text.trim(),
+  imageAlt = "text avatar",
+}, ref) => {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const textRef = React.useRef<HTMLParagraphElement>(null);
+
+  /* React.useImperativeHandle(ref, () => {
+    return {
+      ...containerRef.current,
+      ...textRef.current
+    }
+  }, []); */
+
+  const processedText = React.useMemo(() => {
+    return textProcessor(text);
+    // const index = sumOfCharacters(text) % backgrounds.length;
+    // return {
+    //   backgroundColor: backgrounds[index],
+    //   processedText,
+    // };
+  }, [text, textProcessor]);
+
+  // const [scale, setScale] = React.useState<number>(1);
+  
+
+  /* React.useEffect(() => {
+    const container = containerRef.current;
+    const text = textRef.current;
+    if (!container || !text) {
+      return;
+    }
+    const containerWidth = container.offsetWidth;
+    const textWidth = text.offsetWidth;
+    if (containerWidth - 8 < textWidth) {
+      setScale((containerWidth - 8) / textWidth);
+    } else {
+      setScale(1);
+    }
+  }, [text, htmlWidth, htmlHeight]); */
+  return (
+    <AvatarWrapper
+      htmlWidth={htmlWidth}
+      htmlHeight={htmlHeight}
+      className={className}
+      shape={shape as IShape}
+      bgColor={bgColor}
+      textColor={textColor}
+      ref={containerRef}
+      role="img"
+      aria-label={imageAlt}
+    >
+      <Text ref={textRef}>
+        {processedText}
+      </Text>
+    </AvatarWrapper>
+  )
+});
+
 export function ErrorBoundary() {
   const error = useRouteError();
 
