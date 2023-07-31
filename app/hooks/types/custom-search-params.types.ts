@@ -14,15 +14,16 @@ export type UseSearchParamsResult<T> = {
 };
 
 export type PrimitiveSearchParam = string | number | boolean;
-export type SearchParamObjectType = { [key: string]: PrimitiveSearchParam | SearchParamObjectType }; // [string, PrimitiveSearchParam][]
-export type CustomeSearchParamsProviderProps = React.PropsWithChildren<UseSearchParamsResult<SearchParamObjectType>>;
+export type SearchParamObjectType<T extends PrimitiveSearchParam> = { [key: string]: T | SearchParamObjectType<T> }; // [string, PrimitiveSearchParam][]
+
+export type CustomeSearchParamsProviderProps<T extends PrimitiveSearchParam> = React.PropsWithChildren<UseSearchParamsResult<SearchParamObjectType<T>>>;
 
 
-// export type SearchParamsActionType = 'change';
+export type SearchParamsActionType = string; // T extends { [key: string]: any } ? T[string] : T
 
 // const action: SearchParamsAction<typeof state> ...
 export type SearchParamsAction<T> = {
-  type: SearchParamsActionType;
+  type: string;
   payload: Partial<T>;
 };
 

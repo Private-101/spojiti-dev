@@ -113,10 +113,14 @@ export default function LayoutDemosRoute() {
           <main className="mx-auto max-w-screen-2xl  border border-black rounded-lg">
           <Card className="p-2">
               <Flex flexDirection="col" justifyContent="around" alignItems="center" className="mt-6">
-                <Title>Item {selectedIndex + 1} Selected</Title>
-                <Text>page details below...</Text>
+                {location.pathname === 'layouts' ? (
+                  <>
+                  <Title>Item {selectedIndex + 1} Selected</Title>
+                <Text>page details below...</Text></>
+                ): null}
+                <Outlet />
               </Flex>
-              <Outlet />
+              
           </Card>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}
@@ -199,17 +203,19 @@ const AvatarPropDefaults: Partial<AvatarWrapperProps> = {
   textColor: "#000",
 }
 function merge<T extends {}>(props: T, defaults: Partial<T>): T {
-  let merged = {};
-  for (const key in props) {
-    if (!props[key] && !defaults[key]) {
-      continue;
-    }
-  }
+  // let merged = {};
+  // for (const key in props) {
+    // if (!props[key] && !defaults[key]) {
+     //  continue;
+   //  };
+
+  // }
   return {
     ...defaults as Required<T>,
     ...props as Required<T>
   };
-}
+};
+
 const AvatarWrapper = React.forwardRef<HTMLDivElement, AvatarWrapperProps>((props, ref) => {
   const { 
     htmlWidth,
@@ -353,7 +359,7 @@ const TextAvatar = React.forwardRef<HTMLParagraphElement, TextAvatarMergedProps>
       role="img"
       aria-label={imageAlt}
     >
-      <Text ref={textRef}>
+      <Text ref={textRef} className="px-2 py-4">
         {processedText}
       </Text>
     </AvatarWrapper>

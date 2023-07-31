@@ -3,33 +3,21 @@ import React, { type Reducer, useMemo, useState, useCallback, useEffect, useRedu
 // import { setSearchParams, getSearchParams, objectDeepCopy } from 'hooks/utils';
 import type { SearchParamsAction, SearchParamsActionType, UseSearchParamsConfig, UseSearchParamsResult, CreateUseSearchParamsContextResult, SearchParamObjectType, PrimitiveSearchParam, CustomeSearchParamsProviderProps } from 'hooks/types';
 import { debounce } from 'lodash';
-import { MdOutlineFormatColorReset } from 'react-icons/md';
-
-
-
-type ExampleCategory = 'cat-1' | 'cat-2' | string;
-type ExamplePosition = 'cook' | 'bar' | 'busser' | string;
-
-
-
-
-
-
+import { useSearchParams } from '@remix-run/react'
+export type ParamKeyValuePair = [string, string];
+export type URLSearchParamsInit = string | ParamKeyValuePair[] | Record<string, string | string[]> | URLSearchParams;
+export type SearchParamType = string | Record<string, string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>;
+// export type CustomSearchParamType<T extends PrimitiveSearchParam> = T | Record<string, T | ReadonlyArray<T>> | Iterable<[string, T]> | ReadonlyArray<[string, T]>;
+export type CustomSearchParamType = PrimitiveSearchParam | Record<string, PrimitiveSearchParam | ReadonlyArray<PrimitiveSearchParam>> | Iterable<[string, PrimitiveSearchParam]> | ReadonlyArray<[string, PrimitiveSearchParam]>;
 
 type Dispatch = (action: Action) => void;
+// type SearchParamState = SearchParamObjectType<PrimitiveSearchParam>
+export default function useSearch(init?: CustomSearchParamType) {
+  const [searchParams, setSearchParams] = useSearchParams({key: "hello"});
+}
 
-
-
+/*
 type UseSearchParamValuesFunction = (initialState: LocalSearchParamState) => [React.Provider<LocalSearchParamState>]
-
-// Define the LocalSearchParamState type (replace any with the actual type)
-type LocalSearchParamState = {
-  query: string;
-  categories: ExampleCategory[];
-  date: string;
-  positions: ExamplePosition[]
-  reset: boolean
-};
 
 type SetQueryAction = { type: ActionTypeKey.SET_QUERY, payload: { query: string } };
 type SetCategoriesAction = { type: ActionTypeKey.SET_CATEGORY, payload: { categories: string[] } };
@@ -108,6 +96,70 @@ export const useSearchParamValues = () => {
 
   return { SearchContext, state, dispatch };
 };
+
+export const getSearchParams = (): Partial<SearchParamObjectType> | null => {
+    if (typeof window === 'undefined' || !window.location.search) return null;
+  
+    const urlSearchQuery = new URLSearchParams(window.location.search);
+  
+    return Array.from(urlSearchQuery.entries()).reduce<{
+      [key: string]: string | any;
+    }>((acc, entry) => {
+      const key = entry[0] || '';
+      const value = decodeURIComponent(entry[1]);
+  
+      acc[key] = value;
+      if (value.startsWith('{') || value.startsWith('[')) {
+        acc[key] = JSON.parse(value);
+      }
+      if (value === 'true' || value === 'false') {
+        acc[key] = Boolean(value === 'true');
+      }
+      return acc;
+    }, {});
+  };
+*/
+
+
+
+  export const setSearchParams = <T extends SearchParamObjectType>(
+  searchQueryData: T,
+  omitEmpty?: boolean
+): void => {
+  if (typeof window === 'undefined') return;
+
+  const searchQuery = new URLSearchParams();
+
+  Object.entries(searchQueryData).forEach(([key, value]) => {
+    if (
+      typeof value === 'string' ||
+      typeof value === 'boolean' ||
+      typeof value === 'number'
+    ) {
+      if ((omitEmpty && !!String(value)) || !omitEmpty) {
+        searchQuery.set(key, String(value));
+      }
+      return;
+    }
+    if ((omitEmpty && !!value) || !omitEmpty) {
+      searchQuery.set(key, encodeURIComponent(JSON.stringify(value)));
+    }
+  });
+
+  window.history.replaceState(
+    {},
+    '',
+    `${window.location.origin}${
+      window.location.pathname
+    }?${searchQuery.toString()}`
+  );
+};
+
+export const objectDeepCopy = <T extends {}>(data: T): T => {
+  return JSON.parse(JSON.stringify(data));
+};
+
+
 /*
 function createActionMap() {
   Object.values(ActionTypeKey).map((action, i) => {
@@ -215,62 +267,3 @@ type SetPositionAction = { type: ActionTypeKey.SET_POSITION, payload: { position
 type ResetAction = { type: ActionTypeKey.RESET, payload: {} };
 
 */
-
-export const getSearchParams = (): Partial<SearchParamObjectType> | null => {
-    if (typeof window === 'undefined' || !window.location.search) return null;
-  
-    const urlSearchQuery = new URLSearchParams(window.location.search);
-  
-    return Array.from(urlSearchQuery.entries()).reduce<{
-      [key: string]: string | any;
-    }>((acc, entry) => {
-      const key = entry[0] || '';
-      const value = decodeURIComponent(entry[1]);
-  
-      acc[key] = value;
-      if (value.startsWith('{') || value.startsWith('[')) {
-        acc[key] = JSON.parse(value);
-      }
-      if (value === 'true' || value === 'false') {
-        acc[key] = Boolean(value === 'true');
-      }
-      return acc;
-    }, {});
-  };
-
-  export const setSearchParams = <T extends SearchParamObjectType>(
-  searchQueryData: T,
-  omitEmpty?: boolean
-): void => {
-  if (typeof window === 'undefined') return;
-
-  const searchQuery = new URLSearchParams();
-
-  Object.entries(searchQueryData).forEach(([key, value]) => {
-    if (
-      typeof value === 'string' ||
-      typeof value === 'boolean' ||
-      typeof value === 'number'
-    ) {
-      if ((omitEmpty && !!String(value)) || !omitEmpty) {
-        searchQuery.set(key, String(value));
-      }
-      return;
-    }
-    if ((omitEmpty && !!value) || !omitEmpty) {
-      searchQuery.set(key, encodeURIComponent(JSON.stringify(value)));
-    }
-  });
-
-  window.history.replaceState(
-    {},
-    '',
-    `${window.location.origin}${
-      window.location.pathname
-    }?${searchQuery.toString()}`
-  );
-};
-
-export const objectDeepCopy = <T extends {}>(data: T): T => {
-  return JSON.parse(JSON.stringify(data));
-};
