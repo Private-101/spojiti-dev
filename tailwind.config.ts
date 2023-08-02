@@ -1576,7 +1576,8 @@ We are also still ironing out some compatibility issues with certain build tools
   require('@tailwindcss/typography'),
   require('tailwind-children'),
   // https://www.npmjs.com/package/@headlessui/tailwindcss
-  require('@headlessui/tailwindcss')
+  require('@headlessui/tailwindcss'),
+  require("tailwindcss-animate"),
   // tailwindLayouts,
   /* require('tailwind-layouts')({
     ...defaultOptions,

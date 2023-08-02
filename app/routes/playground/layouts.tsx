@@ -64,71 +64,7 @@ export default function LayoutDemosRoute() {
 
 
   return (
-      <div className="p-4">
-      {/* <!-- ===== Page Wrapper Start ===== --> */}
-      <div className="flex overflow-hidden">
-        {/* <!-- ===== Sidebar Start ===== --> */}
-      <Transition
-        show={isOpen}
-        enter="transition-opacity duration-75"
-        enterFrom="opacity-0"
-        enterTo="opacity-100"
-        leave="transition-opacity duration-150"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-      >
-        <Grid className="px-4 border border-black rounded-lg">
-        <Col className="py-2">
-          <div className="space-y-6">
-            {Array.from({ length: 4 }).map((_, idx) => (
-              <>
-                <Card
-                  onClick={() => setSelectedIndex(idx)}
-                  className="hover:shadow-lg hover:border-sp-primary">
-                  <Flex flexDirection="col" justifyContent="around" alignItems="center" className="">
-                    <Title>Dashboard Item {idx + 1}</Title>
-                    <Text>optional descriptive text</Text>
-                  </Flex>
-                </Card>
-              </>
-            ))}
-          </div>
-        </Col>
-        </Grid>
-        </Transition>
-        {/* <!-- ===== Sidebar End ===== --> */}
-
-        {/* <!-- ===== Content Area Start ===== --> */}
-        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-          {/* <!-- ===== Header Start ===== --> */}
-      <Flex flexDirection="row" justifyContent="between" alignItems="start" className="mb-2 px-4">
-        <Bars3Icon className="w-6 h-6 self-start" onClick={() => setIsOpen((o) => !o)} />
-        <TextAvatar className="" />
-        {/*<UserCircleIcon className="w-6 h-6" />*/}
-        {/*<Avatar className="">Item {selectedIndex + 1} Selected</Avatar>*/}
-      </Flex>
-          {/* <!-- ===== Header End ===== --> */}
-
-          {/* <!-- ===== Main Content Start ===== --> */}
-          <main className="mx-auto max-w-screen-2xl  border border-black rounded-lg">
-          <Card className="p-2">
-              <Flex flexDirection="col" justifyContent="around" alignItems="center" className="mt-6">
-                {location.pathname === 'layouts' ? (
-                  <>
-                  <Title>Item {selectedIndex + 1} Selected</Title>
-                <Text>page details below...</Text></>
-                ): null}
-                <Outlet />
-              </Flex>
-              
-          </Card>
-          </main>
-          {/* <!-- ===== Main Content End ===== --> */}
-        </div>
-        {/* <!-- ===== Content Area End ===== --> */}
-      </div>
-      {/* <!-- ===== Page Wrapper End ===== --> */}
-    </div>
+    <Outlet />
   );
 };
 
@@ -380,9 +316,9 @@ export function ErrorBoundary() {
     );
   } else if (error instanceof Error) {
     return (
-      <div className="flex flex-col items-center justify-center text-slate-800 dark:text-slate-200 max-w-150">
+      <div className="flex flex-col items-center justify-center text-slate-800 dark:text-slate-200">
         <h1 className="text-3xl font-bold mb-8">Client Error</h1>
-        <div className="border-2 border-red-500 text-lg font-normal">
+        <div className="border-2 border-red-500 text-lg font-normal mr-32">
           <p className="mb-2">{error.message}</p>
           <p className="font-semibold text-xl">The stack trace is:</p>
           <pre className="">{error.stack}</pre>

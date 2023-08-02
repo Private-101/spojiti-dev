@@ -3,7 +3,7 @@ import { Transition } from '@headlessui/react';
 import { NavLink, useSearchParams } from '@remix-run/react';
 import { Toast } from '~/components/common/Toast';
 import { DropdownButton, DropdownButtonItem } from '~/components/playground/DropdownButton';
-import { classNames } from '~/utils';
+import { classNames as cn } from '~/utils';
 import TabsDemoPage from '~/experimental/pages/tabs.demo';
 type PaginationAction = (index: number) => void;
 
@@ -37,14 +37,45 @@ export default function TransitionRoute() {
         setSearchParams([['current-page-index', n.toString()]]);
     };
 
+    // const skeletonClassNames = 
+  // "after:absolute after:top-0 after:left-0 after:right-0 after:h-full " +
+  // "after:bg-gradient-to-r after:from-[#ebebeb] after:via-[#f5f5f5] after:to-[#ebebeb] after:animate-react-loading-skeleton " +
+  // "bg-gradient-to-r from-[#ebebeb] via-[#f5f5f5] to-[#ebebeb]"
+  // "before:content-' ' before:display-block " +
+  // "before:block before:after:absolute before:top-0 before:left-0 before:right-0 before:h-full " +
+  // "before:bg-gradient-to-r before:from-[#ebebeb] before:via-[#f5f5f5] before:to-[#ebebeb] " +
+  // "before:animate-pulse " +
+  // "md:before:display-none"
 
 
+  // "bg-black w-full rounded inline-flex items-center relative select-none overflow-hidden z-10 "
 
+  const gradient = "bg-gradient-to-r from-[#dcdcdc] via-[#f5f5f5] to-[#dcdcdc]";
+  const ping = "animate-ping animate-infinite animate-duration-200 animate-ease-linear animate-reverse";
+  const pulse = "animate-pulse";
     return (
         <>
             <section className="flex flex-col min-h-screen w-full justify-around items-center bg-slate-100 p-12">
                 <TabsDemoPage />
                 <TagDisplay />
+                <div className="border border-black min-w-full min-h-fit bg-white p-2">
+                    <div className={cn("mb-4 bg-gradient-to-r from-[#dcdcdc] via-[#f5f5f5] to-[#dcdcdc] h-4 rounded block items-center relative select-none animate-pulse")}></div>
+                    <div className="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
+  <div className={cn(ping, "flex space-x-4")}>
+    <div className={cn("rounded-full h-10 w-10", gradient)}></div>
+    <div className={cn("flex-1 space-y-6 py-1")}>
+      <div className={cn("h-2 rounded", gradient)}></div>
+      <div className={cn("space-y-3")}>
+        <div className={cn("grid grid-cols-3 gap-4")}>
+          <div className={cn("h-2 rounded col-span-2", gradient)}></div>
+          <div className={cn("h-2 rounded col-span-1", gradient)}></div>
+        </div>
+        <div className={cn("h-2 rounded", gradient)}></div>
+      </div>
+    </div>
+  </div>
+</div>
+                </div>
                 {/*<Toast message="you've been toasted!" show={show} />*/}
                 <div className="flex flex-col items-center justify-around space-y-6">
                 <Modal buttonSize={"xl"} buttonIsClosedText="Click to Open!" buttonIsOpenText="Click to Close!" setIsOpen={setIsOpen} isOpen={isOpen}>
@@ -92,7 +123,7 @@ function Modal({ isOpen, setIsOpen, buttonIsOpenText, buttonIsClosedText, childr
                             type="button"
                             id="modal-trigger"
                             onClick={() => setIsOpen((v) => !v)}
-                            className={classNames(`text-${buttonSize}`, "inline-flex items-center rounded-md border-2 border-sp-primary bg-transparent px-3 py-2 font-medium leading-4 text-slate-800 dark:text-slate-200 transition duration-150 ease-in-out hover:border-blue-500 dark:hover:border-blue-300 hover:font-semibold focus:border-blue-500 dark:focus:border-blue-300 focus:outline-none dark:active:bg-sp-primary dark:active:border-blue-300")}
+                            className={cn(`text-${buttonSize}`, "inline-flex items-center rounded-md border-2 border-sp-primary bg-transparent px-3 py-2 font-medium leading-4 text-slate-800 dark:text-slate-200 transition duration-150 ease-in-out hover:border-blue-500 dark:hover:border-blue-300 hover:font-semibold focus:border-blue-500 dark:focus:border-blue-300 focus:outline-none dark:active:bg-sp-primary dark:active:border-blue-300")}
                         >
                             {isOpen ? buttonIsOpenText ? buttonIsOpenText : 'Hide' : buttonIsClosedText ? buttonIsClosedText : 'Show'}
                         </button>
@@ -112,10 +143,10 @@ function Modal({ isOpen, setIsOpen, buttonIsOpenText, buttonIsClosedText, childr
                 // afterEnter={() => console.log('afterEnter')}
                 // beforeLeave={() => console.log('beforeLeave')}
                 // afterLeave={() => console.log('afterLeave')}
-                // enter="transition-colors ease-out duration-[5s]"
+                // enter="transition-colors ease-out duration-1000"
                 // enterFrom="transform bg-red-500"
                 // enterTo="transform bg-blue-500"
-                // leave="transition-colors ease-in duration-[5s]"
+                // leave="transition-colors ease-in duration-1000"
                 // leaveFrom="transform bg-blue-500"
                 // leaveTo="transform bg-red-500"
                 // entered="bg-blue-500"
@@ -148,7 +179,7 @@ function PaginationGroup({ title, totalPages, currentPageIndex, action }: IPagin
                 {title ? <span className="font-bold text-xl text-white dark:text-[#444]">{title}</span> : <></>}
                 <ul id="pagination" className="p-2 m-0 list-none flex flex-row justify-around content-center items-center">
                     {Array.from({ length: totalPages }).map((_, i) => (
-                        <li key={`li-${i}`} onClick={() => action(i)} className={classNames(currentPageIndex === i ? "w-[38px] bg-sp-primary/60 hover:bg-sp-primary" : "w-[10px] bg-gray-200 hover:bg-sp-primary hover:w-[15px]", "h-[10px] rounded-full mx-1 transition-all cursor-pointer")} role="presentation"><button className="inline-block invisible"></button></li>
+                        <li key={`li-${i}`} onClick={() => action(i)} className={cn(currentPageIndex === i ? "w-[38px] bg-sp-primary/60 hover:bg-sp-primary" : "w-[10px] bg-gray-200 hover:bg-sp-primary hover:w-[15px]", "h-[10px] rounded-full mx-1 transition-all cursor-pointer")} role="presentation"><button className="inline-block invisible"></button></li>
                     ))}
                 </ul>
             </div>
@@ -210,7 +241,7 @@ function Feedback() {
                             <button
                             type="button"
                             onClick={() => setSelectedIndex(i)}
-                            className={classNames(selectedIndex === i ? "bg-red-500 hover:bg-red-400 border-gray-100 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-300" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border-gray-200 hover:border-gray-100 dark:border-gray-600 dark:hover:border-gray-700", "m-1 border p-1 rounded-full")}
+                            className={cn(selectedIndex === i ? "bg-red-500 hover:bg-red-400 border-gray-100 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-300" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border-gray-200 hover:border-gray-100 dark:border-gray-600 dark:hover:border-gray-700", "m-1 border p-1 rounded-full")}
                         >
                             {rating}
                         </button>
@@ -271,7 +302,7 @@ function EmojiFeedback() {
                             <button
                             type="button"
                             onClick={() => setSelectedIndex(i)}
-                            className={classNames(selectedIndex === i ? "bg-red-500 hover:bg-red-400 border-gray-100 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-300" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border-gray-200 hover:border-gray-100 dark:border-gray-600 dark:hover:border-gray-700", "text-3xl m-1 border p-1 rounded-full w-16 h-16")}
+                            className={cn(selectedIndex === i ? "bg-red-500 hover:bg-red-400 border-gray-100 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-300" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border-gray-200 hover:border-gray-100 dark:border-gray-600 dark:hover:border-gray-700", "text-3xl m-1 border p-1 rounded-full w-16 h-16")}
                         >
                             {rating}
                         </button>
