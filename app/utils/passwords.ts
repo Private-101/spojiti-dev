@@ -1,7 +1,8 @@
 import bcrypt from 'bcryptjs';
-import { StringArray } from 'test/indexable.interface';
-import PasswordValidator from '~/utils/password-validator.class';
+// import { StringArray } from 'test/indexable.interface';
+// import PasswordValidator from '~/utils/password-validator.class';
 
+/*
 const getPasswordHash = async (pass: string) => {
   const hash = await bcrypt.hash(pass, 10);
   return hash;
@@ -25,3 +26,8 @@ schema
 const validatePassword = (pass: string) => schema.validate(pass);
 
 module.exports = { getPasswordHash, validatePassHash, validatePassword };
+*/
+
+
+
+

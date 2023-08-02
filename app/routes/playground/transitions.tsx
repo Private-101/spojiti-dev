@@ -14,13 +14,13 @@ export default function TransitionRoute() {
     // const [show, setShow] = useState(false);
     const [currentPageIndex, setCurrentPageIndex] = useState<number>(0);
     const [searchParams, setSearchParams] = useSearchParams();
-/*
-    useEffect(() => {
-        const interval = setInterval(() => setShow(s => !s), 3000);
-
-        return () => clearInterval(interval)
-    }, []);
-*/
+    /*
+        useEffect(() => {
+            const interval = setInterval(() => setShow(s => !s), 3000);
+    
+            return () => clearInterval(interval)
+        }, []);
+    */
     useEffect(() => {
         const currentPage = searchParams.get('current-page-index');
 
@@ -38,63 +38,64 @@ export default function TransitionRoute() {
     };
 
     // const skeletonClassNames = 
-  // "after:absolute after:top-0 after:left-0 after:right-0 after:h-full " +
-  // "after:bg-gradient-to-r after:from-[#ebebeb] after:via-[#f5f5f5] after:to-[#ebebeb] after:animate-react-loading-skeleton " +
-  // "bg-gradient-to-r from-[#ebebeb] via-[#f5f5f5] to-[#ebebeb]"
-  // "before:content-' ' before:display-block " +
-  // "before:block before:after:absolute before:top-0 before:left-0 before:right-0 before:h-full " +
-  // "before:bg-gradient-to-r before:from-[#ebebeb] before:via-[#f5f5f5] before:to-[#ebebeb] " +
-  // "before:animate-pulse " +
-  // "md:before:display-none"
+    // "after:absolute after:top-0 after:left-0 after:right-0 after:h-full " +
+    // "after:bg-gradient-to-r after:from-[#ebebeb] after:via-[#f5f5f5] after:to-[#ebebeb] after:animate-react-loading-skeleton " +
+    // "bg-gradient-to-r from-[#ebebeb] via-[#f5f5f5] to-[#ebebeb]"
+    // "before:content-' ' before:display-block " +
+    // "before:block before:after:absolute before:top-0 before:left-0 before:right-0 before:h-full " +
+    // "before:bg-gradient-to-r before:from-[#ebebeb] before:via-[#f5f5f5] before:to-[#ebebeb] " +
+    // "before:animate-pulse " +
+    // "md:before:display-none"
 
 
-  // "bg-black w-full rounded inline-flex items-center relative select-none overflow-hidden z-10 "
+    // "bg-black w-full rounded inline-flex items-center relative select-none overflow-hidden z-10 "
 
-  const gradient = "bg-gradient-to-r from-[#dcdcdc] via-[#f5f5f5] to-[#dcdcdc]";
-  const ping = "animate-ping animate-infinite animate-duration-200 animate-ease-linear animate-reverse";
-  const pulse = "animate-pulse";
+    const gradient = "bg-gradient-to-r from-[#e1e1e1] via-[#f5f5f5] to-[#e1e1e1]";
+    const lightgradient = "bg-gradient-to-r from-[#f9f9f9] via-[#efefef] to-[#f9f9f9]";
+    const ping = "animate-ping animate-infinite animate-duration-[2000ms] animate-ease-linear animate-reverse";
+    const pulse = "animate-pulse animate-infinite animate-duration-[2000ms]";
+    const fade = "animate-fade animate-infinite animate-duration-[2000ms] animate-ease-linear animate-reverse";
     return (
         <>
             <section className="flex flex-col min-h-screen w-full justify-around items-center bg-slate-100 p-12">
                 <TabsDemoPage />
                 <TagDisplay />
                 <div className="border border-black min-w-full min-h-fit bg-white p-2">
-                    <div className={cn("mb-4 bg-gradient-to-r from-[#dcdcdc] via-[#f5f5f5] to-[#dcdcdc] h-4 rounded block items-center relative select-none animate-pulse")}></div>
                     <div className="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
-  <div className={cn(ping, "flex space-x-4")}>
-    <div className={cn("rounded-full h-10 w-10", gradient)}></div>
-    <div className={cn("flex-1 space-y-6 py-1")}>
-      <div className={cn("h-2 rounded", gradient)}></div>
-      <div className={cn("space-y-3")}>
-        <div className={cn("grid grid-cols-3 gap-4")}>
-          <div className={cn("h-2 rounded col-span-2", gradient)}></div>
-          <div className={cn("h-2 rounded col-span-1", gradient)}></div>
-        </div>
-        <div className={cn("h-2 rounded", gradient)}></div>
-      </div>
-    </div>
-  </div>
-</div>
+                        <div className={cn("flex space-x-4")}>
+                            <div className={cn(pulse, "rounded-full h-10 w-10", lightgradient)}></div>
+                            <div className={cn("flex-1 space-y-6 py-1")}>
+                                <div className={cn(pulse, "h-2 rounded", lightgradient)}></div>
+                                <div className={cn("space-y-3")}>
+                                    <div className={cn("grid grid-cols-3 gap-4")}>
+                                        <div className={cn(pulse, "h-2 rounded col-span-2", lightgradient)}></div>
+                                        <div className={cn(pulse, "h-2 rounded col-span-1", lightgradient)}></div>
+                                    </div>
+                                    <div className={cn(pulse, "h-2 rounded", lightgradient)}></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 {/*<Toast message="you've been toasted!" show={show} />*/}
                 <div className="flex flex-col items-center justify-around space-y-6">
-                <Modal buttonSize={"xl"} buttonIsClosedText="Click to Open!" buttonIsOpenText="Click to Close!" setIsOpen={setIsOpen} isOpen={isOpen}>
-                    <>
-                        <div className="rounded-md p-4 shadow shadow-white border border-neutral-100">
-                            <PaginationGroup totalPages={5} currentPageIndex={currentPageIndex} action={pageAction} />
-                        </div>
-                    </>
-                </Modal>
-                <Modal buttonSize={"xl"} buttonIsClosedText="Tell us what you think!" buttonIsOpenText="Click to Close" setIsOpen={setIsReviewOpen} isOpen={isReviewOpen}>
-                    <>
-                    <Feedback />
-                    </>
-                </Modal>
-                <Modal buttonSize={"xl"} buttonIsClosedText="Rate Us!" buttonIsOpenText="Click to Close" setIsOpen={setIsRatingOpen} isOpen={isRatingOpen}>
-                    <>
-                    <EmojiFeedback />
-                    </>
-                </Modal>
+                    <Modal buttonSize={"xl"} buttonIsClosedText="Click to Open!" buttonIsOpenText="Click to Close!" setIsOpen={setIsOpen} isOpen={isOpen}>
+                        <>
+                            <div className="rounded-md p-4 shadow shadow-white border border-neutral-100">
+                                <PaginationGroup totalPages={5} currentPageIndex={currentPageIndex} action={pageAction} />
+                            </div>
+                        </>
+                    </Modal>
+                    <Modal buttonSize={"xl"} buttonIsClosedText="Tell us what you think!" buttonIsOpenText="Click to Close" setIsOpen={setIsReviewOpen} isOpen={isReviewOpen}>
+                        <>
+                            <Feedback />
+                        </>
+                    </Modal>
+                    <Modal buttonSize={"xl"} buttonIsClosedText="Rate Us!" buttonIsOpenText="Click to Close" setIsOpen={setIsRatingOpen} isOpen={isRatingOpen}>
+                        <>
+                            <EmojiFeedback />
+                        </>
+                    </Modal>
                 </div>
             </section>
             {/*<section className="flex min-h-fit w-full items-center bg-slate-100">
@@ -238,16 +239,16 @@ function Feedback() {
                     <div className="m-2">
                         {ratings.map((rating, i) => (
                             <>
-                            <button
-                            type="button"
-                            onClick={() => setSelectedIndex(i)}
-                            className={cn(selectedIndex === i ? "bg-red-500 hover:bg-red-400 border-gray-100 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-300" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border-gray-200 hover:border-gray-100 dark:border-gray-600 dark:hover:border-gray-700", "m-1 border p-1 rounded-full")}
-                        >
-                            {rating}
-                        </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setSelectedIndex(i)}
+                                    className={cn(selectedIndex === i ? "bg-red-500 hover:bg-red-400 border-gray-100 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-300" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border-gray-200 hover:border-gray-100 dark:border-gray-600 dark:hover:border-gray-700", "m-1 border p-1 rounded-full")}
+                                >
+                                    {rating}
+                                </button>
                             </>
                         ))}
-                        
+
                         {/*<button
                             type="button"
                             className="bg-gray-100 dark:bg-gray-900 m-1 border p-1 rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 border-gray-200 hover:border-gray-100 dark:border-gray-600 dark:hover:border-gray-700"
@@ -299,16 +300,16 @@ function EmojiFeedback() {
                     <div className="m-2">
                         {ratings.map((rating, i) => (
                             <>
-                            <button
-                            type="button"
-                            onClick={() => setSelectedIndex(i)}
-                            className={cn(selectedIndex === i ? "bg-red-500 hover:bg-red-400 border-gray-100 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-300" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border-gray-200 hover:border-gray-100 dark:border-gray-600 dark:hover:border-gray-700", "text-3xl m-1 border p-1 rounded-full w-16 h-16")}
-                        >
-                            {rating}
-                        </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setSelectedIndex(i)}
+                                    className={cn(selectedIndex === i ? "bg-red-500 hover:bg-red-400 border-gray-100 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-300" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border-gray-200 hover:border-gray-100 dark:border-gray-600 dark:hover:border-gray-700", "text-3xl m-1 border p-1 rounded-full w-16 h-16")}
+                                >
+                                    {rating}
+                                </button>
                             </>
                         ))}
-                        
+
                         {/*<button
                             type="button"
                             className="bg-gray-100 dark:bg-gray-900 m-1 border p-1 rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 border-gray-200 hover:border-gray-100 dark:border-gray-600 dark:hover:border-gray-700"
@@ -399,12 +400,12 @@ function BrowserWindow() {
                             className="text-xs bg-gray-100 dark:bg-gray-900 w-1/2 rounded-lg py-1 flex justify-between items-center"
                         >
                         </a>*/}
-    <div className="text-xs bg-gray-100 dark:bg-gray-900 w-1/2 rounded-lg py-1 flex justify-between items-center">
+                        <div className="text-xs bg-gray-100 dark:bg-gray-900 w-1/2 rounded-lg py-1 flex justify-between items-center">
                             <div className="flex items-center justify-center pl-4">
                                 <span className="text-green-500 w-4 h-4 mr-2"><Lock /></span>
                                 <span className="bg-transparent border rounded-md border-transparent hover:border-black">
                                     <input className="bg-transparent border rounded-md border-transparent hover:border-black" defaultValue={"tailwindcss.com"} />
-                                    </span>
+                                </span>
                             </div>
                             <div className="flex pr-4">
                                 <span className="text-gray-500 w-4 h-4"><Refresh /></span>
@@ -431,70 +432,70 @@ function BrowserWindow() {
 
 function TagDisplay() {
     return (
-      <div className="p-8 w-full h-full flex items-center justify-center flex-col">
-        <div className="flex items-center justify-start">
-          <div className="m-2 border border-gray-400 dark:border-gray-500 rounded-full relative bg-gray-200 dark:bg-gray-700">
-            <div className="px-2 py-1 text-xs text-gray-700 dark:text-gray-200 font-semibold">
-              Neutral tag
+        <div className="p-8 w-full h-full flex items-center justify-center flex-col">
+            <div className="flex items-center justify-start">
+                <div className="m-2 border border-gray-400 dark:border-gray-500 rounded-full relative bg-gray-200 dark:bg-gray-700">
+                    <div className="px-2 py-1 text-xs text-gray-700 dark:text-gray-200 font-semibold">
+                        Neutral tag
+                    </div>
+                </div>
+                <div className="m-2 border border-gray-400 dark:border-gray-500 rounded-full relative">
+                    <div className="px-2 py-1 text-xs text-gray-700 dark:text-gray-200 font-semibold">
+                        Neutral tag
+                    </div>
+                </div>
             </div>
-          </div>
-          <div className="m-2 border border-gray-400 dark:border-gray-500 rounded-full relative">
-            <div className="px-2 py-1 text-xs text-gray-700 dark:text-gray-200 font-semibold">
-              Neutral tag
+            <div className="flex items-center justify-start">
+                <div className="m-2 border border-blue-400 dark:border-blue-500 rounded-full relative bg-blue-200 dark:bg-blue-700">
+                    <div className="px-2 py-1 text-xs text-blue-700 dark:text-blue-200 font-semibold">
+                        Information tag
+                    </div>
+                </div>
+                <div className="m-2 border border-blue-400 dark:border-blue-500 rounded-full relative">
+                    <div className="px-2 py-1 text-xs text-blue-700 dark:text-blue-200 font-semibold">
+                        Information tag
+                    </div>
+                </div>
             </div>
-          </div>
+            <div className="flex items-center justify-start">
+                <div className="m-2 border border-green-400 dark:border-green-500 rounded-full relative bg-green-200 dark:bg-green-700">
+                    <div className="px-2 py-1 text-xs text-green-700 dark:text-blue-200 font-semibold">
+                        Positive tag
+                    </div>
+                </div>
+                <div className="m-2 border border-green-400 dark:border-green-500 rounded-full relative">
+                    <div className="px-2 py-1 text-xs text-green-700 dark:text-green-200 font-semibold">
+                        Positive tag
+                    </div>
+                </div>
+            </div>
+            <div className="flex items-center justify-start">
+                <div className="m-2 border border-yellow-400 dark:border-yellow-500 rounded-full relative bg-yellow-200 dark:bg-yellow-700">
+                    <div className="px-2 py-1 text-xs text-yellow-700 dark:text-yellow-200 font-semibold">
+                        Warning tag
+                    </div>
+                </div>
+                <div className="m-2 border border-yellow-400 dark:border-yellow-500 rounded-full relative">
+                    <div className="px-2 py-1 text-xs text-yellow-700 dark:text-yellow-200 font-semibold">
+                        Warning tag
+                    </div>
+                </div>
+            </div>
+            <div className="flex items-center justify-start">
+                <div className="m-2 border border-red-400 dark:border-red-500 rounded-full relative bg-red-200 dark:bg-red-700">
+                    <div className="px-2 py-1 text-xs text-red-700 dark:text-red-200 font-semibold">
+                        Negative tag
+                    </div>
+                </div>
+                <div className="m-2 border border-red-400 dark:border-red-500 rounded-full relative">
+                    <div className="px-2 py-1 text-xs text-red-700 dark:text-red-200 font-semibold">
+                        Negative tag
+                    </div>
+                </div>
+            </div>
         </div>
-        <div className="flex items-center justify-start">
-          <div className="m-2 border border-blue-400 dark:border-blue-500 rounded-full relative bg-blue-200 dark:bg-blue-700">
-            <div className="px-2 py-1 text-xs text-blue-700 dark:text-blue-200 font-semibold">
-              Information tag
-            </div>
-          </div>
-          <div className="m-2 border border-blue-400 dark:border-blue-500 rounded-full relative">
-            <div className="px-2 py-1 text-xs text-blue-700 dark:text-blue-200 font-semibold">
-              Information tag
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center justify-start">
-          <div className="m-2 border border-green-400 dark:border-green-500 rounded-full relative bg-green-200 dark:bg-green-700">
-            <div className="px-2 py-1 text-xs text-green-700 dark:text-blue-200 font-semibold">
-              Positive tag
-            </div>
-          </div>
-          <div className="m-2 border border-green-400 dark:border-green-500 rounded-full relative">
-            <div className="px-2 py-1 text-xs text-green-700 dark:text-green-200 font-semibold">
-              Positive tag
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center justify-start">
-          <div className="m-2 border border-yellow-400 dark:border-yellow-500 rounded-full relative bg-yellow-200 dark:bg-yellow-700">
-            <div className="px-2 py-1 text-xs text-yellow-700 dark:text-yellow-200 font-semibold">
-              Warning tag
-            </div>
-          </div>
-          <div className="m-2 border border-yellow-400 dark:border-yellow-500 rounded-full relative">
-            <div className="px-2 py-1 text-xs text-yellow-700 dark:text-yellow-200 font-semibold">
-              Warning tag
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center justify-start">
-          <div className="m-2 border border-red-400 dark:border-red-500 rounded-full relative bg-red-200 dark:bg-red-700">
-            <div className="px-2 py-1 text-xs text-red-700 dark:text-red-200 font-semibold">
-              Negative tag
-            </div>
-          </div>
-          <div className="m-2 border border-red-400 dark:border-red-500 rounded-full relative">
-            <div className="px-2 py-1 text-xs text-red-700 dark:text-red-200 font-semibold">
-              Negative tag
-            </div>
-          </div>
-        </div>
-      </div>
     );
-  }
+}
 
 
 

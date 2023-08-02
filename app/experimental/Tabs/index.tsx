@@ -38,6 +38,7 @@ import type { ITabListContext, ITabListProps, ITabPanelProps, ITabProps, ITabCon
 
 export const Panel: React.FC<ITabPanelProps> = ({ children, index }) => {
   const panelRef = useRef<number>(index);
+  // const currentPanelContext = useContext(selectedPanelContext);
   return (
     <panelContext.Provider value={panelRef.current}>
       {children}

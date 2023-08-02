@@ -1,0 +1,111 @@
+/*
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --white: #fff;
+    --white2: #f5f5f5;
+    --primary-color: #ff6b6b;
+    --light-gray: #d3d3d3;
+    --gray: #808080;
+    --dark-blue: #0f3460;
+    --dark: #222831;
+    --yellow: #ffd369;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body,
+  .app {
+    @apply font-sans;
+    font-family: "Poppins", sans-serif !important;
+    background-color: var(--white);
+    height: 100%;
+    min-height: 100vh;
+    width: 100%;
+    min-width: 100vw;
+  }
+
+  .line {
+    @apply line-through;
+  }
+
+  .hide {
+    @apply invisible;
+  }
+
+  .active {
+    @apply hidden;
+  }
+
+  .dark {
+    @apply bg-gray;
+    color: #fff;
+  }
+</style>
+
+*/
+
+
+/* Colors */
+:root {
+    --white: #fff;
+    --white2: #f5f5f5;
+    --primary-color: #ff6b6b;
+    --light-gray: #d3d3d3;
+    --gray: #808080;
+    --dark-blue: #0f3460;
+    --dark: #222831;
+    --yellow: #ffd369;
+  }
+  
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800&display=swap");
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif !important;
+  }
+  
+  body,
+  .app {
+    font-family: "Poppins", sans-serif !important;
+    background-color: var(--white);
+    height: 100%;
+    min-height: 100vh;
+    width: 100%;
+    min-width: 100vw;
+  }
+  
+  .line {
+    text-decoration: line-through;
+  }
+  
+  .hide {
+    visibility: hidden;
+  }
+  
+  .active {
+    display: none;
+  }
+  
+  .dark {
+    background-color: var(--gray);
+    color: #fff;
+  }
+  

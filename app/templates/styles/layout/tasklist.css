@@ -1,0 +1,210 @@
+/*
+<div class="task-list">
+  <!-- Content -->
+</div>
+
+<style>
+  .task-list {
+    @apply flex justify-center items-center flex-col;
+  }
+
+  .task-list .task-card {
+    @apply flex justify-between items-center m-4 min-w-900px max-w-900px p-2 border-b border-gray-300;
+  }
+
+  .task-list .task-card .checkbox {
+    @apply w-5 h-5 bg-white border-2 border-gray-300 rounded-full appearance-none outline-none cursor-pointer;
+  }
+
+  .task-list .task-card .checkbox:checked {
+    @apply appearance-auto clip-path-[50% at 50% 50%];
+  }
+
+  .task-list .task-card .task-text {
+    @apply flex justify-start items-center p-2 min-w-700px max-w-700px break-words;
+  }
+
+  .task-list .task-card .card-btn .delete,
+  .task-list .task-card .card-btn .edit {
+    @apply m-2 cursor-pointer;
+  }
+
+  .task-list.dark .task-card {
+    @apply bg-[#333];
+  }
+
+  .task-list.dark .task-card .card-btn {
+    @apply text-[#f4f4f4];
+  }
+
+  .task-list.dark .task-card.selected {
+    @apply bg-[#19376d] !important;
+  }
+
+  .task-list.dark .task-card .task-text.check {
+    @apply line-through text-[#f4f4f4] !important;
+  }
+
+  .task-card.selected {
+    @apply bg-[#3f83e0] !important;
+    @apply text-[#f4f4f4];
+  }
+
+  .task-text.check {
+    @apply line-through text-[#333];
+  }
+
+  @screen and (max-width: 900px) {
+    .task-list .task-card {
+      @apply min-w-600px max-w-600px;
+    }
+
+    .task-list .task-card .task-text {
+      @apply min-w-300px max-w-300px;
+    }
+
+    .no-task {
+      @apply text-1rem;
+    }
+  }
+
+  @screen and (max-width: 610px) {
+    .task-list .task-card
+
+*/
+
+
+
+.task-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .task-list .task-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem;
+    min-width: 900px;
+    max-width: 900px;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #888;
+  }
+  
+  .task-list .task-card .checkbox {
+    width: 1.3em;
+    height: 1.3em;
+    background-color: #fff;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #888;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .task-list .task-card .checkbox:checked {
+    appearance: auto;
+    clip-path: circle(50% at 50% 50%);
+  }
+  
+  .task-list .task-card .task-text {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.5rem;
+    min-width: 700px;
+    max-width: 700px;
+    word-wrap: break-word;
+  }
+  
+  .task-list .task-card .card-btn .delete,
+  .task-list .task-card .card-btn .edit {
+    margin: 6px;
+    cursor: pointer;
+  }
+  
+  .task-list.dark .task-card {
+    background-color: #2c3e50;
+  }
+  
+  .task-list.dark .task-card .card-btn {
+    color: #fff;
+  }
+  
+  .task-list.dark .task-card.selected {
+    background-color: #19376d !important;
+  }
+  
+  .task-list.dark .task-card .task-text.check {
+    text-decoration: line-through;
+    color: #fff !important;
+  }
+  
+  .task-card.selected {
+    background-color: #3498db !important;
+    color: #fff;
+  }
+  
+  .task-text.check {
+    text-decoration: line-through;
+    color: #888;
+  }
+  
+  @media only screen and (max-width: 900px) {
+    .task-list .task-card {
+      min-width: 600px;
+      max-width: 600px;
+    }
+  
+    .task-list .task-card .task-text {
+      min-width: 300px;
+      max-width: 300px;
+    }
+  
+    .no-task {
+      font-size: 1rem;
+    }
+  }
+  
+  @media only screen and (max-width: 610px) {
+    .task-list .task-card {
+      min-width: 400px;
+      max-width: 400px;
+    }
+  
+    .task-list .task-card .task-text {
+      min-width: 200px;
+      max-width: 200px;
+    }
+  
+    .no-task {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media only screen and (max-width: 460px) {
+    .task-list .task-card {
+      min-width: 350px;
+      max-width: 350px;
+    }
+  
+    .task-list .task-card .task-text {
+      max-width: 100px;
+      font-size: 0.9rem;
+    }
+  
+    .task-list .task-card .card-btn .delete,
+    .task-list .task-card .card-btn .edit {
+      margin: 3px;
+      font-size: 13px;
+    }
+  
+    .no-task {
+      font-size: 0.8rem;
+    }
+  }
+  

@@ -1,0 +1,182 @@
+/*
+<div class="login-screen">
+  <div class="login-card">
+    <p class="welcome-text"></p>
+    <form class="login-form">
+      <div class="username-container">
+        <div class="user-icon"></div>
+        <input type="text" class="name-input" />
+      </div>
+      <button type="submit" class="login-btn"></button>
+    </form>
+  </div>
+</div>
+
+<style>
+  .login-screen {
+    @apply absolute z-10 flex justify-center items-center;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+  }
+
+  .login-screen .login-card {
+    @apply bg-white flex justify-center items-center flex-col;
+    min-width: 200px;
+    min-height: 300px;
+    padding: 3rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  .login-screen .login-card .welcome-text {
+    @apply text-lg font-semibold mb-4;
+    width: 100%;
+  }
+
+  .login-screen .login-card .login-form {
+    @apply flex justify-center items-center flex-col;
+  }
+
+  .login-screen .login-card .login-form .username-container {
+    @apply flex justify-center items-center mb-4;
+  }
+
+  .login-screen .login-card .login-form .username-container .user-icon {
+    @apply bg-primary-color w-10 h-10 rounded-full;
+    font-size: 1.5rem;
+  }
+
+  .login-screen .login-card .login-form .username-container .name-input {
+    @apply w-72 p-1 font-medium bg-white2 outline-none border-none;
+  }
+
+  .login-screen .login-card .login-form .login-btn {
+    @apply text-white font-semibold py-4 px-8 rounded-lg min-w-40 bg-primary-color cursor-pointer outline-none border-none;
+    font-size: 1rem;
+  }
+
+  .login-screen.dark {
+    @apply bg-gray !important;
+  }
+
+  .login-screen.dark .login-card {
+    @apply bg-dark;
+  }
+
+  .login-screen.dark .login-card .welcome-text {
+    @apply text-white2;
+  }
+
+  .login-screen.dark .login-card .login-form .username-container .user-icon {
+    @apply bg-dark-blue text-white2;
+  }
+
+  .login-screen.dark .login-card .
+
+*/
+
+
+.login-screen {
+    position: absolute;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+  }
+  
+  .login-screen .login-card {
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-width: 200px;
+    min-height: 300px;
+    padding: 3rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  }
+  
+  .login-screen .login-card .welcome-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+  
+  .login-screen .login-card .login-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .login-screen .login-card .login-form .username-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .login-screen .login-card .login-form .username-container .user-icon {
+    background-color: var(--primary-color);
+    width: 40px;
+    height: 40px;
+    padding: 0.5rem;
+    color: var(--white);
+  }
+  
+  .login-screen .login-card .login-form .username-container .name-input {
+    min-width: 300px;
+    padding: 0.2rem 0rem 0.2rem 1rem;
+    font-size: 1rem;
+    height: 40px;
+    background-color: var(--white2);
+    outline: none;
+    border: none;
+    font-weight: 500;
+  }
+  
+  .login-screen .login-card .login-form .login-btn {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    min-width: 200px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    outline: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .login-screen.dark {
+    background-color: var(--gray) !important;
+  }
+  
+  .login-screen.dark .login-card {
+    background-color: var(--dark);
+  }
+  
+  .login-screen.dark .login-card .welcome-text {
+    color: var(--white2);
+  }
+  
+  .login-screen.dark .login-card .login-form .username-container .user-icon {
+    background-color: var(--dark-blue);
+    color: var(--white2);
+  }
+  
+  .login-screen.dark .login-card .login-form .username-container .name-input {
+    background-color: var(--white);
+  }
+  
+  .login-screen.dark .login-card .login-form .login-btn {
+    background-color: var(--dark-blue);
+    color: var(--white);
+  }
+  

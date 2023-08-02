@@ -14,29 +14,45 @@ The key optimizations are:
 */
 
 // Declaring a type for the input that the function can receive
-type ClassValue = string | number | ClassDictionary | ClassArray;
+type ClassValue = string | ClassDictionary | undefined | null; // | ClassArray;
 
 interface ClassDictionary {
-  [id: string]: boolean | undefined | null;
+  [className: string]: boolean | undefined | null;
 }
 
-interface ClassArray extends Array<ClassValue> {} // eslint-disable-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// interface ClassArray extends Array<ClassValue> {}
 
-export default function classNamesV2(...args: ClassValue[]): string {
+
+// function test(...args: ClassValue[]) {
+//   return args;
+// };
+// all work!
+// test();
+// test(" ");
+// test({ "classnames": true, "other classnames": false });
+// test({ "classnames": true, "other classnames": false }, "mixed obj and string");
+//
+// test(["Type 'string' is not assignable to type 'boolean | null | undefined'."])
+
+
+export default function cn(...args: ClassValue[]): string {
   const classes: string[] = [];
 
-  for (const arg of args) {
+  let filterdArgs = args.filter(Boolean);
+
+  for (const arg of filterdArgs) {
     if (!arg) continue;
 
     const argType = typeof arg;
 
-    if (argType === 'string' || argType === 'number') {
+    if (argType === 'string') {
       classes.push(arg.toString());
-    } else if (Array.isArray(arg) && arg.length) {
-      const inner = classNamesV2(...arg);
+    /*} else if (Array.isArray(arg) && arg.length) {
+      const inner = cn(...arg);
       if (inner) {
         classes.push(inner);
-      }
+      }*/
     } else if (argType === 'object') {
       for (const key in arg as ClassDictionary) {
         if (arg.hasOwnProperty(key) && (arg as ClassDictionary)[key]) {
