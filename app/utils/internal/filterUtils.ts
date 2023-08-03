@@ -1,3 +1,51 @@
+import type { BaseObject } from "~/types/base";
+
+export interface IPathPreference {};
+
+export type PathPreferences = Record<string, IPathPreference>;
+/* export let pathPreferences: { [k: string]: IPathPreference } = {
+  "/user/info": {},
+  "/user/me": {},
+  "/user/accesses/{id}": {},
+  "/users": {},
+  "/users/{id}": {},
+  "/tasks": {},
+  "/tasks/{id}": {},
+}; */
+
+export type DefinedQueryTypes = {
+  id: string;
+  search: string;
+  keyword: string;
+  deleted: boolean;
+  limit: number;
+  offset: number;
+  showDeleted: boolean;
+  showInstalled: boolean;
+  departmentRecursive: boolean;
+};
+
+export type TagFilters = (tags: string[]) => boolean;
+
+/*
+export function wrap<O extends BaseObject>(obj: O) {
+  return {
+    get: <K extends keyof O>(keys: K): any => {
+      return obj.reduce((cur = obj, key: string) => {
+        return cur[key];
+      }, undefined);
+    }
+  }
+}
+*/
+
+
+export function fastGet<S extends object>(obj: S, path: any[]): any {
+  return path.reduce((cur: any = obj, key: string | number) => {
+    return cur[key];
+  }, undefined);
+}
+
 export const TermFilter = (field: string, value: string) => {
   return { term: { [field]: value } }
 }
