@@ -76,3 +76,32 @@ export function isOnline() {
     return false
   }
   // export const isWindow = typeof window !== 'undefined' ? (window as any) : undefined
+
+  export function validatetLatLng(value: Partial<GeolocationCoordinates> | string | Array<string | number> | Record<string, string>) {
+    if (typeof value === 'string') { 
+      const [lat, lng] = value.split(',').map((v) => parseFloat(v))
+      return { lat, lng }
+    } else if (Array.isArray(value)) {
+      if (typeof value[0] === 'string' && typeof value[1] === 'string') {
+        return { lat: parseFloat(value[0]), lng: parseFloat(value[1]) }
+      }
+      return { lat: value[0], lng: value[1] }
+    } else if (typeof value === 'object') {
+      if ('lat' in value && ('lon' in value || 'lng' in value)) {
+        return {
+          lat: parseFloat(value.lat as unknown as string),
+          lng: parseFloat(value.lon ?? value.lng as unknown as string)
+        }
+      }
+    }
+    return null
+  };
+
+  export const getKeyValue = (keys: string[], obj: Record<string, any>) => {
+    for (const key of keys) {
+      if (obj[key] && obj[key].length > 0) return obj[key].toString()
+    }
+    return ''
+  }
+
+  export const canUseDom: boolean = !!(typeof window !== "undefined" && window.document && window.document.createElement);

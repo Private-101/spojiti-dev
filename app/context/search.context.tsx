@@ -4,7 +4,7 @@ import type { SearchParamType, ISearchContext } from "types/search.types";
 /*************************************************************************************************/
 import { setSearchParams, getSearchParams, objectDeepCopy } from 'hooks/utils';
 import type { SearchParamsAction, SearchParamsActionType, UseSearchParamsConfig, UseSearchParamsResult, CreateUseSearchParamsContextResult, SearchParamObjectType, PrimitiveSearchParam, CustomeSearchParamsProviderProps } from 'hooks/types';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 
 
 // export type SearchParamType<T> = { [key: string]: T };

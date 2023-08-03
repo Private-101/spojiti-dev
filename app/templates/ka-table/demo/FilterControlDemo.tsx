@@ -244,7 +244,7 @@ import { DataType, Table } from '../../lib';
 import { SortDirection, SortingMode } from '../../lib/enums';
 
 import React from 'react';
-import orderBy from 'lodash.orderby';
+import {orderBy} from 'lodash-es-es';
 
 const dataArray: any[] = [
   { id: 1, name: 'Mike Wazowski', score: 80, passed: true, faculty: 'Economics', comment: 'Well done!' },

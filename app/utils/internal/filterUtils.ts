@@ -1,3 +1,11 @@
+export const TermFilter = (field: string, value: string) => {
+  return { term: { [field]: value } }
+}
+
+export const MatchFilter = (field: string, value: string) => {
+  return { match: { [field]: value } }
+}
+
 const contains = (data: any[], item: any) => {
     if (!item.value) { return true; }
     return data[item.field].toLowerCase().includes(item.value.toLowerCase());

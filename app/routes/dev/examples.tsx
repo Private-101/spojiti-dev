@@ -2,7 +2,7 @@ import type { V2_MetaFunction, LinksFunction, LoaderArgs } from "@remix-run/node
 import { json } from "@remix-run/node";
 import { useLoaderData, useFetcher, Outlet, useOutletContext } from "@remix-run/react";
 import React, { useLayoutEffect, useEffect, useState } from "react";
-import { sampleSize } from 'lodash';
+import { sampleSize } from 'lodash-es';
 import type { FileObject } from "~/services/dev.server";
 
 import { classNames, unslugify } from "~/utils";

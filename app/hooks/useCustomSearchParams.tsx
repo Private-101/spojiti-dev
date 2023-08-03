@@ -1,7 +1,7 @@
 import React, { type Reducer, useMemo, useState, useCallback, useEffect, useReducer, useRef, createContext, useContext } from 'react';
 import { setSearchParams, getSearchParams, objectDeepCopy } from 'hooks/utils';
 import type { SearchParamsAction, SearchParamsActionType, UseSearchParamsConfig, UseSearchParamsResult, CreateUseSearchParamsContextResult, SearchParamObjectType, PrimitiveSearchParam, CustomeSearchParamsProviderProps } from 'hooks/types';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 
 /*
 interface Indexable<T extends Keys<Person>> {

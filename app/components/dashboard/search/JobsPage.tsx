@@ -6,7 +6,7 @@ import Filter from './Filter'
 import ClearFilters from './ClearFilters'
 import Header from './Header'
 import Modal from './Modal'
-import { reduce } from 'lodash'
+import { reduce } from 'lodash-es'
 
 interface JobData {
         id: number;

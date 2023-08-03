@@ -1,9 +1,9 @@
-import {size} from 'lodash';
+import {size} from 'lodash-es';
 import * as xlsx from 'xlsx';
 
 // @ts-check
 /**
- * This functions dependencies are xlsx + lodash
+ * This functions dependencies are xlsx + lodash-es
  * This function contains an optional parameter for the length of the output, with the default being the length of the excel sheets row
  */
 
@@ -14,7 +14,7 @@ export const importExcelSheet = (
   ) => {
     // let XLSX;
     // if (typeof require !== "undefined") XLSX = require("xlsx");
-    // const _ = require("lodash");
+    // const _ = require("lodash-es");
     const workbook = xlsx.readFile(fileName);
     const numberOfCols = 5;
     const numberOfRows = size(workbook.Sheets[sheetTab]) / numberOfCols - 1.75; // 1.75 accounts for extra unwanted information in the sheetsJS object.
