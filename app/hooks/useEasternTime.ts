@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const useEasternTime = (refreshCycle = 1000) => {
+const useEasternTime = (refreshCycle = 1000) => {
   // Returns the current time
   // and queues re-renders every `refreshCycle` milliseconds (default: 100ms)
 
@@ -32,3 +32,5 @@ export const getEasternTime = () => {
   // convert the EST time string back to a Date object
   return new Date(estTime);
 };
+
+export default useEasternTime;

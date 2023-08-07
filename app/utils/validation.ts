@@ -3,6 +3,10 @@ import type { ChangeEvent } from "react";
 
 export const isEmpty = (value: any): boolean => (value == null || value.length === 0);
 
+export function isPlainObject(item: unknown): item is Record<keyof any, unknown> {
+  return item !== null && typeof item === 'object' && item.constructor === Object;
+}
+
 /**
  * Assumes true for a non-browser env, otherwise makes a best effort
  * @link https://developer.mozilla.org/en-US/docs/Web/API/Document/visibilityState

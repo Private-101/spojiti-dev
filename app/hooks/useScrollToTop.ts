@@ -1,7 +1,8 @@
 import { useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useEnhancedEffect } from "~/hooks";
 
-export default function ScrollToTop() {
+export default function useScrollToTop() {
   const { pathname } = useLocation();
 
   useLayoutEffect(() => {

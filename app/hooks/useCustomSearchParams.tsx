@@ -1,7 +1,7 @@
 import React, { type Reducer, useMemo, useState, useCallback, useEffect, useReducer, useRef, createContext, useContext } from 'react';
 import { setSearchParams, getSearchParams, objectDeepCopy } from 'hooks/utils';
 import type { SearchParamsAction, SearchParamsActionType, UseSearchParamsConfig, UseSearchParamsResult, CreateUseSearchParamsContextResult, SearchParamObjectType, PrimitiveSearchParam, CustomeSearchParamsProviderProps } from 'hooks/types';
-import { debounce } from 'lodash-es';
+import { debounce } from 'lodash';
 
 /*
 interface Indexable<T extends Keys<Person>> {
@@ -34,7 +34,7 @@ const currentSearchParamsUpdater: { id?: number } = {
 };
 
 //  extends {[key: string]: any}
-export const useCustomSearchParams = <TValues extends SearchParamObjectType>(
+const useCustomSearchParams = <TValues extends SearchParamObjectType>(
   config?: UseSearchParamsConfig<TValues>
 ): UseSearchParamsResult<TValues> => {
   const id = useRef(Math.ceil(Math.random() * 9999));

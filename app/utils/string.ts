@@ -16,7 +16,8 @@ export function isValidKey(key: string, whitelist: string[]) {
   };
 
 export function capitalize(str: string) {
-    return str.replace(str[0], str[0].toUpperCase())
+    return str.replace(str[0], str[0].toUpperCase());
+    // return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   export const pluralize = (text: string, count: number) => {

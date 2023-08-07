@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { RiSearch2Line } from 'react-icons/ri';
 import { useSearchParams } from 'react-router-dom';
-import { debounce } from 'lodash-es';
+import { debounce } from 'lodash';
 
 export default function SearchBar() {
   const [focused, setFocused] = useState(false);

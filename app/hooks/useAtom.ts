@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { produce } from "immer";
 
 /** "Clojure Atom"-like data management for React Hooks */
-export let useAtom = <T>(data: T) => {
+const useAtom = <T>(data: T) => {
   // state only for triggering changes, data actually hold in dataRef
   let [state, setState] = useState(data);
   let dataRef = useRef(data);
@@ -25,3 +25,5 @@ export let useAtom = <T>(data: T) => {
     },
   };
 };
+
+export default useAtom;

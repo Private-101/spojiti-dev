@@ -117,11 +117,11 @@ import { Link, useSearchParams, useSubmit, useNavigation } from '@remix-run/reac
 import { json, redirect } from '@remix-run/node';
 import type { LoaderArgs, ActionArgs } from '@remix-run/node';
 import { generateUserCard } from '~/experimental/pages/page.data';
-import type { IUserCardProps }
-    from '~/temp/dev/types';
-
+import type { IUserCardProps } from '~/temp/dev/types';
+import { classNames } from '~/utils';
 import SocialShareButtons from '~/components/common/SocialShareButtons';
 import { MinusSmallIcon } from '@heroicons/react/24/solid';
+import type { FormattedCategory, FormattedJobPost } from "~/models/job.server";
 type JobOrUserType = "job" | "user";
 
 /*
@@ -207,7 +207,7 @@ tags?: string[]
  */
 
 
-export default function ColumnsRoute() {
+export default function ColumnsRoute({categories, jobs}: {categories?: FormattedCategory[], jobs?: FormattedJobPost[]}) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [userData, setUserData] = React.useState<IUserCardProps[] | null>(null);
     const [minSalary, setMinSalary] = React.useState<number>(20);
@@ -248,11 +248,6 @@ export default function ColumnsRoute() {
 
     const memoizedUserData = React.useMemo(() => userData, [userData]);
 
-
-    React.useEffect(() => {
-
-    }, []);
-
     const updateMinSalary = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.currentTarget.valueAsNumber !== minSalary) {
             setMinSalary(event.currentTarget.valueAsNumber);
@@ -278,11 +273,13 @@ export default function ColumnsRoute() {
 
     function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
         event.preventDefault();
+        event.stopPropagation();
         if (event.currentTarget.name === 'min-salary') updateMinSalary(event);
         if (!searchParams.has(event.currentTarget.name)) {
+            // let [params] = searchParams;
             setSearchParams({
+                // params,
                 [event.currentTarget.name]: event.currentTarget.value,
-                ...searchParams
             });
         } else if (searchParams.get(event.currentTarget.name) !== event.currentTarget.value) {
             let [prev, ...rest] = searchParams;
@@ -384,7 +381,7 @@ export default function ColumnsRoute() {
                             {memoizedUserData === null ? (<p>Loading Users</p>) : (
                                 <>
                                     {memoizedUserData.map((user, i) => (
-                                        <div key={`user-card-${i}`} className="w-full border-b border-solid cursor-pointer border-sp-primary/30 rounded-md hover:border-2 hover:border-sp-primary hover:shadow-md">
+                                        <div key={`user-card-${i}`} className="w-full px-4 py-2 border-b border-solid cursor-pointer border-sp-primary/30 rounded-md">
                                             <UserCard {...user} />
                                         </div>
                                     ))}
@@ -441,13 +438,11 @@ interface ICardProps {
 // max-w-full h-full leading-6 align-middle rounded-none cursor-pointer text-neutral-700
 
 function UserCard({ id, name, avatar, positions, skills }: IUserCardProps) {
-
     return (
         <>
-            <div id={`user-${id}`} className="leading-6 transition-all">
-                <div className="flex flex-col cursor-pointer text-zinc-800 hover:text-neutral-700 underline-none shadow-none">
-                    <div id={`user-${id}-item`} className="flex flex-row p-2 h-48" onMouseOver={() => {/*"getGoogleMapSrc('')"*/ }}>
-                        <div id={`avatar-${id}`} className="p-1">
+            <div id={`user-${id}`} className="flex flex-col cursor-default text-zinc-800 hover:text-neutral-700 underline-none shadow-none leading-6 transition-all">
+                    <div id={`user-${id}-item`} className="flex flex-row h-full" onMouseOver={() => {/*"getGoogleMapSrc('')"*/ }}>
+                        <div id={`avatar-${id}`} className="p-0 mr-1">
                             <img alt={`${name}-avatar`} decoding="async" src={avatar} className="w-10 h-10 lg:w-36 lg:h-36 align-middle rounded-full overflow-hidden cursor-pointer text-neutral-700" />
                             <noscript>
                                 <img alt={`${name}-avatar`} decoding="async" src={avatar} className="w-10 h-10 lg:w-36 lg:h-36 align-middle rounded-full overflow-hidden cursor-pointer text-neutral-700" /></noscript>
@@ -456,6 +451,7 @@ function UserCard({ id, name, avatar, positions, skills }: IUserCardProps) {
                             <div id={`user-name`} className="font-bold text-lg">
                                 {name}
                             </div>
+                            <div></div>
                             <div className="flex flex-row mb-2 flex-wrap gap-y-1 cursor-pointer text-neutral-700 dark:text-neutral-100">
                                 {positions.map((pos, i) => (
                                     <p key={`${pos}-${i}`} className="inline-flex text-sm leading-4 font-medium hover:font-bold rounded-xl px-2 py-1 mx-1 bg-sp-primary/60 hover:bg-sp-primary hover:dark:text-neutral-700 hover:text-neutral-100">
@@ -466,6 +462,7 @@ function UserCard({ id, name, avatar, positions, skills }: IUserCardProps) {
                             <div></div>
                             <div className="flex flex-row gap-1 flex-wrap">
                                 <p className="block text-sm font-medium text-gray-900 dark:text-white">Skills:</p>
+                                <br />
                                 <ul className="max-w-fit list-disc list-inside">
                                     {skills.map((skill, i) => (
                                         <li key={`${skill}-${i}`} className="text-sm font-light cursor-pointer text-neutral-700 dark:text-neutral-100">
@@ -476,33 +473,42 @@ function UserCard({ id, name, avatar, positions, skills }: IUserCardProps) {
                             </div>
                         </div>
                         <div className="flex items-end justify-start w-8 h-auto ">
-                            {<ActionButton text="Read More" link={`/${id}`} />}
+                        <ActionButton text="Read More" link={`/${id}`} />
                         </div>
 
                     </div>
-
-                </div>
-
             </div>
         </>
     )
 };
+/*
+<div className="flex flex-col justify-end">
+                            <p className="block text-sm font-medium text-gray-900 dark:text-white">Joined: {new Date().getMonth()}/{new Date().getFullYear()}</p>
+                            </div>
 
+
+
+icon={<svg className="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin = "round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                    </svg>}
+*/
 interface IActionButtonProps {
     text: string;
     link?: string;
+    className?: string;
+    icon?: React.ReactNode;
 }
 
-function ActionButton({ text, link }: IActionButtonProps) {
+function ActionButton({ text, link, icon, className }: IActionButtonProps) {
     return (
-        <div className="shadow-sm hover:shadow-md opacity-100 translate-y-0 hover:scale-110 transition-all duration-150">
-            <Link to={`/${link ?? ''}`} className="border-transparent mt-2 bg-sp-primary !text-white hover:bg-sp-primary-dark px-4 py-2 text-sm !no-underline rounded-md inline-flex items-center justify-center border font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 h-9.5">
+        <div className="shadow-sm hover:shadow-md hover:scale-110 transition-all duration-150">
+            <Link to={`/${link ?? ''}`} className={classNames("inline-flex items-center justify-center border-transparent mt-2 bg-sp-primary text-white hover:bg-sp-primary-dark px-4 py-2 text-sm !no-underline rounded-md border font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 h-9.5", className ?? '')}>
                 {text}
-                <span className="mr-2 bg-transparent rounded-full">
-                    <svg className="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin = "round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                    </svg></span>
-
+                {icon ? (
+                    <span className="mr-2 bg-transparent">
+                    {icon}
+                    </span>
+                ): null}
             </Link>
         </div>
     );

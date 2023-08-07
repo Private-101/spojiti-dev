@@ -36,7 +36,7 @@
 */
 
 import React, { useState, useEffect } from 'react';
-import { debounce } from 'lodash-es';
+import { debounce } from 'lodash';
 
 export default function ScrollableList() {
     const [jobCards, setJobCards] = React.useState<Array<string>>(['']);
