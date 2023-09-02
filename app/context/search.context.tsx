@@ -7,94 +7,84 @@ import type { SearchParamsAction, SearchParamsActionType, UseSearchParamsConfig,
 import { debounce } from 'lodash';
 
 type SearchParamsContextProviderProps = {
+  defaultParams?: URLSearchParams;
   children: React.ReactNode;
 };
+
 // export type SearchParamType<T> = { [key: string]: T };
 
 
 export interface ISearchContext {
   params: URLSearchParams;
-  setParams: (params: URLSearchParams) => void;
+  updateParams: (queryKey: string, queryValue?: string) => void;
   resetParams: () => void;
-}
-
-/*
-export const defaultValue: ISearchContext = {
-  results: [],
-  setResults: () => {},
-  resetValues: () => {}
 };
-*/
 
-const SearchContext = React.createContext<ISearchContext | null>(null);
+const SearchContext = createContext<ISearchContext | null>(null);
 
-export const SearchContextProvider: React.FC<SearchParamsContextProviderProps> = ({children}) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const params = searchParams;
-  const setParams = (params: URLSearchParams) => {
-    setSearchParams(params);
+export const SearchContextProvider: React.FC<SearchParamsContextProviderProps> = ({defaultParams, children}) => {
+  // const [searchParams, setSearchParams] = useSearchParams();
+
+  const getParams = useCallback((key?: string) => {
+    const currentSearchParams = new URLSearchParams(window.location.search);
+    if (!key) {
+      return currentSearchParams;
+    };
+    return currentSearchParams.get(key);
+  }, [key]);
+
+  const updateParams = useCallback((key: string, value?: string) => {
+      const currentSearchParams = new URLSearchParams(window.location.search);
+      const oldValue = currentSearchParams.get(key) ?? '';
+      // const oldValue = getParams(key) ?? '';
+    
+      if (value === oldValue) return
+
+      if (value) {
+        currentSearchParams.set(key, value)
+      } else {
+        currentSearchParams.delete(key)
+      }
+      const newUrl = [window.location.pathname, currentSearchParams.toString()]
+        .filter(Boolean)
+        .join('?')
+    // alright, let's talk about this...
+    // Normally with remix, you'd update the params via useSearchParams from react-router-dom
+    // and updating the search params will trigger the search to update for you.
+    // However, it also triggers a navigation to the new url, which will trigger
+    // the loader to run which we do not want because all our data is already
+    // on the client and we're just doing client-side filtering of data we
+    // already have. So we manually call `window.history.pushState` to avoid
+    // the router from triggering the loader.
+      window.history.replaceState(null, '', newUrl)
+    }, [key, value]);
   };
 
-  const resetParams = () => setSearchParams([]);
+  const resetParams = useCallback(() => {
+    if (defaultParams) {
+      Array.from(defaultParams.entries()).forEach(([key, value]) => updateParams(key, value));
+    } else {
+      const currentSearchParams = new URLSearchParams(window.location.search);
+      currentSearchParams.keys().forEach((key) => updateParams(key));
+    };
+  }, []);
+
+  useEffect(() => {
+    if (defaultParams) {
+      Array.from(defaultParams.entries()).forEach(([key, value]) => updateParams(key, value));
+    };
+  }, [defaultParams]);
+
+  
   return (
-    <SearchContext.Provider value={{params, setParams, resetParams}}>
+    <SearchContext.Provider value={{params: getParams(), updateParams, resetParams}}>
       {children}
     </SearchContext.Provider>
   )
-}
-
-// export const ContextProvider = appContext.Provider;
-// export const ContextConsumer = appContext.Consumer;
-
-// export interface IWithContextProps {
-  // context: IAppContext;
-// }
-
-/* export function withContext<P extends {}>(
-  ComposedComponent: React.ComponentType<P>
-): React.ComponentClass<P> {
-  return class WithContext extends React.Component<P> {
-    public render(): React.ReactNode {
-      return (
-        <ContextConsumer>
-          {context => <ComposedComponent {...this.props} context={context} />}
-        </ContextConsumer>
-      );
-    }
-  };
-} */
-
-/*
-import React, { useState } from "react";
-
-type NavigationContextProviderProps = {
-  children: React.ReactNode;
 };
 
-const defaultContext = {
-  isSidebarCollapsed: false,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  toggleSidebar: () => {},
+export function useSearchContext() {
+  return useContext<ISearchContext>(SearchContext);
 };
 
-export const NavigationContext = React.createContext(defaultContext);
 
-export function NavigationProvider({
-  children,
-}: NavigationContextProviderProps) {
-  const [isSidebarCollapsed, setSidebarCollapsed] = useState(
-    defaultContext.isSidebarCollapsed
-  );
-
-  return (
-    <NavigationContext.Provider
-      value={{
-        isSidebarCollapsed,
-        toggleSidebar: () => setSidebarCollapsed((isCollapsed) => !isCollapsed),
-      }}
-    >
-      {children}
-    </NavigationContext.Provider>
-  );
-}
-*/
